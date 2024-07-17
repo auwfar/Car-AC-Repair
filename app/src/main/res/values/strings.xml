@@ -4,4 +4,15 @@
     <string name="desc_onboarding">Bergabunglah dengan kami untuk menemukan bengkel terdekat dengan layanan AC mobil berkualitas. Temukan, booking, dan nikmati perawatan AC yang mudah dan efisien untuk kendaraan Anda.</string>
     <string name="create_account">Buat Akun</string>
     <string name="sign_in">Masuk</string>
+    <string name="create_your_account_now">Buat Akunmu Sekarang !</string>
+    <string name="input_name">Masukkan Nama</string>
+    <string name="name">Nama</string>
+    <string name="phone_number">Nomor HP</string>
+    <string name="input_phone_number">Masukkan Nomor HP</string>
+    <string name="password">Password</string>
+    <string name="input_password">Masukkan Password</string>
+    <string name="confirmation_password">Konfirmasi Password</string>
+    <string name="input_confirmation_password">Masukkan Konfirmasi Password</string>
+    <string name="already_have_an_account">Sudah punya akun?</string>
+    <string name="sign_in_here">Masuk disini</string>
 </resources>

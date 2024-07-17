@@ -15,5 +15,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        with(binding) {
+            btnCreateAccount.setOnClickListener {
+                startActivity(CreateAccountActivity.createIntent(this@MainActivity))
+            }
+        }
     }
 }
