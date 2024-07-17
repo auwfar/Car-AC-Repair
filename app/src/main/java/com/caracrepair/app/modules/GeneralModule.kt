@@ -1,0 +1,36 @@
+package com.caracrepair.app.modules
+
+import android.content.Context
+import com.caracrepair.app.utils.FirebaseUtil
+import com.caracrepair.app.utils.preferences.GeneralPreference
+import com.caracrepair.app.utils.GsonUtil
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+class GeneralModule {
+    @Inject
+    lateinit var appContext: Context
+
+    @Provides
+    @Singleton
+    fun provideGsonUtil(): GsonUtil {
+        return GsonUtil()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGeneralPreference(gsonUtil: GsonUtil): GeneralPreference {
+        return GeneralPreference(appContext, gsonUtil)
+    }
+
+    @Provides
+    fun provideFirebaseUtil(): FirebaseUtil {
+        return FirebaseUtil()
+    }
+}
