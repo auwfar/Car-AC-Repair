@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.databinding.ActivitySignInBinding
 import com.caracrepair.app.presentation.createaccount.CreateAccountActivity
+import com.caracrepair.app.presentation.forgotpassword.ForgotPasswordActivity
 
 class SignInActivity : AppCompatActivity() {
     companion object {
@@ -24,6 +25,9 @@ class SignInActivity : AppCompatActivity() {
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
+            }
+            tvForgotPassword.setOnClickListener {
+                startActivity(ForgotPasswordActivity.createIntent(this@SignInActivity))
             }
             tvCreateAccount.setOnClickListener {
                 startActivity(CreateAccountActivity.createIntent(this@SignInActivity))
