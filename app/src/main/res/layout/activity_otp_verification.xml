@@ -23,11 +23,11 @@
             tools:ignore="contentDescription" />
 
         <TextView
-            android:id="@+id/tv_forgot_password_title"
+            android:id="@+id/tv_otp_verification_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/title_forgot_password"
+            android:text="@string/otp_verification"
             android:textColor="@color/mine_shaft"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -36,82 +36,69 @@
             app:layout_constraintTop_toBottomOf="@id/iv_back" />
 
         <TextView
-            android:id="@+id/tv_forgot_password_description"
+            android:id="@+id/tv_otp_verification_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/desc_forgot_password"
+            android:text="@string/desc_otp_verification"
             android:textColor="@color/mine_shaft"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_forgot_password_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_otp_verification_title" />
 
-        <TextView
-            android:id="@+id/tv_input_phone_number_label"
+        <com.caracrepair.app.utils.customviews.OTPInputEditText
+            android:id="@+id/et_otp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
-            android:text="@string/phone_number"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:layout_marginTop="54dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_forgot_password_description" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_input_phone_number"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:boxStrokeColor="@color/color_stroke_text_input_layout"
-            app:boxStrokeWidthFocused="1dp"
-            app:cursorColor="@color/mine_shaft"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_input_phone_number_label">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_input_phone_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/input_phone_number"
-                android:inputType="number"
-                android:textSize="14sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@id/tv_otp_verification_description" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_reset_password"
+            android:id="@+id/btn_verify"
             android:layout_width="0dp"
             android:layout_height="64dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="54dp"
             android:backgroundTint="@color/mine_shaft"
-            android:text="@string/reset_password"
+            android:text="@string/verify"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:cornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_input_phone_number" />
+            app:layout_constraintTop_toBottomOf="@id/et_otp" />
 
         <TextView
-            android:id="@+id/tv_sign_in"
+            android:id="@+id/tv_otp_not_received_yet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="32dp"
             android:gravity="center"
-            android:padding="16dp"
-            android:text="@string/sign_in_here"
+            android:text="@string/otp_not_received_yet"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_resend"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/btn_verify"
+            app:layout_constraintTop_toBottomOf="@id/btn_verify" />
+
+        <TextView
+            android:id="@+id/tv_resend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:gravity="center"
+            android:text="@string/resend"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/btn_reset_password"
-            app:layout_constraintStart_toStartOf="@id/btn_reset_password"
-            app:layout_constraintTop_toBottomOf="@id/btn_reset_password" />
-
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_otp_not_received_yet"
+            app:layout_constraintEnd_toEndOf="@id/btn_verify"
+            app:layout_constraintStart_toEndOf="@id/tv_otp_not_received_yet" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

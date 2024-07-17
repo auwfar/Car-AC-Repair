@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.databinding.ActivityForgotPasswordBinding
+import com.caracrepair.app.presentation.otpverification.OtpVerificationActivity
+import com.caracrepair.app.presentation.otpverification.constants.OTPType
 
 class ForgotPasswordActivity : AppCompatActivity() {
     companion object {
@@ -19,5 +21,14 @@ class ForgotPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        with(binding) {
+            ivBack.setOnClickListener {
+                finish()
+            }
+            btnResetPassword.setOnClickListener {
+                startActivity(OtpVerificationActivity.createIntent(this@ForgotPasswordActivity, OTPType.ForgotPassword))
+            }
+        }
     }
 }
