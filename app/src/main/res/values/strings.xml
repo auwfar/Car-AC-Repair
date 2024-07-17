@@ -28,4 +28,8 @@
     <string name="verify">Verifikasi</string>
     <string name="otp_not_received_yet">Kode OTP belum masuk?</string>
     <string name="resend">Kirim Ulang</string>
+    <string name="desc_reset_password">Masukkan password baru dan konfirmasi untuk menyelesaikan proses reset.</string>
+    <string name="new_password">Password Baru</string>
+    <string name="input_new_password">Masukkan Password Baru</string>
+    <string name="confirmation_new_password">Konfirmasi Password Baru</string>
 </resources>

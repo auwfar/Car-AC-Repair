@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityOtpVerificationBinding
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
+import com.caracrepair.app.presentation.resetpassword.ResetPasswordActivity
 
 class OtpVerificationActivity : AppCompatActivity() {
     companion object {
@@ -31,9 +32,18 @@ class OtpVerificationActivity : AppCompatActivity() {
                 OTPType.SignUp -> getString(R.string.otp_verification)
                 OTPType.ForgotPassword -> getString(R.string.reset_password)
             }
-
             ivBack.setOnClickListener {
                 finish()
+            }
+            btnVerify.setOnClickListener {
+                when(otpType) {
+                    OTPType.SignUp -> {
+
+                    }
+                    OTPType.ForgotPassword -> {
+                        startActivity(ResetPasswordActivity.createIntent(this@OtpVerificationActivity))
+                    }
+                }
             }
         }
     }

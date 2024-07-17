@@ -1,37 +1,34 @@
-package com.caracrepair.app.presentation.forgotpassword
+package com.caracrepair.app.presentation.resetpassword
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.caracrepair.app.databinding.ActivityForgotPasswordBinding
+import com.caracrepair.app.databinding.ActivityResetPasswordBinding
 import com.caracrepair.app.presentation.otpverification.OtpVerificationActivity
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.presentation.signin.SignInActivity
 
-class ForgotPasswordActivity : AppCompatActivity() {
+class ResetPasswordActivity : AppCompatActivity() {
     companion object {
         fun createIntent(context: Context): Intent {
-            return Intent(context, ForgotPasswordActivity::class.java)
+            return Intent(context, ResetPasswordActivity::class.java)
         }
     }
 
-    private lateinit var binding: ActivityForgotPasswordBinding
+    private lateinit var binding: ActivityResetPasswordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
+        binding = ActivityResetPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
             }
-            btnResetPassword.setOnClickListener {
-                startActivity(OtpVerificationActivity.createIntent(this@ForgotPasswordActivity, OTPType.ForgotPassword))
-            }
             tvSignIn.setOnClickListener {
-                startActivity(SignInActivity.createIntent(this@ForgotPasswordActivity))
+                startActivity(SignInActivity.createIntent(this@ResetPasswordActivity))
             }
         }
     }
