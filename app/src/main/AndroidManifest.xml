@@ -14,8 +14,14 @@
         android:theme="@style/Theme.CarACRepair"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.signin.SignInActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".presentation.createaccount.CreateAccountActivity"
             android:exported="false"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.main.MainActivity"

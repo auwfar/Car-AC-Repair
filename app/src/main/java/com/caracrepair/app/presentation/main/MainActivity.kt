@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityMainBinding
 import com.caracrepair.app.presentation.createaccount.CreateAccountActivity
+import com.caracrepair.app.presentation.signin.SignInActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +20,9 @@ class MainActivity : AppCompatActivity() {
         with(binding) {
             btnCreateAccount.setOnClickListener {
                 startActivity(CreateAccountActivity.createIntent(this@MainActivity))
+            }
+            btnSignIn.setOnClickListener {
+                startActivity(SignInActivity.createIntent(this@MainActivity))
             }
         }
     }

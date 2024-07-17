@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.databinding.ActivityCreateAccountBinding
+import com.caracrepair.app.presentation.signin.SignInActivity
 
 class CreateAccountActivity : AppCompatActivity() {
     companion object {
@@ -26,6 +27,9 @@ class CreateAccountActivity : AppCompatActivity() {
             }
             btnCreateAccount.setOnClickListener {
 
+            }
+            tvSignIn.setOnClickListener {
+                startActivity(SignInActivity.createIntent(this@CreateAccountActivity))
             }
         }
     }

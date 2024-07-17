@@ -14,5 +14,10 @@
     <string name="confirmation_password">Konfirmasi Password</string>
     <string name="input_confirmation_password">Masukkan Konfirmasi Password</string>
     <string name="already_have_an_account">Sudah punya akun?</string>
+    <string name="dont_have_an_account_yet">Belum punya akun?</string>
     <string name="sign_in_here">Masuk disini</string>
+    <string name="create_account_here">Buat akun disini</string>
+    <string name="desc_login_greeting">Selamat Datang di Bengkel Alex AC! Silakan login untuk memulai perjalanan perawatan kendaraan Kamu.</string>
+    <string name="title_greeting">Haiiii</string>
+    <string name="forgot_password">Lupa password?</string>
 </resources>
