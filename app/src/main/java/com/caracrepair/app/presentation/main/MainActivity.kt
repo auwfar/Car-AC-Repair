@@ -3,12 +3,17 @@ package com.caracrepair.app.presentation.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.R
+import com.caracrepair.app.databinding.ActivityMainBinding
+import com.caracrepair.app.presentation.createaccount.CreateAccountActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }
