@@ -6,8 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivitySuccessResponseBinding
-import com.caracrepair.app.presentation.main.MainActivity
-import com.caracrepair.app.presentation.signin.SignInActivity
+import com.caracrepair.app.presentation.onboarding.OnboardingActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 
 class SuccessResponseActivity : AppCompatActivity() {
@@ -30,10 +29,10 @@ class SuccessResponseActivity : AppCompatActivity() {
         setupViews()
         with(binding) {
             ivBack.setOnClickListener {
-                startActivity(MainActivity.createIntent(this@SuccessResponseActivity))
+                startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
             }
             tvSignIn.setOnClickListener {
-                startActivity(MainActivity.createIntent(this@SuccessResponseActivity))
+                startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
             }
         }
     }
