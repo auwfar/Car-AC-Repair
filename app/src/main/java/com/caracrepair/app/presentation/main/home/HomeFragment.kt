@@ -12,7 +12,7 @@ import com.caracrepair.app.presentation.main.home.adapter.OnProgressServiceAdapt
 import com.caracrepair.app.presentation.main.home.adapter.RepairShopSliderAdapter
 import com.caracrepair.app.presentation.main.home.viewparam.LastServiceItem
 import com.caracrepair.app.presentation.main.home.viewparam.OnProgressServiceItem
-import com.caracrepair.app.presentation.main.home.viewparam.RepairShopSlider
+import com.caracrepair.app.presentation.main.home.viewparam.RepairShopSliderItem
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
@@ -22,15 +22,15 @@ class HomeFragment : Fragment() {
     private val lastServiceAdapter by lazy { LastServiceAdapter() }
 
     private val slider = listOf(
-        RepairShopSlider(
+        RepairShopSliderItem(
             "",
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         ),
-        RepairShopSlider(
+        RepairShopSliderItem(
             "https://www.w3schools.com/w3images/mountains.jpg",
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         ),
-        RepairShopSlider(
+        RepairShopSliderItem(
             "https://www.w3schools.com/w3images/paris.jpg",
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         )
@@ -89,6 +89,7 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
+        @JvmStatic
         fun newInstance() = HomeFragment()
     }
 }

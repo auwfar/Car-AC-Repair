@@ -9,13 +9,13 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ItemRepairShopSliderBinding
-import com.caracrepair.app.presentation.main.home.viewparam.RepairShopSlider
+import com.caracrepair.app.presentation.main.home.viewparam.RepairShopSliderItem
 
 class RepairShopSliderAdapter : RecyclerView.Adapter<RepairShopSliderAdapter.ViewHolder>() {
 
-    private var items = listOf<RepairShopSlider>()
+    private var items = listOf<RepairShopSliderItem>()
 
-    fun setItems(items: List<RepairShopSlider>) {
+    fun setItems(items: List<RepairShopSliderItem>) {
         this.items = items
         notifyItemRangeInserted(0, items.size)
     }
@@ -32,7 +32,7 @@ class RepairShopSliderAdapter : RecyclerView.Adapter<RepairShopSliderAdapter.Vie
     }
 
     class ViewHolder(val binding: ItemRepairShopSliderBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: RepairShopSlider?) {
+        fun bind(item: RepairShopSliderItem?) {
             with(binding) {
                 val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(16))
                 val requestBuilder = Glide.with(root).load(R.drawable.img_placeholder).apply(requestOptions)
