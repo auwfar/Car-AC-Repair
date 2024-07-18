@@ -44,4 +44,5 @@
     <string name="title_on_progress_service">Service yang Sedang Berjalan</string>
     <string name="title_last_service">Service Terakhir</string>
     <string name="title_our_repair_shop">Bengkel Kita</string>
+    <string name="title_activity_history">Riwayat Aktivitas</string>
 </resources>
