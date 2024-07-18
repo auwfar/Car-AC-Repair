@@ -32,4 +32,9 @@
     <string name="new_password">Password Baru</string>
     <string name="input_new_password">Masukkan Password Baru</string>
     <string name="confirmation_new_password">Konfirmasi Password Baru</string>
+    <string name="title_account_successfully_created">Akunmu Berhasil Dibuat !</string>
+    <string name="desc_account_successfully_created">Registrasi Berhasil! Selamat, Kamu telah resmi terdaftar di Bengkel Alex AC. Nikmati kemudahan dalam memesan layanan perawatan kendaraan dengan hanya beberapa klik saja.</string>
+    <string name="back">Kembali</string>
+    <string name="title_password_successfully_edited">Password Berhasil Diubah !</string>
+    <string name="desc_password_successfully_edited">Perubahan Password Berhasil! Password baru Kamu telah disimpan. Kamu sekarang dapat menggunakan password baru ini untuk login ke akun Kamu dan melanjutkan menikmati layanan kami.</string>
 </resources>

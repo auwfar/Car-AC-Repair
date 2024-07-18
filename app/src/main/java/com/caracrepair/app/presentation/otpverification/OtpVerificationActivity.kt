@@ -8,6 +8,8 @@ import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityOtpVerificationBinding
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.presentation.resetpassword.ResetPasswordActivity
+import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
+import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 
 class OtpVerificationActivity : AppCompatActivity() {
     companion object {
@@ -38,7 +40,7 @@ class OtpVerificationActivity : AppCompatActivity() {
             btnVerify.setOnClickListener {
                 when(otpType) {
                     OTPType.SignUp -> {
-
+                        startActivity(SuccessResponseActivity.createIntent(this@OtpVerificationActivity, SuccessResponseType.SignUp))
                     }
                     OTPType.ForgotPassword -> {
                         startActivity(ResetPasswordActivity.createIntent(this@OtpVerificationActivity))

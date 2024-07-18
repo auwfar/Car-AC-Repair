@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.databinding.ActivityResetPasswordBinding
-import com.caracrepair.app.presentation.otpverification.OtpVerificationActivity
-import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.presentation.signin.SignInActivity
+import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
+import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 
 class ResetPasswordActivity : AppCompatActivity() {
     companion object {
@@ -26,6 +26,9 @@ class ResetPasswordActivity : AppCompatActivity() {
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
+            }
+            btnResetPassword.setOnClickListener {
+                startActivity(SuccessResponseActivity.createIntent(this@ResetPasswordActivity, SuccessResponseType.ResetPassword))
             }
             tvSignIn.setOnClickListener {
                 startActivity(SignInActivity.createIntent(this@ResetPasswordActivity))
