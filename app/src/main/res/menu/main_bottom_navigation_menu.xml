@@ -9,7 +9,7 @@
     <item
         android:id="@+id/action_garage"
         android:icon="@drawable/ic_garage"
-        android:title="@string/workshop" />
+        android:title="@string/repair_shop" />
 
     <item
         android:id="@+id/action_service"

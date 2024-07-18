@@ -38,7 +38,10 @@
     <string name="title_password_successfully_edited">Password Berhasil Diubah !</string>
     <string name="desc_password_successfully_edited">Perubahan Password Berhasil! Password baru Kamu telah disimpan. Kamu sekarang dapat menggunakan password baru ini untuk login ke akun Kamu dan melanjutkan menikmati layanan kami.</string>
     <string name="home">Beranda</string>
-    <string name="workshop">Bengkel</string>
+    <string name="repair_shop">Bengkel</string>
     <string name="history">Riwayat</string>
     <string name="profile">Profil</string>
+    <string name="title_on_progress_service">Service yang Sedang Berjalan</string>
+    <string name="title_last_service">Service Terakhir</string>
+    <string name="title_our_repair_shop">Bengkel Kita</string>
 </resources>
