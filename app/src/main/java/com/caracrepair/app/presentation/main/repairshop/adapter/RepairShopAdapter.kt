@@ -14,10 +14,15 @@ import com.caracrepair.app.presentation.main.repairshop.viewparam.RepairShopItem
 class RepairShopAdapter : RecyclerView.Adapter<RepairShopAdapter.ViewHolder>() {
 
     private var items = listOf<RepairShopItem>()
+    private var onItemClickListener: ((RepairShopItem?) -> Unit)? = null
 
     fun setItems(items: List<RepairShopItem>) {
         this.items = items
         notifyItemRangeInserted(0, items.size)
+    }
+
+    fun setOnItemClickListener(listener: (RepairShopItem?) -> Unit) {
+        onItemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
@@ -31,7 +36,7 @@ class RepairShopAdapter : RecyclerView.Adapter<RepairShopAdapter.ViewHolder>() {
         holder.bind(item)
     }
 
-    class ViewHolder(val binding: ItemRepairShopBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemRepairShopBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: RepairShopItem?) {
             with(binding) {
                 Glide.with(root)
@@ -42,6 +47,10 @@ class RepairShopAdapter : RecyclerView.Adapter<RepairShopAdapter.ViewHolder>() {
                 tvName.text = item?.name
                 tvAddress.text = item?.address
                 tvPhone.text = item?.phone
+
+                root.setOnClickListener {
+                    onItemClickListener?.invoke(item)
+                }
             }
         }
     }

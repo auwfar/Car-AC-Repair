@@ -51,4 +51,7 @@
     <string name="title_my_car">Mobil Saya</string>
     <string name="title_about_app">Tentang Aplikasi</string>
     <string name="sign_out">Keluar</string>
+    <string name="title_repair_shop_detail">Detail Bengkel</string>
+    <string name="title_repair_shop_location">Lokasi Bengkel</string>
+    <string name="title_contact_admin">Kontak Admin</string>
 </resources>

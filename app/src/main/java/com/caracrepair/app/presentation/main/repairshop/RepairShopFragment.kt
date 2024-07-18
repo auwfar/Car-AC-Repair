@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.caracrepair.app.databinding.FragmentRepairShopBinding
 import com.caracrepair.app.presentation.main.repairshop.adapter.RepairShopAdapter
 import com.caracrepair.app.presentation.main.repairshop.viewparam.RepairShopItem
+import com.caracrepair.app.presentation.repairshopdetail.RepairShopDetailActivity
 
 class RepairShopFragment : Fragment() {
     private lateinit var binding: FragmentRepairShopBinding
@@ -53,6 +54,11 @@ class RepairShopFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = repairShopAdapter.apply {
                 setItems(repairShop)
+                setOnItemClickListener {
+                    startActivity(RepairShopDetailActivity.createIntent(requireContext()))
+
+
+                }
             }
         }
     }
