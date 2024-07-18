@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.caracrepair.app.presentation.main.history.HistoryFragment
 import com.caracrepair.app.presentation.main.home.HomeFragment
+import com.caracrepair.app.presentation.main.profile.ProfileFragment
 import com.caracrepair.app.presentation.main.repairshop.RepairShopFragment
 
 class MainAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
@@ -17,7 +18,8 @@ class MainAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(frag
             0 -> HomeFragment.newInstance()
             1 -> RepairShopFragment.newInstance()
             2 -> HistoryFragment.newInstance()
-            else -> HomeFragment.newInstance()
+            3 -> ProfileFragment.newInstance()
+            else -> throw IllegalStateException("Invalid Menu")
         }
     }
 }

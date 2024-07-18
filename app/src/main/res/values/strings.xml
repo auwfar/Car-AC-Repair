@@ -45,4 +45,10 @@
     <string name="title_last_service">Service Terakhir</string>
     <string name="title_our_repair_shop">Bengkel Kita</string>
     <string name="title_activity_history">Riwayat Aktivitas</string>
+    <string name="title_edit_profile">Ubah Profil</string>
+    <string name="title_change_password">Ubah Password</string>
+    <string name="title_my_address">Alamat Saya</string>
+    <string name="title_my_car">Mobil Saya</string>
+    <string name="title_about_app">Tentang Aplikasi</string>
+    <string name="sign_out">Keluar</string>
 </resources>

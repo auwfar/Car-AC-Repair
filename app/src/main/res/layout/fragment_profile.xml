@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_user_image"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_user_circle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:textColor="@color/mine_shaft"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_user_phone_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_user_image"
+            app:layout_constraintTop_toTopOf="@id/iv_user_image"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Customer" />
+
+        <TextView
+            android:id="@+id/tv_user_phone_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/boulder"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_user_image"
+            app:layout_constraintEnd_toEndOf="@id/tv_user_name"
+            app:layout_constraintStart_toStartOf="@id/tv_user_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_name"
+            tools:text="0888888888" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="iv_user_image,tv_user_phone_number" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_change_account"
+            style="?materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/title_edit_profile"
+            android:textColor="@color/mine_shaft"
+            android:textSize="16sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrier_profile" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_change_password"
+            style="?materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/title_change_password"
+            android:textColor="@color/mine_shaft"
+            android:textSize="16sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_change_account" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_my_address"
+            style="?materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="44dp"
+            android:text="@string/title_my_address"
+            android:textColor="@color/mine_shaft"
+            android:textSize="16sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_change_password" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_my_car"
+            style="?materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/title_my_car"
+            android:textColor="@color/mine_shaft"
+            android:textSize="16sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_my_address" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_about_app"
+            style="?materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="44dp"
+            android:text="@string/title_about_app"
+            android:textColor="@color/mine_shaft"
+            android:textSize="16sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_my_car" />
+
+        <TextView
+            android:id="@+id/tv_sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/sign_out"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_about_app" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
