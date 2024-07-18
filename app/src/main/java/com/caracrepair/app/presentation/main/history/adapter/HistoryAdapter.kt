@@ -42,6 +42,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
                     .thumbnail(requestBuilder)
                     .into(ivCar)
 
+                tvOrderDate.text = item?.orderDate
                 tvCarName.text = item?.carName
                 tvServiceDate.text = item?.serviceDate
                 tvStatus.text = item?.status

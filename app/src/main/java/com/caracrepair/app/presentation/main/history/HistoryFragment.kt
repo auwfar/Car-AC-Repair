@@ -20,6 +20,7 @@ class HistoryFragment : Fragment() {
             id = 1,
             carImage = "https://via.placeholder.com/150",
             carName = "Toyota Avanza",
+            orderDate = "18 Juli 2024 16:00",
             serviceDate = "18 Juli 2024 17:00",
             status = "Sedang Dikerjakan"
         ),
@@ -27,6 +28,7 @@ class HistoryFragment : Fragment() {
             id = 2,
             carImage = "https://via.placeholder.com/150",
             carName = "Honda Jazz",
+            orderDate = "18 Juli 2024 16:00",
             serviceDate = "18 Juli 2024 17:00",
             status = "Pengecekan"
         ),
@@ -34,6 +36,7 @@ class HistoryFragment : Fragment() {
             id = 3,
             carImage = "https://via.placeholder.com/150",
             carName = "Toyota Avanza",
+            orderDate = "18 Juli 2024 16:00",
             serviceDate = "18 Juli 2024 17:00",
             status = "Menunggu Antrian"
         ),
@@ -41,6 +44,7 @@ class HistoryFragment : Fragment() {
             id = 4,
             carImage = "https://via.placeholder.com/150",
             carName = "Honda Jazz",
+            orderDate = "18 Juli 2024 16:00",
             serviceDate = "18 Juli 2024 17:00",
             status = "Jadwal Diubah, Menunggu Antrian"
         ),
@@ -48,6 +52,7 @@ class HistoryFragment : Fragment() {
             id = 5,
             carImage = "https://via.placeholder.com/150",
             carName = "Toyota Avanza",
+            orderDate = "18 Juli 2024 16:00",
             serviceDate = "18 Juli 2024 17:00",
             status = "Selesai"
         ),
@@ -55,6 +60,7 @@ class HistoryFragment : Fragment() {
             id = 6,
             carImage = "https://via.placeholder.com/150",
             carName = "Honda Jazz",
+            orderDate = "18 Juli 2024 16:00",
             serviceDate = "18 Juli 2024 17:00",
             status = "Selesai"
         )
