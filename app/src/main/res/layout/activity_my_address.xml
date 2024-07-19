@@ -50,6 +50,53 @@
         app:layout_constraintTop_toBottomOf="@id/barrier_toolbar"
         tools:listitem="@layout/item_my_address" />
 
+    <LinearLayout
+        android:id="@+id/ll_empty_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp"
+        app:layout_constraintBottom_toTopOf="@id/fl_add_data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier_toolbar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/title_no_address_yet"
+            android:textAlignment="center"
+            android:textColor="@color/mine_shaft"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/desc_no_address"
+            android:textAlignment="center"
+            android:textColor="@color/dove_gray"
+            android:textSize="18sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_empty_add_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/mine_shaft"
+            android:text="@string/title_add_address"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:cornerRadius="8dp" />
+
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/fl_add_data"
         android:layout_width="0dp"
@@ -65,7 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/mine_shaft"
-            android:text="@string/title_add_data"
+            android:text="@string/title_add_address"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:cornerRadius="8dp" />

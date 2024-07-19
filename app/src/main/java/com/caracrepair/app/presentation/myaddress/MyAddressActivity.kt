@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caracrepair.app.databinding.ActivityMyAddressBinding
 import com.caracrepair.app.presentation.myaddress.adapter.MyAddressAdapter
@@ -18,6 +19,7 @@ class MyAddressActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMyAddressBinding
     private val myAddressAdapter by lazy { MyAddressAdapter() }
+    private val emptyAddress = listOf<MyAddressItem>()
     private val address = listOf(
         MyAddressItem(
             id = 1,
@@ -68,8 +70,14 @@ class MyAddressActivity : AppCompatActivity() {
         with(binding.rvMyAddress) {
             layoutManager = LinearLayoutManager(this@MyAddressActivity)
             adapter = myAddressAdapter.apply {
+                showEmptyView(address.isEmpty())
                 setItems(address)
             }
         }
+    }
+
+    private fun showEmptyView(isShow: Boolean) {
+        binding.llEmptyView.isVisible = isShow
+        binding.flAddData.isVisible = !isShow
     }
 }

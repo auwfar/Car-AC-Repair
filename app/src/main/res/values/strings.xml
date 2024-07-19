@@ -55,5 +55,7 @@
     <string name="title_repair_shop_location">Lokasi Bengkel</string>
     <string name="title_contact_admin">Kontak Admin</string>
     <string name="title_change_data">Ubah Data</string>
-    <string name="title_add_data">Tambah Data</string>
+    <string name="title_add_address">Tambah Alamat</string>
+    <string name="title_no_address_yet">Belum Ada Alamat</string>
+    <string name="desc_no_address">Kamu belum menambahkan alamat. Tambahkan alamat baru untuk memudahkan layanan kami.</string>
 </resources>
