@@ -77,4 +77,7 @@
     <string name="title_input_car_year">Masukkan Tahun Mobil</string>
     <string name="title_car_year">Tahun Mobil</string>
     <string name="title_car_detail">Detail Mobil</string>
+    <string name="title_old_password">Password Lama</string>
+    <string name="title_new_password">Password Baru</string>
+    <string name="title_confirmation_password">Konfirmasi Password</string>
 </resources>
