@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.caracrepair.app.databinding.FragmentProfileBinding
-import com.caracrepair.app.presentation.myaddress.MyAddressActivity
+import com.caracrepair.app.presentation.mycar.MyCarActivity
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
@@ -28,7 +28,7 @@ class ProfileFragment : Fragment() {
             tvUserPhoneNumber.text = "08984119934"
 
             btnMyAddress.setOnClickListener {
-                startActivity(MyAddressActivity.createIntent(requireContext()))
+                startActivity(MyCarActivity.createIntent(requireContext()))
             }
         }
     }

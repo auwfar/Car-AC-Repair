@@ -19,11 +19,11 @@
         tools:ignore="contentDescription" />
 
     <TextView
-        android:id="@+id/tv_my_address"
+        android:id="@+id/tv_my_car"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/title_my_address"
+        android:text="@string/title_my_car"
         android:textColor="@color/mine_shaft"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -37,18 +37,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="iv_back,tv_my_address" />
+        app:constraint_referenced_ids="iv_back,tv_my_car" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_my_address"
+        android:id="@+id/rv_my_car"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@id/fl_add_address"
+        app:layout_constraintBottom_toTopOf="@id/fl_add_car"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier_toolbar"
-        tools:listitem="@layout/item_my_address" />
+        tools:listitem="@layout/item_my_car" />
 
     <LinearLayout
         android:id="@+id/ll_empty_view"
@@ -60,7 +60,7 @@
         android:orientation="vertical"
         android:padding="32dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/fl_add_address"
+        app:layout_constraintBottom_toTopOf="@id/fl_add_car"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier_toolbar">
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/title_no_address_yet"
+            android:text="@string/title_no_car_yet"
             android:textAlignment="center"
             android:textColor="@color/mine_shaft"
             android:textSize="22sp"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="@string/desc_no_address"
+            android:text="@string/desc_no_car"
             android:textAlignment="center"
             android:textColor="@color/dove_gray"
             android:textSize="18sp" />
@@ -91,7 +91,7 @@
             android:layout_height="44dp"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/mine_shaft"
-            android:text="@string/title_add_address"
+            android:text="@string/title_add_car"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:cornerRadius="8dp" />
@@ -99,7 +99,7 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/fl_add_address"
+        android:id="@+id/fl_add_car"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_shadow_top"
@@ -109,11 +109,11 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_add_address"
+            android:id="@+id/btn_add_car"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:backgroundTint="@color/mine_shaft"
-            android:text="@string/title_add_address"
+            android:text="@string/title_add_car"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:cornerRadius="8dp" />

@@ -63,7 +63,7 @@ class MyAddressActivity : AppCompatActivity() {
             ivBack.setOnClickListener {
                 finish()
             }
-            btnAddData.setOnClickListener {
+            btnAddAddress.setOnClickListener {
                 startActivity(MyAddressFormActivity.createIntent(this@MyAddressActivity))
             }
         }
@@ -82,6 +82,6 @@ class MyAddressActivity : AppCompatActivity() {
 
     private fun showEmptyView(isShow: Boolean) {
         binding.llEmptyView.isVisible = isShow
-        binding.flAddData.isVisible = !isShow
+        binding.flAddAddress.isVisible = !isShow
     }
 }

@@ -67,4 +67,7 @@
     <string name="title_address_notes_optional">Catatan Alamat (Opsional)</string>
     <string name="input_address_notes">Masukkan Catatan Alamat</string>
     <string name="title_save">Simpan</string>
+    <string name="title_add_car">Tambah Mobil</string>
+    <string name="title_no_car_yet">Belum Ada Mobil</string>
+    <string name="desc_no_car">Kamu belum menambahkan mobil. Tambahkan mobil Kamu untuk memulai pemesanan layanan.</string>
 </resources>
