@@ -66,6 +66,9 @@ class MyAddressActivity : AppCompatActivity() {
             btnAddAddress.setOnClickListener {
                 startActivity(MyAddressFormActivity.createIntent(this@MyAddressActivity))
             }
+            btnEmptyAddData.setOnClickListener {
+                startActivity(MyAddressFormActivity.createIntent(this@MyAddressActivity))
+            }
         }
         setupRecyclerView()
     }

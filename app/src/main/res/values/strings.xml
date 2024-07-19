@@ -70,4 +70,11 @@
     <string name="title_add_car">Tambah Mobil</string>
     <string name="title_no_car_yet">Belum Ada Mobil</string>
     <string name="desc_no_car">Kamu belum menambahkan mobil. Tambahkan mobil Kamu untuk memulai pemesanan layanan.</string>
+    <string name="title_car_name">Nama Mobil</string>
+    <string name="title_input_car_name">Masukkan Nama Mobil</string>
+    <string name="title_car_license_number">Plat Mobil</string>
+    <string name="title_input_car_license_number">Masukkan Plat Mobil</string>
+    <string name="title_input_car_year">Masukkan Tahun Mobil</string>
+    <string name="title_car_year">Tahun Mobil</string>
+    <string name="title_car_detail">Detail Mobil</string>
 </resources>

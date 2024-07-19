@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.caracrepair.app.databinding.ActivityMyCarBinding
 import com.caracrepair.app.presentation.mycar.adapter.MyCarAdapter
 import com.caracrepair.app.presentation.mycar.viewparam.MyCarItem
+import com.caracrepair.app.presentation.mycarform.MyCarFormActivity
 
 class MyCarActivity : AppCompatActivity() {
     companion object {
@@ -61,6 +62,12 @@ class MyCarActivity : AppCompatActivity() {
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
+            }
+            btnAddCar.setOnClickListener {
+                startActivity(MyCarFormActivity.createIntent(this@MyCarActivity))
+            }
+            btnEmptyAddCar.setOnClickListener {
+                startActivity(MyCarFormActivity.createIntent(this@MyCarActivity))
             }
         }
         setupRecyclerView()
