@@ -54,4 +54,6 @@
     <string name="title_repair_shop_detail">Detail Bengkel</string>
     <string name="title_repair_shop_location">Lokasi Bengkel</string>
     <string name="title_contact_admin">Kontak Admin</string>
+    <string name="title_change_data">Ubah Data</string>
+    <string name="title_add_data">Tambah Data</string>
 </resources>
