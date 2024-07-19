@@ -58,4 +58,13 @@
     <string name="title_add_address">Tambah Alamat</string>
     <string name="title_no_address_yet">Belum Ada Alamat</string>
     <string name="desc_no_address">Kamu belum menambahkan alamat. Tambahkan alamat baru untuk memudahkan layanan kami.</string>
+    <string name="title_address_detail">Detail Alamat</string>
+    <string name="title_address_label">Label Alamat</string>
+    <string name="input_address_label">Masukkan Label Alamat</string>
+    <string name="title_address_location">Titik Lokasi Alamat</string>
+    <string name="input_location_address">Masukkan Alamat</string>
+    <string name="title_address">Alamat</string>
+    <string name="title_address_notes_optional">Catatan Alamat (Opsional)</string>
+    <string name="input_address_notes">Masukkan Catatan Alamat</string>
+    <string name="title_save">Simpan</string>
 </resources>

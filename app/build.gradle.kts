@@ -81,6 +81,9 @@ dependencies {
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.crashlytics)
 
+    // Maps
+    implementation(libs.mapbox)
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.junit)

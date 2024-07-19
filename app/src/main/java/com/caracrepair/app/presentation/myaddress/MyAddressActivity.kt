@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.caracrepair.app.databinding.ActivityMyAddressBinding
 import com.caracrepair.app.presentation.myaddress.adapter.MyAddressAdapter
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
+import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivity
 
 class MyAddressActivity : AppCompatActivity() {
     companion object {
@@ -61,6 +62,9 @@ class MyAddressActivity : AppCompatActivity() {
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
+            }
+            btnAddData.setOnClickListener {
+                startActivity(MyAddressFormActivity.createIntent(this@MyAddressActivity))
             }
         }
         setupRecyclerView()
