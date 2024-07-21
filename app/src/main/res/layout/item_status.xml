@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_dot"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_dot"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/nobel"
+        tools:ignore="contentDescription" />
+
+    <TextView
+        android:id="@+id/tv_status_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="@color/mine_shaft"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/iv_dot"
+        app:layout_constraintStart_toEndOf="@id/iv_dot"
+        app:layout_constraintTop_toTopOf="@id/iv_dot"
+        tools:text="Service Selesai" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_white_stroke_gallery_rad_8"
+        android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_status_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_status_title">
+
+        <ImageView
+            android:id="@+id/iv_calendar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            android:id="@+id/tv_status_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:textColor="@color/dove_gray"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_calendar"
+            app:layout_constraintTop_toTopOf="@id/iv_calendar"
+            tools:text="30 Juli 2024, 17:00 PM" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_service_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="iv_calendar,tv_status_time" />
+
+        <ImageView
+            android:id="@+id/iv_notes"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_note"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrier_service_date"
+            app:tint="@color/dove_gray"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            android:id="@+id/tv_status_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dove_gray"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/tv_status_time"
+            app:layout_constraintStart_toStartOf="@id/tv_status_time"
+            app:layout_constraintTop_toTopOf="@id/iv_notes"
+            tools:text="Mobil Anda telah selesai diperbaiki dan sudah diantar atau dijemput sesuai dengan pilihan Anda. Terima kasih atas kepercayaan Anda kepada kami!" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="iv_notes,tv_status_description" />
+
+        <ImageView
+            android:id="@+id/iv_money"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_money"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrier_note"
+            app:tint="@color/dove_gray"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            android:id="@+id/tv_fee_total"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dove_gray"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/tv_status_time"
+            app:layout_constraintStart_toStartOf="@id/tv_status_time"
+            app:layout_constraintTop_toTopOf="@id/iv_money"
+            tools:text="Rp.1.000.000,00" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_fee_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="iv_money,tv_fee_total" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_fee_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="@id/tv_fee_total"
+            app:layout_constraintStart_toStartOf="@id/tv_fee_total"
+            app:layout_constraintTop_toBottomOf="@id/barrier_fee_total"
+            tools:listitem="@layout/item_fee_detail" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_fee_total,barrier_fee_total,rv_fee_detail" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="@color/nobel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/iv_dot"
+        app:layout_constraintStart_toStartOf="@id/iv_dot"
+        app:layout_constraintTop_toBottomOf="@id/iv_dot" />
+</androidx.constraintlayout.widget.ConstraintLayout>

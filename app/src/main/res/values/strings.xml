@@ -80,4 +80,15 @@
     <string name="title_old_password">Password Lama</string>
     <string name="title_new_password">Password Baru</string>
     <string name="title_confirmation_password">Konfirmasi Password</string>
+    <string name="title_service_detail">Detail Service</string>
+    <string name="title_service_status">Status Service</string>
+    <string name="title_pay">Bayar</string>
+    <string name="title_reschedule_service">Ubah Jadwal Service</string>
+    <string name="label_service">Service:</string>
+    <string name="label_repair_shop">Bengkel:</string>
+    <string name="label_complaint">Keluhan:</string>
+    <string name="label_order_type">Tipe pesanan:</string>
+    <string name="label_mechanic">Mekanik:</string>
+    <string name="label_status">Status:</string>
+    <string name="distance_traveled">Jarak yang ditempuh:</string>
 </resources>

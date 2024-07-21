@@ -10,6 +10,7 @@ import com.caracrepair.app.R
 import com.caracrepair.app.databinding.FragmentHistoryBinding
 import com.caracrepair.app.presentation.main.history.adapter.HistoryAdapter
 import com.caracrepair.app.presentation.main.history.viewparam.HistoryItem
+import com.caracrepair.app.presentation.servicedetail.ServiceDetailActivity
 
 class HistoryFragment : Fragment() {
     private lateinit var binding: FragmentHistoryBinding
@@ -81,6 +82,9 @@ class HistoryFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = historyAdapter.apply {
                 setItems(history)
+                setOnItemClickListener {
+                    startActivity(ServiceDetailActivity.createIntent(requireContext()))
+                }
             }
         }
     }

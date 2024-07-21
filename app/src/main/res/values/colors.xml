@@ -4,7 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="mine_shaft">#2C2C2C</color>
     <color name="dove_gray">#6B6B6B</color>
-    <color name="gallery">#EDEDED</color>
+    <color name="gallery">#B5B5B5</color>
     <color name="alizarin_crimson">#E62525</color>
     <color name="boulder">#777777</color>
+    <color name="nobel">#B5B5B5</color>
 </resources>

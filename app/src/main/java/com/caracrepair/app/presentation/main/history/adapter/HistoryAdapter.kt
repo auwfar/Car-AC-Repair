@@ -14,10 +14,15 @@ import com.caracrepair.app.presentation.main.history.viewparam.HistoryItem
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     private var items = listOf<HistoryItem>()
+    private var onItemClickListener: ((HistoryItem?) -> Unit)? = null
 
     fun setItems(items: List<HistoryItem>) {
         this.items = items
         notifyItemRangeInserted(0, items.size)
+    }
+
+    fun setOnItemClickListener(listener: (HistoryItem?) -> Unit) {
+        onItemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
@@ -31,7 +36,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
         holder.bind(item)
     }
 
-    class ViewHolder(val binding: ItemHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: HistoryItem?) {
             with(binding) {
                 val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(16))
@@ -46,6 +51,10 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
                 tvCarName.text = item?.carName
                 tvServiceDate.text = item?.serviceDate
                 tvStatus.text = item?.status
+
+                root.setOnClickListener {
+                    item?.let { onItemClickListener?.invoke(it) }
+                }
             }
         }
     }
