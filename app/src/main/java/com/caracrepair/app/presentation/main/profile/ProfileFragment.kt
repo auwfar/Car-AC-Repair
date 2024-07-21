@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.caracrepair.app.databinding.FragmentProfileBinding
 import com.caracrepair.app.presentation.changepassword.ChangePasswordActivity
+import com.caracrepair.app.presentation.changeprofile.ChangeProfileActivity
 import com.caracrepair.app.presentation.myaddress.MyAddressActivity
 import com.caracrepair.app.presentation.mycar.MyCarActivity
 
@@ -29,6 +30,9 @@ class ProfileFragment : Fragment() {
             tvUserName.text = "Ach Chadil Auwfar"
             tvUserPhoneNumber.text = "08984119934"
 
+            btnChangeProfile.setOnClickListener {
+                startActivity(ChangeProfileActivity.createIntent(requireContext()))
+            }
             btnChangePassword.setOnClickListener {
                  startActivity(ChangePasswordActivity.createIntent(requireContext()))
             }

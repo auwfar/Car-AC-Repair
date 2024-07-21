@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/title_address_detail"
+            android:text="@string/title_change_profile"
             android:textColor="@color/mine_shaft"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -49,19 +49,32 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/iv_user_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_user_circle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="contentDescription" />
+
             <TextView
-                android:id="@+id/tv_input_address_name_label"
+                android:id="@+id/tv_input_name_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/title_address_label"
+                android:layout_marginTop="16dp"
+                android:text="@string/name"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/iv_user_image" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_address_name"
+                android:id="@+id/til_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -71,63 +84,32 @@
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_input_address_name_label">
+                app:layout_constraintTop_toBottomOf="@id/tv_input_name_label">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_input_address_name"
+                    android:id="@+id/et_input_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/input_address_label"
-                    android:inputType="text"
+                    android:hint="@string/input_name"
+                    android:inputType="textPersonName"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/tv_input_address_location_label"
+                android:id="@+id/tv_input_phone_number_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="@string/title_address_location"
+                android:text="@string/phone_number"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/til_address_name" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_address_location"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_marginTop="8dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:cardPreventCornerOverlap="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_input_address_location_label">
-
-                <com.mapbox.maps.MapView
-                    android:id="@+id/mapView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/tv_input_location_address_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/title_address"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cv_address_location" />
+                app:layout_constraintTop_toBottomOf="@id/til_name" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_location_address"
+                android:id="@+id/til_phone_number"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -137,53 +119,14 @@
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_input_location_address_label">
+                app:layout_constraintTop_toBottomOf="@id/tv_input_phone_number_label">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_input_location_address"
+                    android:id="@+id/et_input_phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:hint="@string/input_location_address"
-                    android:inputType="textMultiLine"
-                    android:minLines="3"
-                    android:textSize="14sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_input_location_address_notes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/title_address_notes_optional"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/til_location_address" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_address_notes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:boxStrokeColor="@color/color_stroke_text_input_layout"
-                app:boxStrokeWidthFocused="1dp"
-                app:cursorColor="@color/mine_shaft"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_input_location_address_notes">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_input_address_notes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:hint="@string/input_address_notes"
-                    android:inputType="textMultiLine"
-                    android:minLines="3"
+                    android:hint="@string/input_phone_number"
+                    android:inputType="number"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -201,7 +144,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/til_address_notes" />
+                app:layout_constraintTop_toBottomOf="@id/til_phone_number" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

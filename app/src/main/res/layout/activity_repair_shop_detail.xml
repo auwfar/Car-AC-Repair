@@ -27,13 +27,21 @@
             tools:ignore="contentDescription" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_weight="1"
             android:text="@string/title_repair_shop_detail"
             android:textColor="@color/mine_shaft"
             android:textSize="22sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_contact_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_support_agent"
+            tools:ignore="contentDescription" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -147,23 +155,9 @@
                 app:constraint_referenced_ids="iv_phone,tv_phone" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_contact_admin"
-                style="?materialButtonOutlinedStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/title_contact_admin"
-                android:textColor="@color/mine_shaft"
-                android:textSize="16sp"
-                app:cornerRadius="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/barrier_phone" />
-
-            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_check_location"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="64dp"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/mine_shaft"
                 android:text="@string/title_repair_shop_location"
@@ -173,7 +167,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_contact_admin" />
+                app:layout_constraintTop_toBottomOf="@id/barrier_phone" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

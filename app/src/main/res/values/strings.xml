@@ -53,7 +53,6 @@
     <string name="sign_out">Keluar</string>
     <string name="title_repair_shop_detail">Detail Bengkel</string>
     <string name="title_repair_shop_location">Lokasi Bengkel</string>
-    <string name="title_contact_admin">Kontak Admin</string>
     <string name="title_change_data">Ubah Data</string>
     <string name="title_add_address">Tambah Alamat</string>
     <string name="title_no_address_yet">Belum Ada Alamat</string>
@@ -91,4 +90,9 @@
     <string name="label_mechanic">Mekanik:</string>
     <string name="label_status">Status:</string>
     <string name="distance_traveled">Jarak yang ditempuh:</string>
+    <string name="title_change_profile">Ubah Profil</string>
+    <string name="title_input_old_password">Masukkan Password Lama</string>
+    <string name="title_input_new_password">Masukkan Password Baru</string>
+    <string name="title_input_confirmation_password">Masukkan Konfirmasi Password</string>
+    <string name="title_input_confirmation_new_password">Masukkan Konfirmasi Password Baru</string>
 </resources>

@@ -48,7 +48,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_create_account_title" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_input_name"
+            android:id="@+id/til_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -61,7 +61,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_input_name_label">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_input_name"
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/input_name"
@@ -80,10 +80,10 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_input_name" />
+            app:layout_constraintTop_toBottomOf="@id/til_name" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_input_phone_number"
+            android:id="@+id/til_phone_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -96,7 +96,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_input_phone_number_label">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_input_phone_number"
+                android:id="@+id/et_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/input_phone_number"
@@ -115,10 +115,10 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_input_phone_number" />
+            app:layout_constraintTop_toBottomOf="@id/til_phone_number" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_input_password"
+            android:id="@+id/til_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -132,7 +132,7 @@
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_input_password"
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/input_password"
@@ -151,10 +151,10 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_input_password" />
+            app:layout_constraintTop_toBottomOf="@id/til_password" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_input_confirmation_password"
+            android:id="@+id/til_confirmation_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -168,7 +168,7 @@
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_input_confirmation_password"
+                android:id="@+id/et_confirmation_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/input_confirmation_password"
@@ -189,7 +189,7 @@
             app:cornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_input_confirmation_password" />
+            app:layout_constraintTop_toBottomOf="@id/til_confirmation_password" />
 
         <TextView
             android:id="@+id/tv_already_have_an_account"

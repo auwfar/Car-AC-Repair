@@ -55,7 +55,7 @@
             app:constraint_referenced_ids="iv_user_image,tv_user_phone_number" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_change_account"
+            android:id="@+id/btn_change_profile"
             style="?materialButtonOutlinedStyle"
             android:layout_width="0dp"
             android:layout_height="64dp"
@@ -82,7 +82,7 @@
             app:cornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_change_account" />
+            app:layout_constraintTop_toBottomOf="@id/btn_change_profile" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_my_address"

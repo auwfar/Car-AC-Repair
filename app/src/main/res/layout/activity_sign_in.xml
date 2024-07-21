@@ -60,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_greeting_description" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_input_phone_number"
+            android:id="@+id/til_phone_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -73,7 +73,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_input_phone_number_label">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_input_phone_number"
+                android:id="@+id/et_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/input_phone_number"
@@ -92,10 +92,10 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_input_phone_number" />
+            app:layout_constraintTop_toBottomOf="@id/til_phone_number" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_input_password"
+            android:id="@+id/til_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -109,7 +109,7 @@
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_input_password"
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/input_password"
@@ -128,8 +128,8 @@
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/til_input_password"
-            app:layout_constraintTop_toBottomOf="@id/til_input_password" />
+            app:layout_constraintEnd_toEndOf="@id/til_password"
+            app:layout_constraintTop_toBottomOf="@id/til_password" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_sign_in"

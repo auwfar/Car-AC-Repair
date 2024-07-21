@@ -27,13 +27,21 @@
             tools:ignore="contentDescription" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_weight="1"
             android:text="@string/title_service_detail"
             android:textColor="@color/mine_shaft"
             android:textSize="22sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_contact_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_support_agent"
+            tools:ignore="contentDescription" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
