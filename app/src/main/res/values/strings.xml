@@ -109,4 +109,6 @@
     <string name="choose_repair_shop">Pilih Bengkel</string>
     <string name="choose_service_date">Pilih Tanggal Service</string>
     <string name="title_service_date">Jadwal Service</string>
+    <string name="title_location_on_the_maps">Cek Lokasi di Maps</string>
+    <string name="title_choose">Pilih</string>
 </resources>

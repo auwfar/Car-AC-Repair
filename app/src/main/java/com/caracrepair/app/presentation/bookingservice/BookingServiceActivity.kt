@@ -10,6 +10,7 @@ import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityOrderServiceBinding
 import com.caracrepair.app.presentation.bookingservice.adapter.ServiceTimeAdapter
 import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
+import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivity
 import com.caracrepair.app.presentation.myaddress.MyAddressActivity
 import com.caracrepair.app.presentation.mycar.MyCarActivity
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -64,6 +65,9 @@ class BookingServiceActivity : AppCompatActivity() {
             }
             etAddress.setOnClickListener {
                 startActivity(MyAddressActivity.createIntent(this@BookingServiceActivity))
+            }
+            etRepairShop.setOnClickListener {
+                startActivity(ChooseRepairShopActivity.createIntent(this@BookingServiceActivity))
             }
             etServiceDate.setOnClickListener {
                 MaterialDatePicker.Builder.datePicker()
