@@ -1,7 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.CarACRepair" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/white</item>
         <item name="colorAccent">@color/white</item>
         <item name="android:windowBackground">@color/white</item>
@@ -10,4 +8,24 @@
     </style>
 
     <style name="Theme.CarACRepair" parent="Base.Theme.CarACRepair" />
+
+    <style name="ThemeOverlay.App.DatePickerButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/mine_shaft</item>
+    </style>
+
+    <style name="App.MaterialCalendarTheme" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <item name="android:textColor">@color/mine_shaft</item>
+        <item name="colorPrimary">@color/mine_shaft</item>
+        <item name="colorAccent">@color/mine_shaft</item>
+        <item name="android:windowBackground">@color/mine_shaft</item>
+        <item name="android:colorBackground">@color/mine_shaft</item>
+        <item name="android:background">@color/white</item>
+        <item name="buttonBarPositiveButtonStyle">@style/ThemeOverlay.App.DatePickerButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/ThemeOverlay.App.DatePickerButton</item>
+        <item name="materialCalendarHeaderLayout">@style/App.Material3.MaterialCalendar.HeaderLayout</item>
+    </style>
+
+    <style name="App.Material3.MaterialCalendar.HeaderLayout" parent="@style/Widget.Material3.MaterialCalendar.HeaderLayout">
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

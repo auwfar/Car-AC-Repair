@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityMainBinding
 import com.caracrepair.app.presentation.main.adapter.MainAdapter
+import com.caracrepair.app.presentation.bookingservice.BookingServiceActivity
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -36,6 +37,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNav() {
+        binding.ivServiceAction.setOnClickListener {
+            startActivity(BookingServiceActivity.createIntent(this))
+        }
         with(binding.bottomNavMain) {
             setOnItemSelectedListener {
                 when (it.itemId) {

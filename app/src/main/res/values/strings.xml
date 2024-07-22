@@ -95,4 +95,18 @@
     <string name="title_input_new_password">Masukkan Password Baru</string>
     <string name="title_input_confirmation_password">Masukkan Konfirmasi Password</string>
     <string name="title_input_confirmation_new_password">Masukkan Konfirmasi Password Baru</string>
+    <string name="title_order_service">Reservasi Service</string>
+    <string name="title_deliver_car">Antar Mobil</string>
+    <string name="title_pickup_car">Jemput Mobil</string>
+    <string name="title_car">Mobil</string>
+    <string name="title_choose_car">Pilih Mobil</string>
+    <string name="title_car_distance">Kilometer Saat Ini</string>
+    <string name="title_input_car_distance">Masukkan Kilometer Saat Ini</string>
+    <string name="title_choose_address">Pilih Alamat</string>
+    <string name="title_complaint">Keluhan</string>
+    <string name="input_complaint">Masukkan Keluhan</string>
+    <string name="title_repair_shop">Bengkel</string>
+    <string name="choose_repair_shop">Pilih Bengkel</string>
+    <string name="choose_service_date">Pilih Tanggal Service</string>
+    <string name="title_service_date">Jadwal Service</string>
 </resources>

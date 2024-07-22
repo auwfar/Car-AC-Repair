@@ -24,33 +24,23 @@ class MyCarActivity : AppCompatActivity() {
     private val car = listOf(
         MyCarItem(
             id = 1,
-            carName = "Rumah",
-            carLicenseNumber = "Jl. Raya Bogor No. 1, Jakarta"
+            carName = "Toyota Avanza",
+            carLicenseNumber = "B 1234 ABC"
         ),
         MyCarItem(
             id = 2,
-            carName = "Kantor",
-            carLicenseNumber = "Jl. Raya Bogor No. 2, Jakarta"
+            carName = "Honda Jazz",
+            carLicenseNumber = "B 5678 DEF"
         ),
         MyCarItem(
             id = 3,
-            carName = "Toko",
-            carLicenseNumber = "Jl. Raya Bogor No. 3, Jakarta"
+            carName = "Suzuki Ertiga",
+            carLicenseNumber = "B 9101 GHI"
         ),
         MyCarItem(
             id = 4,
-            carName = "Apartemen",
-            carLicenseNumber = "Jl. Raya Bogor No. 4, Jakarta"
-        ),
-        MyCarItem(
-            id = 5,
-            carName = "Gudang",
-            carLicenseNumber = "Jl. Raya Bogor No. 5, Jakarta"
-        ),
-        MyCarItem(
-            id = 6,
-            carName = "Pabrik",
-            carLicenseNumber = "Jl. Raya Bogor No. 6, Jakarta"
+            carName = "Daihatsu Xenia",
+            carLicenseNumber = "B 1121 JKL"
         )
     )
 

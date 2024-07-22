@@ -29,30 +29,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/main_bottom_navigation_menu" />
 
-    <FrameLayout
-        android:id="@+id/fl_service_action"
+    <ImageView
+        android:id="@+id/iv_service_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="36dp"
         android:background="@drawable/bg_alizarin_crimson_circle"
         android:elevation="8dp"
-        android:padding="4dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_service"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@android:color/transparent"
-            android:enabled="false"
-            android:src="@drawable/ic_service"
-            app:borderWidth="0dp"
-            app:elevation="0dp"
-            app:fabSize="normal"
-            app:tint="@android:color/white"
-            tools:ignore="contentDescription" />
-    </FrameLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/white"
+        tools:ignore="contentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
