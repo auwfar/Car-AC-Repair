@@ -1,4 +1,4 @@
-package com.caracrepair.app.presentation.bookingservice
+package com.caracrepair.app.presentation.rescheduleservice
 
 import android.content.Context
 import android.content.Intent
@@ -7,28 +7,29 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.caracrepair.app.R
-import com.caracrepair.app.databinding.ActivityBookingServiceBinding
+import com.caracrepair.app.databinding.ActivityRescheduleServiceBinding
 import com.caracrepair.app.presentation.bookingservice.adapter.ServiceTimeAdapter
 import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
 import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivity
-import com.caracrepair.app.presentation.myaddress.MyAddressActivity
-import com.caracrepair.app.presentation.mycar.MyCarActivity
 import com.caracrepair.app.utils.SimpleDateUtil
 import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
-class BookingServiceActivity : AppCompatActivity() {
+class RescheduleServiceActivity : AppCompatActivity() {
     companion object {
         fun createIntent(context: Context): Intent {
-            return Intent(context, BookingServiceActivity::class.java)
+            return Intent(context, RescheduleServiceActivity::class.java)
         }
     }
 
-    private lateinit var binding: ActivityBookingServiceBinding
+    private lateinit var binding: ActivityRescheduleServiceBinding
     private val serviceTimeAdapter by lazy { ServiceTimeAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityBookingServiceBinding.inflate(layoutInflater)
+        binding = ActivityRescheduleServiceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupRecyclerView()
@@ -40,26 +41,8 @@ class BookingServiceActivity : AppCompatActivity() {
             ivBack.setOnClickListener {
                 finish()
             }
-            toggleOrderType.addOnButtonCheckedListener { group, checkedId, isChecked ->
-                if (isChecked) {
-                    when (checkedId) {
-                        R.id.btn_deliver -> {
-                            groupAddress.isVisible = false
-                        }
-                        R.id.btn_pickup -> {
-                            groupAddress.isVisible = true
-                        }
-                    }
-                }
-            }
-            etCar.setOnClickListener {
-                startActivity(MyCarActivity.createIntent(this@BookingServiceActivity))
-            }
-            etAddress.setOnClickListener {
-                startActivity(MyAddressActivity.createIntent(this@BookingServiceActivity))
-            }
             etRepairShop.setOnClickListener {
-                startActivity(ChooseRepairShopActivity.createIntent(this@BookingServiceActivity))
+                startActivity(ChooseRepairShopActivity.createIntent(this@RescheduleServiceActivity))
             }
             etServiceDate.setOnClickListener {
                 MaterialDatePicker.Builder.datePicker()
@@ -72,12 +55,15 @@ class BookingServiceActivity : AppCompatActivity() {
                     }
                     .show(supportFragmentManager, null)
             }
+            btnRescheduleService.setOnClickListener {
+                finish()
+            }
         }
     }
 
     private fun setupRecyclerView() {
         with(binding.rvServiceTime) {
-            layoutManager = GridLayoutManager(this@BookingServiceActivity, 3)
+            layoutManager = GridLayoutManager(this@RescheduleServiceActivity, 3)
             adapter = serviceTimeAdapter.apply {
                 setItems(
                     listOf(

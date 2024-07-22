@@ -12,6 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityServiceDetailBinding
+import com.caracrepair.app.presentation.rescheduleservice.RescheduleServiceActivity
 import com.caracrepair.app.presentation.servicedetail.adapter.StatusAdapter
 import com.caracrepair.app.presentation.servicedetail.viewparam.FeeDetailItem
 import com.caracrepair.app.presentation.servicedetail.viewparam.FeeItem
@@ -70,17 +71,16 @@ class ServiceDetailActivity : AppCompatActivity() {
         binding = ActivityServiceDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        with(binding) {
-            ivBack.setOnClickListener {
-                finish()
-            }
-        }
         setupViews()
         setupRecyclerView()
     }
 
     private fun setupViews() {
         with(binding) {
+            ivBack.setOnClickListener {
+                finish()
+            }
+
             val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(8))
             val requestBuilder = Glide.with(root).load(R.drawable.img_placeholder).apply(requestOptions)
             Glide.with(root)
@@ -103,6 +103,10 @@ class ServiceDetailActivity : AppCompatActivity() {
 
             tvRepairShopAddress.isVisible = true // Show Only for Service Type "Pelayanan Antar/Jemput dari Bengkel"
             tvServiceAddress.isVisible = false // Show Only for Service Type "Antar/Ambil sendiri ke Bengkel"
+
+            btnReschedule.setOnClickListener {
+                startActivity(RescheduleServiceActivity.createIntent(this@ServiceDetailActivity))
+            }
         }
     }
 

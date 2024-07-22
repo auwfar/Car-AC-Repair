@@ -111,4 +111,5 @@
     <string name="title_service_date">Jadwal Service</string>
     <string name="title_location_on_the_maps">Cek Lokasi di Maps</string>
     <string name="title_choose">Pilih</string>
+    <string name="title_change">Ubah</string>
 </resources>
