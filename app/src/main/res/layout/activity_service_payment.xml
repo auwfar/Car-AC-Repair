@@ -31,23 +31,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
-            android:text="@string/title_service_detail"
+            android:text="@string/title_service_payment"
             android:textColor="@color/mine_shaft"
             android:textSize="22sp"
             android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/iv_contact_admin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_support_agent"
-            tools:ignore="contentDescription" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/ll_action"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ll_toolbar">
@@ -231,67 +224,6 @@
                         tools:text="Jl. Mampang Prpt. Raya No.60, RT.9/RW.3, Tegal Parang, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12790" />
 
                     <TextView
-                        android:id="@+id/tv_complaint_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/label_complaint"
-                        android:textColor="@color/dove_gray"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_repair_shop_address" />
-
-                    <TextView
-                        android:id="@+id/tv_complaint"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="2dp"
-                        android:textColor="@color/mine_shaft"
-                        android:textSize="14sp"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tv_complaint_label"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tv_complaint_label"
-                        tools:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
-
-                    <TextView
-                        android:id="@+id/tv_order_type_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/label_order_type"
-                        android:textColor="@color/dove_gray"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_complaint" />
-
-                    <TextView
-                        android:id="@+id/tv_order_type"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="2dp"
-                        android:textColor="@color/mine_shaft"
-                        android:textSize="14sp"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tv_order_type_label"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tv_order_type_label"
-                        tools:text="(Pelayanan Antar/Jemput dari Bengkel) / (Antar/Ambil sendiri ke Bengkel)" />
-
-                    <TextView
-                        android:id="@+id/tv_service_address"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:textColor="@color/mine_shaft"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="@id/tv_order_type"
-                        app:layout_constraintStart_toStartOf="@id/tv_order_type"
-                        app:layout_constraintTop_toBottomOf="@id/tv_order_type"
-                        app:layout_goneMarginTop="2dp"
-                        tools:text="Jl. Mampang Prpt. Raya No.60, RT.9/RW.3, Tegal Parang, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12790" />
-
-                    <TextView
                         android:id="@+id/tv_service_mechanic_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -300,7 +232,7 @@
                         android:textColor="@color/dove_gray"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_service_address" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_repair_shop_address" />
 
                     <TextView
                         android:id="@+id/tv_service_mechanic"
@@ -316,42 +248,68 @@
                         tools:text="Mas Mekanik" />
 
                     <TextView
-                        android:id="@+id/tv_service_status_label"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_payment_detail_label"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/label_status"
-                        android:textColor="@color/dove_gray"
-                        android:textSize="14sp"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/title_payment_detail"
+                        android:textColor="@color/mine_shaft"
+                        android:textSize="16sp"
                         android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_service_mechanic" />
 
-                    <TextView
-                        android:id="@+id/tv_service_status"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_fee_detail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
                         android:layout_marginTop="2dp"
+                        android:nestedScrollingEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_payment_detail_label"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/item_fee_detail" />
+
+                    <TextView
+                        android:id="@+id/tv_fee_total_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/title_payment_total"
                         android:textColor="@color/mine_shaft"
                         android:textSize="14sp"
                         android:textStyle="bold"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tv_service_status_label"
+                        app:layout_constraintEnd_toStartOf="@id/tv_fee_total"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rv_fee_detail" />
+
+                    <TextView
+                        android:id="@+id/tv_fee_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:textColor="@color/mine_shaft"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBaseline_toBaselineOf="@id/tv_fee_total_label"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tv_service_status_label"
-                        tools:text="Menunggu Antrian" />
+                        app:layout_constraintStart_toEndOf="@id/tv_fee_total_label"
+                        tools:text="Rp.500.000,00" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/tv_service_status_detail_label"
+                android:id="@+id/tv_upload_proof_of_payment_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:text="@string/title_service_status"
+                android:text="@string/title_upload_proof_of_payment"
                 android:textColor="@color/mine_shaft"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -359,50 +317,103 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cv_service_detail" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_status"
+            <FrameLayout
+                android:id="@+id/fl_upload_payment_proof_image"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:paddingTop="16dp"
-                android:paddingBottom="32dp"
+                android:layout_height="0dp"
+                android:layout_margin="16dp"
+                app:layout_constraintDimensionRatio="2:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_service_status_detail_label"
-                tools:listitem="@layout/item_status" />
+                app:layout_constraintTop_toBottomOf="@id/tv_upload_proof_of_payment_label">
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_payment_proof_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="0dp"
+                    android:visibility="gone"
+                    app:cardCornerRadius="8dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_white_stroke_gallery_rad_8">
+
+                        <ImageView
+                            android:id="@+id/iv_payment_proof_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            tools:ignore="contentDescription"
+                            tools:src="@drawable/img_placeholder" />
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:background="@color/black_65"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:drawablePadding="4dp"
+                                android:gravity="center"
+                                android:text="@string/title_change_image"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:drawableStartCompat="@drawable/ic_add_image"
+                                app:drawableTint="@color/white" />
+                        </FrameLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/ll_action_change_payment_proof_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_white_dash_stroke_gallery_rad_8"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/ic_add_image"
+                        app:tint="@color/gallery"
+                        tools:ignore="contentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/title_choose_payment_proof_image"
+                        android:textColor="@color/gallery" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pay"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/mine_shaft"
+                android:text="@string/title_upload"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:cornerRadius="8dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fl_upload_payment_proof_image" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <FrameLayout
-        android:id="@+id/ll_action"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_shadow_top"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_reschedule"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:backgroundTint="@color/mine_shaft"
-            android:text="@string/title_reschedule_service"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:cornerRadius="8dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_pay"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:backgroundTint="@color/mine_shaft"
-            android:text="@string/title_pay"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:cornerRadius="8dp" />
-    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

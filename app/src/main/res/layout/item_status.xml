@@ -143,7 +143,7 @@
             android:id="@+id/group_fee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="tv_fee_total,barrier_fee_total,rv_fee_detail" />
+            app:constraint_referenced_ids="iv_money,tv_fee_total,barrier_fee_total,rv_fee_detail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

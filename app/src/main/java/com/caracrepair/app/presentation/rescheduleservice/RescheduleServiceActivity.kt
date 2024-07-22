@@ -13,9 +13,6 @@ import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
 import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivity
 import com.caracrepair.app.utils.SimpleDateUtil
 import com.google.android.material.datepicker.MaterialDatePicker
-import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.TimeZone
 
 class RescheduleServiceActivity : AppCompatActivity() {
     companion object {

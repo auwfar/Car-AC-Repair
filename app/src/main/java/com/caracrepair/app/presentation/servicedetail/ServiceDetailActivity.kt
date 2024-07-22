@@ -17,6 +17,7 @@ import com.caracrepair.app.presentation.servicedetail.adapter.StatusAdapter
 import com.caracrepair.app.presentation.servicedetail.viewparam.FeeDetailItem
 import com.caracrepair.app.presentation.servicedetail.viewparam.FeeItem
 import com.caracrepair.app.presentation.servicedetail.viewparam.StatusItem
+import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity
 
 class ServiceDetailActivity : AppCompatActivity() {
     companion object {
@@ -106,6 +107,9 @@ class ServiceDetailActivity : AppCompatActivity() {
 
             btnReschedule.setOnClickListener {
                 startActivity(RescheduleServiceActivity.createIntent(this@ServiceDetailActivity))
+            }
+            btnPay.setOnClickListener {
+                startActivity(ServicePaymentActivity.createIntent(this@ServiceDetailActivity))
             }
         }
     }

@@ -112,4 +112,11 @@
     <string name="title_location_on_the_maps">Cek Lokasi di Maps</string>
     <string name="title_choose">Pilih</string>
     <string name="title_change">Ubah</string>
+    <string name="title_upload_proof_of_payment">Unggah Bukti Pembayaran</string>
+    <string name="title_service_payment">Pembayaran Service</string>
+    <string name="title_payment_detail">Detail Pembayaran</string>
+    <string name="title_payment_total">Total Pembayaran</string>
+    <string name="title_change_image">Ubah Gambar</string>
+    <string name="title_choose_payment_proof_image">Pilih Gambar Bukti Pembayaran</string>
+    <string name="title_upload">Unggah</string>
 </resources>
