@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Car AC Repair</string>
     <string name="car_shop_name">Bengkel Alex AC</string>
-    <string name="desc_onboarding">Bergabunglah dengan kami untuk menemukan bengkel terdekat dengan layanan AC mobil berkualitas. Temukan, booking, dan nikmati perawatan AC yang mudah dan efisien untuk kendaraan Anda.</string>
+    <string name="desc_onboarding">Bergabunglah dengan kami untuk menemukan bengkel terdekat dengan layanan AC mobil berkualitas. Temukan, booking, dan nikmati perawatan AC yang mudah dan efisien untuk kendaraan Kamu.</string>
     <string name="create_account">Buat Akun</string>
     <string name="sign_in">Masuk</string>
     <string name="create_your_account_now">Buat Akunmu Sekarang !</string>
@@ -21,7 +21,7 @@
     <string name="title_greeting">Haiiii</string>
     <string name="forgot_password">Lupa password?</string>
     <string name="title_forgot_password">Lupa Password?</string>
-    <string name="desc_forgot_password">Silakan masukkan nomor HP Kamu dan kami akan membantu Anda mengembalikan akses ke akun Kamu.</string>
+    <string name="desc_forgot_password">Silakan masukkan nomor HP Kamu dan kami akan membantu Kamu mengembalikan akses ke akun Kamu.</string>
     <string name="reset_password">Reset Password</string>
     <string name="otp_verification">Verifikasi OTP</string>
     <string name="desc_otp_verification">Kami telah mengirimkan kode OTP ke WhatsApp Kamu. Masukkan kode tersebut untuk melanjutkan.</string>
@@ -119,4 +119,6 @@
     <string name="title_change_image">Ubah Gambar</string>
     <string name="title_choose_payment_proof_image">Pilih Gambar Bukti Pembayaran</string>
     <string name="title_upload">Unggah</string>
+    <string name="title_proof_image_successfully_uploaded">Bukti Pembayaran Berhasil Diunggah !</string>
+    <string name="desc_proof_image_successfully_uploaded">Terima kasih, bukti pembayaran Kamu telah berhasil diunggah. Kami akan segera memverifikasi pembayaran Kamu dan mengonfirmasi pesanan Kamu dalam waktu dekat. Harap tunggu konfirmasi lebih lanjut dari kami.</string>
 </resources>

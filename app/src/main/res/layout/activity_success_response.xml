@@ -22,8 +22,8 @@
         android:id="@+id/iv_success"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/img_driving"
         android:layout_marginTop="32dp"
+        android:src="@drawable/img_driving"
         app:layout_constraintBottom_toTopOf="@id/tv_success_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,26 +57,26 @@
         android:textAlignment="center"
         android:textColor="@color/mine_shaft"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/tv_sign_in"
+        app:layout_constraintBottom_toTopOf="@id/tv_action"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_success_title" />
 
     <TextView
-        android:id="@+id/tv_sign_in"
+        android:id="@+id/tv_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
         android:layout_marginBottom="32dp"
         android:gravity="center"
-        android:layout_marginTop="64dp"
         android:padding="16dp"
-        android:text="@string/sign_in_here"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_success_description" />
+        app:layout_constraintTop_toBottomOf="@id/tv_success_description"
+        tools:text="@string/sign_in_here" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

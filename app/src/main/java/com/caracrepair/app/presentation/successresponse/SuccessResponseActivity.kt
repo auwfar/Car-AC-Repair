@@ -31,9 +31,6 @@ class SuccessResponseActivity : AppCompatActivity() {
             ivBack.setOnClickListener {
                 startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
             }
-            tvSignIn.setOnClickListener {
-                startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
-            }
         }
     }
 
@@ -45,11 +42,28 @@ class SuccessResponseActivity : AppCompatActivity() {
                     ivSuccess.setImageResource(R.drawable.img_driving)
                     tvSuccessTitle.text = getString(R.string.title_account_successfully_created)
                     tvSuccessDescription.text = getString(R.string.desc_account_successfully_created)
+                    tvAction.text = getString(R.string.sign_in_here)
+                    tvAction.setOnClickListener {
+                        startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
+                    }
                 }
                 SuccessResponseType.ResetPassword -> {
                     ivSuccess.setImageResource(R.drawable.img_fingerprint)
                     tvSuccessTitle.text = getString(R.string.title_password_successfully_edited)
                     tvSuccessDescription.text = getString(R.string.desc_password_successfully_edited)
+                    tvAction.text = getString(R.string.sign_in_here)
+                    tvAction.setOnClickListener {
+                        startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
+                    }
+                }
+                SuccessResponseType.Pay -> {
+                    ivSuccess.setImageResource(R.drawable.img_wallet)
+                    tvSuccessTitle.text = getString(R.string.title_proof_image_successfully_uploaded)
+                    tvSuccessDescription.text = getString(R.string.desc_proof_image_successfully_uploaded)
+                    tvAction.text = getString(R.string.back)
+                    tvAction.setOnClickListener {
+                        finish()
+                    }
                 }
             }
         }

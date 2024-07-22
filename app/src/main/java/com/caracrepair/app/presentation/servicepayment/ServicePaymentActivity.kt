@@ -13,6 +13,8 @@ import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityServicePaymentBinding
 import com.caracrepair.app.presentation.servicedetail.adapter.FeeDetailAdapter
 import com.caracrepair.app.presentation.servicedetail.viewparam.FeeDetailItem
+import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
+import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 
 class ServicePaymentActivity : AppCompatActivity() {
     companion object {
@@ -67,6 +69,9 @@ class ServicePaymentActivity : AppCompatActivity() {
             tvServiceMechanic.text = "Budi"
 
             tvFeeTotal.text = "Rp 1.000.000"
+            btnPay.setOnClickListener {
+                startActivity(SuccessResponseActivity.createIntent(this@ServicePaymentActivity, SuccessResponseType.Pay))
+            }
         }
     }
 

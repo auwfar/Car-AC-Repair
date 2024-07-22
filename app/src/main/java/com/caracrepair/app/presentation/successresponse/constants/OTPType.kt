@@ -7,4 +7,5 @@ import kotlinx.parcelize.Parcelize
 sealed class SuccessResponseType : Parcelable {
     data object SignUp : SuccessResponseType()
     data object ResetPassword : SuccessResponseType()
+    data object Pay : SuccessResponseType()
 }
