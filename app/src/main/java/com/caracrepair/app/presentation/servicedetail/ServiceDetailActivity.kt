@@ -18,6 +18,7 @@ import com.caracrepair.app.presentation.servicedetail.viewparam.FeeDetailItem
 import com.caracrepair.app.presentation.servicedetail.viewparam.FeeItem
 import com.caracrepair.app.presentation.servicedetail.viewparam.StatusItem
 import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity
+import com.caracrepair.app.utils.WhatsAppUtil
 
 class ServiceDetailActivity : AppCompatActivity() {
     companion object {
@@ -80,6 +81,18 @@ class ServiceDetailActivity : AppCompatActivity() {
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
+            }
+            ivContactAdmin.setOnClickListener {
+                val message = getString(
+                    R.string.desc_contact_admin_from_service_detail,
+                    "Car AC Repair",
+                    "Order: S-46726733"
+                )
+                WhatsAppUtil.sendWhatsAppMessage(
+                    this@ServiceDetailActivity,
+                    "+628984119934",
+                    message
+                )
             }
 
             val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(8))

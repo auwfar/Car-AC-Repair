@@ -10,6 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityRepairShopDetailBinding
+import com.caracrepair.app.utils.WhatsAppUtil
 
 class RepairShopDetailActivity : AppCompatActivity() {
     companion object {
@@ -32,6 +33,15 @@ class RepairShopDetailActivity : AppCompatActivity() {
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
+            }
+            ivContactAdmin.setOnClickListener {
+                val message =
+                    getString(R.string.desc_contact_admin_from_repair_shop_detail, "Car AC Repair")
+                WhatsAppUtil.sendWhatsAppMessage(
+                    this@RepairShopDetailActivity,
+                    "+628984119934",
+                    message
+                )
             }
 
             val requestOptions = RequestOptions().transform(FitCenter(), RoundedCorners(16))
