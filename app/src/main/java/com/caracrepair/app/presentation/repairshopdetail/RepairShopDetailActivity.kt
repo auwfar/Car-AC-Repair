@@ -2,6 +2,7 @@ package com.caracrepair.app.presentation.repairshopdetail
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -10,7 +11,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityRepairShopDetailBinding
+import com.caracrepair.app.utils.GMapsUtil
 import com.caracrepair.app.utils.WhatsAppUtil
+
 
 class RepairShopDetailActivity : AppCompatActivity() {
     companion object {
@@ -42,6 +45,11 @@ class RepairShopDetailActivity : AppCompatActivity() {
                     "+628984119934",
                     message
                 )
+            }
+            btnCheckLocation.setOnClickListener {
+                val latitude = -6.200000
+                val longitude = 106.816666
+                GMapsUtil.pinLocationMap(this@RepairShopDetailActivity, latitude, longitude)
             }
 
             val requestOptions = RequestOptions().transform(FitCenter(), RoundedCorners(16))

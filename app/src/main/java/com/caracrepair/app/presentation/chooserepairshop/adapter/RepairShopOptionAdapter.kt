@@ -10,10 +10,15 @@ import com.caracrepair.app.presentation.chooserepairshop.viewparam.RepairShopOpt
 class RepairShopOptionAdapter : RecyclerView.Adapter<RepairShopOptionAdapter.ViewHolder>() {
     private var items = listOf<RepairShopOptionItem>()
     private var selectedPosition = RecyclerView.NO_POSITION
+    private var onCheckLocationClickListener: ((RepairShopOptionItem?) -> Unit)? = null
 
     fun setItems(items: List<RepairShopOptionItem>) {
         this.items = items
         notifyItemRangeInserted(0, items.size)
+    }
+
+    fun setOnCheckLocationClickListener(listener: (RepairShopOptionItem?) -> Unit) {
+        onCheckLocationClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
@@ -37,6 +42,9 @@ class RepairShopOptionAdapter : RecyclerView.Adapter<RepairShopOptionAdapter.Vie
                 })
                 tvRepairShopName.text = item?.name
                 tvRepairShopAddress.text = item?.address
+                btnCheckRepairShopLocation.setOnClickListener {
+                    onCheckLocationClickListener?.invoke(item)
+                }
                 root.setOnClickListener {
                     setSelectedItem(adapterPosition)
                 }

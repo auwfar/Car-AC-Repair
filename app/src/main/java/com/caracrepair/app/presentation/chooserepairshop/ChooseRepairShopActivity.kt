@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.caracrepair.app.databinding.ActivityChooseRepairShopBinding
 import com.caracrepair.app.presentation.chooserepairshop.adapter.RepairShopOptionAdapter
 import com.caracrepair.app.presentation.chooserepairshop.viewparam.RepairShopOptionItem
+import com.caracrepair.app.utils.GMapsUtil
 
 class ChooseRepairShopActivity : AppCompatActivity() {
     companion object {
@@ -59,6 +60,11 @@ class ChooseRepairShopActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@ChooseRepairShopActivity)
             adapter = repairShopOptionAdapter.apply {
                 setItems(repairShopOption)
+                setOnCheckLocationClickListener {
+                    val latitude = -6.200000
+                    val longitude = 106.816666
+                    GMapsUtil.pinLocationMap(this@ChooseRepairShopActivity, latitude, longitude)
+                }
             }
         }
     }
