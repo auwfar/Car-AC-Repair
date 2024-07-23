@@ -1,4 +1,5 @@
 <resources>
+    <string name="notification_channel_id">Car AC Repair Android Notification</string>
     <string name="app_name">Car AC Repair</string>
     <string name="car_shop_name">Bengkel Alex AC</string>
     <string name="desc_onboarding">Bergabunglah dengan kami untuk menemukan bengkel terdekat dengan layanan AC mobil berkualitas. Temukan, booking, dan nikmati perawatan AC yang mudah dan efisien untuk kendaraan Kamu.</string>

@@ -2,12 +2,18 @@ package com.caracrepair.app.presentation.main
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityMainBinding
 import com.caracrepair.app.presentation.main.adapter.MainAdapter
 import com.caracrepair.app.presentation.bookingservice.BookingServiceActivity
+import com.caracrepair.app.utils.FirebaseUtil
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -19,6 +25,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityMainBinding
+    private val requestPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ -> }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +35,9 @@ class MainActivity : AppCompatActivity() {
 
         setupViewPager()
         setupBottomNav()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
     }
 
     private fun setupViewPager() {
