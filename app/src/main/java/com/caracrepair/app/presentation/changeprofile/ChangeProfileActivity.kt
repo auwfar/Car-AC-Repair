@@ -12,6 +12,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityChangeProfileBinding
+import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
+import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 
 class ChangeProfileActivity : AppCompatActivity() {
     companion object {
@@ -39,6 +41,10 @@ class ChangeProfileActivity : AppCompatActivity() {
                 .apply(requestOptions)
                 .thumbnail(requestBuilder)
                 .into(ivUserImage)
+
+            btnSave.setOnClickListener {
+                startActivity(SuccessResponseActivity.createIntent(this@ChangeProfileActivity, SuccessResponseType.ChangeProfile))
+            }
         }
     }
 }

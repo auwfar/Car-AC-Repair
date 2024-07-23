@@ -125,4 +125,6 @@
     <string name="desc_install_whats_app_first">Install whatsApp terlebih dahulu</string>
     <string name="desc_contact_admin_from_service_detail">Halo Admin, aku butuh bantuan terkait order service yang sudah aku lakukan di %s. Order ID-ku adalah %s. Ada beberapa hal yang ingin aku tanyakan dan klarifikasi. Bisa dibantu?</string>
     <string name="title_choose_location">Pilih Lokasi</string>
+    <string name="title_profile_successfully_updated">Data Profil Berhasil Diubah !</string>
+    <string name="desc_profile_successfully_updated">Selamat! Profil Kamu telah berhasil diubah. Perubahan yang Kamu lakukan telah disimpan dengan sukses. Jika ada informasi lain yang perlu diperbarui, jangan ragu untuk mengubahnya kapan saja.</string>
 </resources>

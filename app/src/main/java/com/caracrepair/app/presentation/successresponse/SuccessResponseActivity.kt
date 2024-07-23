@@ -65,6 +65,15 @@ class SuccessResponseActivity : AppCompatActivity() {
                         finish()
                     }
                 }
+                SuccessResponseType.ChangeProfile -> {
+                    ivSuccess.setImageResource(R.drawable.img_profile_interface)
+                    tvSuccessTitle.text = getString(R.string.title_profile_successfully_updated)
+                    tvSuccessDescription.text = getString(R.string.desc_profile_successfully_updated)
+                    tvAction.text = getString(R.string.back)
+                    tvAction.setOnClickListener {
+                        finish()
+                    }
+                }
             }
         }
     }

@@ -31,7 +31,7 @@ class OtpVerificationActivity : AppCompatActivity() {
         val otpType = intent.getParcelableExtra<OTPType>(EXTRA_OTP_TYPE) ?: OTPType.SignUp
         with(binding) {
             tvOtpVerificationTitle.text = when(otpType) {
-                OTPType.SignUp -> getString(R.string.otp_verification)
+                OTPType.SignUp, OTPType.ChangePhoneNumber -> getString(R.string.otp_verification)
                 OTPType.ForgotPassword -> getString(R.string.reset_password)
             }
             ivBack.setOnClickListener {
@@ -44,6 +44,9 @@ class OtpVerificationActivity : AppCompatActivity() {
                     }
                     OTPType.ForgotPassword -> {
                         startActivity(ResetPasswordActivity.createIntent(this@OtpVerificationActivity))
+                    }
+                    OTPType.ChangePhoneNumber -> {
+                        startActivity(SuccessResponseActivity.createIntent(this@OtpVerificationActivity, SuccessResponseType.ChangeProfile))
                     }
                 }
             }
