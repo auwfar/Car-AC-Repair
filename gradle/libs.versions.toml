@@ -19,6 +19,7 @@ firebase = "33.1.2"
 firebaseCrashlytics = "3.0.2"
 googleServices = "4.4.2"
 mapbox = "11.5.0"
+playServicesLocation = "21.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +54,7 @@ firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashly
 
 #Map
 mapbox = { group = "com.mapbox.maps", name = "android", version.ref = "mapbox" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

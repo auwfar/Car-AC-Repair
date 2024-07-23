@@ -114,6 +114,17 @@
 
             </androidx.cardview.widget.CardView>
 
+            <View
+                android:id="@+id/view_address_location"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="@id/cv_address_location"
+                app:layout_constraintEnd_toEndOf="@id/cv_address_location"
+                app:layout_constraintStart_toStartOf="@id/cv_address_location"
+                app:layout_constraintTop_toTopOf="@id/cv_address_location" />
+
             <TextView
                 android:id="@+id/tv_input_location_address_label"
                 android:layout_width="0dp"

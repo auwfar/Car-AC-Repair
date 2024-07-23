@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.databinding.ActivityMyAddressFormBinding
+import com.caracrepair.app.presentation.choosemapslocation.ChooseMapsLocationActivity
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.plugin.attribution.attribution
@@ -36,26 +37,30 @@ class MyAddressFormActivity : AppCompatActivity() {
     }
 
     private fun setupMapView() {
+        binding.viewAddressLocation.setOnClickListener {
+            startActivity(ChooseMapsLocationActivity.createIntent(this@MyAddressFormActivity))
+        }
         with(binding.mapView) {
             logo.enabled = false
             attribution.enabled = false
-            mapboxMap.gesturesPlugin {
-                updateSettings {
-                    rotateEnabled = false
-                    pinchToZoomEnabled = false
-                    scrollEnabled = false
-                    simultaneousRotateAndPinchToZoomEnabled = false
-                    pitchEnabled = false
-                    doubleTapToZoomInEnabled = false
-                    doubleTouchToZoomOutEnabled = false
-                    quickZoomEnabled = false
-                    pinchToZoomDecelerationEnabled = false
-                    rotateDecelerationEnabled = false
-                    scrollDecelerationEnabled = false
-                    pinchScrollEnabled = false
+
+            with(mapboxMap) {
+                gesturesPlugin {
+                    updateSettings {
+                        rotateEnabled = false
+                        pinchToZoomEnabled = false
+                        scrollEnabled = false
+                        simultaneousRotateAndPinchToZoomEnabled = false
+                        pitchEnabled = false
+                        doubleTapToZoomInEnabled = false
+                        doubleTouchToZoomOutEnabled = false
+                        quickZoomEnabled = false
+                        pinchToZoomDecelerationEnabled = false
+                        rotateDecelerationEnabled = false
+                        scrollDecelerationEnabled = false
+                        pinchScrollEnabled = false
+                    }
                 }
-            }
-            mapboxMap.apply {
                 setCamera(
                     CameraOptions.Builder()
                         .center(Point.fromLngLat(106.816666, -6.200000))

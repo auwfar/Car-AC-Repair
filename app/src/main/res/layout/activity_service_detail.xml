@@ -375,11 +375,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/ll_action"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_shadow_top"
+        android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -404,5 +405,5 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:cornerRadius="8dp" />
-    </FrameLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

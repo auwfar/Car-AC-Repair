@@ -124,4 +124,5 @@
     <string name="desc_contact_admin_from_repair_shop_detail">Halo Admin, saya butuh bantuan nih untuk layanan di bengkel %s. Bisa dibantu?</string>
     <string name="desc_install_whats_app_first">Install whatsApp terlebih dahulu</string>
     <string name="desc_contact_admin_from_service_detail">Halo Admin, aku butuh bantuan terkait order service yang sudah aku lakukan di %s. Order ID-ku adalah %s. Ada beberapa hal yang ingin aku tanyakan dan klarifikasi. Bisa dibantu?</string>
+    <string name="title_choose_location">Pilih Lokasi</string>
 </resources>
