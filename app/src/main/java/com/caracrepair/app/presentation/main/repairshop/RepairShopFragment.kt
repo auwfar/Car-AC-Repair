@@ -33,6 +33,10 @@ class RepairShopFragment : Fragment() {
         observeViewModel()
         setupRecyclerView()
 
+        binding.btnReload.setOnClickListener {
+            viewModel.getRepairShops()
+        }
+
         viewModel.getRepairShops()
     }
 

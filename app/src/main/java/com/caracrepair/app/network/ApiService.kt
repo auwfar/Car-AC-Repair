@@ -9,6 +9,7 @@ import com.caracrepair.app.models.bodymodel.SignUpBody
 import com.caracrepair.app.models.bodymodel.VerifyOtpForgotPasswordBody
 import com.caracrepair.app.models.responsemodel.DataResponse
 import com.caracrepair.app.models.responsemodel.HomePageResponse
+import com.caracrepair.app.models.responsemodel.RepairShopDetailResponse
 import com.caracrepair.app.models.responsemodel.RepairShopResponse
 import com.caracrepair.app.models.responsemodel.SignInResponse
 import com.caracrepair.app.models.responsemodel.SignUpResponse
@@ -17,6 +18,7 @@ import com.caracrepair.app.models.responsemodel.VerifyOtpForgotPasswordResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @POST("api/login")
@@ -45,4 +47,7 @@ interface ApiService {
 
     @GET("api/carshops")
     suspend fun getRepairShops(): DataResponse<List<RepairShopResponse>>
+
+    @GET("api/carshops/{repair_shop_id}")
+    suspend fun getRepairShopDetail(@Path("repair_shop_id") repairShopId: Int): DataResponse<RepairShopDetailResponse>
 }

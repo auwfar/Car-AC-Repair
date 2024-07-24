@@ -1,6 +1,7 @@
 package com.caracrepair.app.repositories
 
 import com.caracrepair.app.models.responsemodel.DataResponse
+import com.caracrepair.app.models.responsemodel.RepairShopDetailResponse
 import com.caracrepair.app.models.responsemodel.RepairShopResponse
 import com.caracrepair.app.network.ApiService
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +20,16 @@ class RepairShopRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.getRepairShops()
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun getRepairShopDetail(repairShopId: Int): DataResponse<RepairShopDetailResponse>? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.getRepairShopDetail(repairShopId)
             } catch (e: Exception) {
                 null
             }
