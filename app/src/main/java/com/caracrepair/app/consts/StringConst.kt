@@ -12,5 +12,6 @@ object StringConst {
         const val PHONE_NUMBER = "Nomor HP"
         const val PASSWORD = "Password"
         const val NAME = "Nama"
+        const val PASSWORD_CONFIRMATION = "Konfirmasi Password"
     }
 }

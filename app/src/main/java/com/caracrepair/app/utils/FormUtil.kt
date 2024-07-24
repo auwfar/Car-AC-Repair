@@ -72,7 +72,7 @@ object FormUtil {
         password: String,
         confirmationPassword: String
     ): Boolean {
-        val fieldName = "Konfirmasi Password"
+        val fieldName = StringConst.FieldName.PASSWORD_CONFIRMATION
         val isValid = when {
             confirmationPassword.isBlank() -> {
                 textInputLayout.error = StringConst.requiredMessage(fieldName)

@@ -8,11 +8,13 @@ import com.caracrepair.app.models.bodymodel.SignInBody
 import com.caracrepair.app.models.bodymodel.SignUpBody
 import com.caracrepair.app.models.bodymodel.VerifyOtpForgotPasswordBody
 import com.caracrepair.app.models.responsemodel.DataResponse
+import com.caracrepair.app.models.responsemodel.HomePageResponse
 import com.caracrepair.app.models.responsemodel.SignInResponse
 import com.caracrepair.app.models.responsemodel.SignUpResponse
 import com.caracrepair.app.models.responsemodel.StatusResponse
 import com.caracrepair.app.models.responsemodel.VerifyOtpForgotPasswordResponse
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -36,4 +38,7 @@ interface ApiService {
 
     @POST("api/reset-password")
     suspend fun resetPassword(@Body request: ResetPasswordBody): StatusResponse
+
+    @GET("api/home")
+    suspend fun getHomePage(): DataResponse<HomePageResponse>
 }

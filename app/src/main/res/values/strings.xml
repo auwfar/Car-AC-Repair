@@ -2,7 +2,7 @@
     <string name="notification_channel_id">Car AC Repair Android Notification</string>
     <string name="app_name">Car AC Repair</string>
     <string name="car_shop_name">Bengkel Alex AC</string>
-    <string name="desc_onboarding">Bergabunglah dengan kami untuk menemukan bengkel terdekat dengan layanan AC mobil berkualitas. Temukan, booking, dan nikmati perawatan AC yang mudah dan efisien untuk kendaraan Kamu.</string>
+    <string name="desc_onboarding">Bergabunglah dengan kami untuk menemukan bengkel terdekat dengan layanan AC mobil berkualitas. Temukan, booking, dan nikmati perawatan AC yang mudah dan efisien untuk kendaraan Anda.</string>
     <string name="create_account">Buat Akun</string>
     <string name="sign_in">Masuk</string>
     <string name="create_your_account_now">Buat Akunmu Sekarang !</string>
@@ -18,14 +18,14 @@
     <string name="dont_have_an_account_yet">Belum punya akun?</string>
     <string name="sign_in_here">Masuk disini</string>
     <string name="create_account_here">Buat akun disini</string>
-    <string name="desc_login_greeting">Selamat Datang di Bengkel Alex AC! Silakan login untuk memulai perjalanan perawatan kendaraan Kamu.</string>
+    <string name="desc_login_greeting">Selamat Datang di Bengkel Alex AC! Silakan login untuk memulai perjalanan perawatan kendaraan Anda.</string>
     <string name="title_greeting">Haiiii</string>
     <string name="forgot_password">Lupa password?</string>
     <string name="title_forgot_password">Lupa Password?</string>
-    <string name="desc_forgot_password">Silakan masukkan nomor HP Kamu dan kami akan membantu Kamu mengembalikan akses ke akun Kamu.</string>
+    <string name="desc_forgot_password">Silakan masukkan nomor HP Anda dan kami akan membantu Anda mengembalikan akses ke akun Anda.</string>
     <string name="reset_password">Reset Password</string>
     <string name="otp_verification">Verifikasi OTP</string>
-    <string name="desc_otp_verification">Kami telah mengirimkan kode OTP ke WhatsApp Kamu. Masukkan kode tersebut untuk melanjutkan.</string>
+    <string name="desc_otp_verification">Kami telah mengirimkan kode OTP ke WhatsApp Anda. Masukkan kode tersebut untuk melanjutkan.</string>
     <string name="verify">Verifikasi</string>
     <string name="otp_not_received_yet">Kode OTP belum masuk?</string>
     <string name="resend">Kirim Ulang</string>
@@ -34,10 +34,10 @@
     <string name="input_new_password">Masukkan Password Baru</string>
     <string name="confirmation_new_password">Konfirmasi Password Baru</string>
     <string name="title_account_successfully_created">Akunmu Berhasil Dibuat !</string>
-    <string name="desc_account_successfully_created">Registrasi Berhasil! Selamat, Kamu telah resmi terdaftar di Bengkel Alex AC. Nikmati kemudahan dalam memesan layanan perawatan kendaraan dengan hanya beberapa klik saja.</string>
+    <string name="desc_account_successfully_created">Registrasi Berhasil! Selamat, Anda telah resmi terdaftar di Bengkel Alex AC. Nikmati kemudahan dalam memesan layanan perawatan kendaraan dengan hanya beberapa klik saja.</string>
     <string name="back">Kembali</string>
     <string name="title_password_successfully_edited">Password Berhasil Diubah !</string>
-    <string name="desc_password_successfully_edited">Perubahan Password Berhasil! Password baru Kamu telah disimpan. Kamu sekarang dapat menggunakan password baru ini untuk login ke akun Kamu dan melanjutkan menikmati layanan kami.</string>
+    <string name="desc_password_successfully_edited">Perubahan Password Berhasil! Password baru Anda telah disimpan. Anda sekarang dapat menggunakan password baru ini untuk login ke akun Anda dan melanjutkan menikmati layanan kami.</string>
     <string name="home">Beranda</string>
     <string name="repair_shop">Bengkel</string>
     <string name="history">Riwayat</string>
@@ -57,7 +57,7 @@
     <string name="title_change_data">Ubah Data</string>
     <string name="title_add_address">Tambah Alamat</string>
     <string name="title_no_address_yet">Belum Ada Alamat</string>
-    <string name="desc_no_address">Kamu belum menambahkan alamat. Tambahkan alamat baru untuk memudahkan layanan kami.</string>
+    <string name="desc_no_address">Anda belum menambahkan alamat. Tambahkan alamat baru untuk memudahkan layanan kami.</string>
     <string name="title_address_detail">Detail Alamat</string>
     <string name="title_address_label">Label Alamat</string>
     <string name="input_address_label">Masukkan Label Alamat</string>
@@ -69,7 +69,7 @@
     <string name="title_save">Simpan</string>
     <string name="title_add_car">Tambah Mobil</string>
     <string name="title_no_car_yet">Belum Ada Mobil</string>
-    <string name="desc_no_car">Kamu belum menambahkan mobil. Tambahkan mobil Kamu untuk memulai pemesanan layanan.</string>
+    <string name="desc_no_car">Anda belum menambahkan mobil. Tambahkan mobil Anda untuk memulai pemesanan layanan.</string>
     <string name="title_car_name">Nama Mobil</string>
     <string name="title_input_car_name">Masukkan Nama Mobil</string>
     <string name="title_car_license_number">Plat Mobil</string>
@@ -121,11 +121,13 @@
     <string name="title_choose_payment_proof_image">Pilih Gambar Bukti Pembayaran</string>
     <string name="title_upload">Unggah</string>
     <string name="title_proof_image_successfully_uploaded">Bukti Pembayaran Berhasil Diunggah !</string>
-    <string name="desc_proof_image_successfully_uploaded">Terima kasih, bukti pembayaran Kamu telah berhasil diunggah. Kami akan segera memverifikasi pembayaran Kamu dan mengonfirmasi pesanan Kamu dalam waktu dekat. Harap tunggu konfirmasi lebih lanjut dari kami.</string>
+    <string name="desc_proof_image_successfully_uploaded">Terima kasih, bukti pembayaran Anda telah berhasil diunggah. Kami akan segera memverifikasi pembayaran Anda dan mengonfirmasi pesanan Anda dalam waktu dekat. Harap tunggu konfirmasi lebih lanjut dari kami.</string>
     <string name="desc_contact_admin_from_repair_shop_detail">Halo Admin, saya butuh bantuan nih untuk layanan di bengkel %s. Bisa dibantu?</string>
     <string name="desc_install_whats_app_first">Install whatsApp terlebih dahulu</string>
     <string name="desc_contact_admin_from_service_detail">Halo Admin, aku butuh bantuan terkait order service yang sudah aku lakukan di %s. Order ID-ku adalah %s. Ada beberapa hal yang ingin aku tanyakan dan klarifikasi. Bisa dibantu?</string>
     <string name="title_choose_location">Pilih Lokasi</string>
     <string name="title_profile_successfully_updated">Data Profil Berhasil Diubah !</string>
-    <string name="desc_profile_successfully_updated">Selamat! Profil Kamu telah berhasil diubah. Perubahan yang Kamu lakukan telah disimpan dengan sukses. Jika ada informasi lain yang perlu diperbarui, jangan ragu untuk mengubahnya kapan saja.</string>
+    <string name="desc_profile_successfully_updated">Selamat! Profil Anda telah berhasil diubah. Perubahan yang Anda lakukan telah disimpan dengan sukses. Jika ada informasi lain yang perlu diperbarui, jangan ragu untuk mengubahnya kapan saja.</string>
+    <string name="desc_no_on_progress_services">Anda belum memiliki service yang sedang berjalan. Silakan pilih dan pesan layanan yang Anda butuhkan untuk melihatnya di sini.</string>
+    <string name="desc_no_last_services">Belum ada layanan yang telah selesai. Anda dapat memesan layanan perawatan atau perbaikan kendaraan kapan saja melalui aplikasi kami.</string>
 </resources>
