@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.caracrepair.app.databinding.ActivitySignInBinding
 import com.caracrepair.app.presentation.signup.SignUpActivity
 import com.caracrepair.app.presentation.forgotpassword.ForgotPasswordActivity
@@ -50,6 +51,9 @@ class SignInActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.signInResult.observe(this) {
             startActivity(MainActivity.createIntent(this))
+        }
+        viewModel.loadingState.observe(this) { isLoading ->
+            binding.flLoading.isVisible = isLoading
         }
         viewModel.errorMessage.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

@@ -38,8 +38,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 startActivity(
                     OtpVerificationActivity.createIntent(
                         this@ForgotPasswordActivity,
-                        OTPType.ForgotPassword,
-                        generalPreference.getUser()?.userId ?: 0
+                        OTPType.ForgotPassword(
+                            binding.etPhoneNumber.text.toString()
+                        )
                     )
                 )
             }

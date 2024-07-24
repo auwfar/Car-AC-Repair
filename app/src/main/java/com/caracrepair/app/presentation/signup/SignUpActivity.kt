@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.caracrepair.app.databinding.ActivitySignUpBinding
 import com.caracrepair.app.presentation.otpverification.OtpVerificationActivity
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
@@ -47,7 +48,10 @@ class SignUpActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.signUpResult.observe(this) { userId ->
             if (userId == 0) return@observe
-            startActivity(OtpVerificationActivity.createIntent(this, OTPType.SignUp, userId))
+            startActivity(OtpVerificationActivity.createIntent(this, OTPType.SignUp(userId)))
+        }
+        viewModel.loadingState.observe(this) { isLoading ->
+            binding.flLoading.isVisible = isLoading
         }
         viewModel.errorMessage.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

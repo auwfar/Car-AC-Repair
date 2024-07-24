@@ -20,11 +20,14 @@ class SignUpViewModel @Inject constructor(
 
     private val _signUpResult = MutableLiveData<Int>()
     val signUpResult: LiveData<Int> = _signUpResult
+    private val _loadingState = MutableLiveData<Boolean>()
+    val loadingState: LiveData<Boolean> = _loadingState
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
     fun signUp(name: String, phoneNumber: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            _loadingState.postValue(true)
             val response = accountRepository.signUp(SignUpBody(name, phoneNumber, password, FirebaseUtil().getInstanceId()))
             if (response != null) {
                 if (response.message == null || response.status != true) {
@@ -35,6 +38,7 @@ class SignUpViewModel @Inject constructor(
             } else {
                 _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
             }
+            _loadingState.postValue(false)
         }
     }
 }

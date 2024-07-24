@@ -1,5 +1,9 @@
 package com.caracrepair.app.repositories
 
+import com.caracrepair.app.models.bodymodel.ResendOtpForgotPasswordBody
+import com.caracrepair.app.models.bodymodel.ResendOtpSignUpBody
+import com.caracrepair.app.models.bodymodel.VerifyOtpForgotPasswordBody
+import com.caracrepair.app.models.bodymodel.VerifyOtpSignUpBody
 import com.caracrepair.app.models.bodymodel.SignInBody
 import com.caracrepair.app.models.bodymodel.SignUpBody
 import com.caracrepair.app.network.ApiService
@@ -33,6 +37,46 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.signUp(body)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun verifyOtpSignUp(verifyOtpSignUpBody: VerifyOtpSignUpBody): StatusResponse? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.verifyOtpSignUp(verifyOtpSignUpBody)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun verifyOtpForgotPassword(verifyOtpForgotPasswordBody: VerifyOtpForgotPasswordBody): StatusResponse? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.verifyOtpForgotPassword(verifyOtpForgotPasswordBody)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun resendOtpSignUp(resendOtpSignUpBody: ResendOtpSignUpBody): StatusResponse? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.resendOtpSignUp(resendOtpSignUpBody)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun resendOtpForgotPassword(resendOtpForgotPasswordBody: ResendOtpForgotPasswordBody): StatusResponse? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.resendOtpForgotPassword(resendOtpForgotPasswordBody)
             } catch (e: Exception) {
                 null
             }
