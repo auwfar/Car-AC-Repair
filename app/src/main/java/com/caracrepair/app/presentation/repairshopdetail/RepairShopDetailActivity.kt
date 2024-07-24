@@ -14,11 +14,13 @@ import com.caracrepair.app.databinding.ActivityRepairShopDetailBinding
 import com.caracrepair.app.utils.GMapsUtil
 import com.caracrepair.app.utils.WhatsAppUtil
 
-
 class RepairShopDetailActivity : AppCompatActivity() {
     companion object {
-        fun createIntent(context: Context): Intent {
-            return Intent(context, RepairShopDetailActivity::class.java)
+        private const val EXTRA_REPAIR_SHOP_ID = "extra_repair_shop_id"
+        fun createIntent(context: Context, repairShopId: Int): Intent {
+            return Intent(context, RepairShopDetailActivity::class.java).apply {
+                putExtra(EXTRA_REPAIR_SHOP_ID, repairShopId)
+            }
         }
     }
 

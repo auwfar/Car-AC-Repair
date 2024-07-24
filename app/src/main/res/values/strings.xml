@@ -120,14 +120,15 @@
     <string name="title_change_image">Ubah Gambar</string>
     <string name="title_choose_payment_proof_image">Pilih Gambar Bukti Pembayaran</string>
     <string name="title_upload">Unggah</string>
-    <string name="title_proof_image_successfully_uploaded">Bukti Pembayaran Berhasil Diunggah !</string>
+    <string name="title_proof_image_successfully_uploaded">Bukti Pembayaran Berhasil Diunggah!</string>
     <string name="desc_proof_image_successfully_uploaded">Terima kasih, bukti pembayaran Anda telah berhasil diunggah. Kami akan segera memverifikasi pembayaran Anda dan mengonfirmasi pesanan Anda dalam waktu dekat. Harap tunggu konfirmasi lebih lanjut dari kami.</string>
     <string name="desc_contact_admin_from_repair_shop_detail">Halo Admin, saya butuh bantuan nih untuk layanan di bengkel %s. Bisa dibantu?</string>
     <string name="desc_install_whats_app_first">Install whatsApp terlebih dahulu</string>
     <string name="desc_contact_admin_from_service_detail">Halo Admin, aku butuh bantuan terkait order service yang sudah aku lakukan di %s. Order ID-ku adalah %s. Ada beberapa hal yang ingin aku tanyakan dan klarifikasi. Bisa dibantu?</string>
     <string name="title_choose_location">Pilih Lokasi</string>
-    <string name="title_profile_successfully_updated">Data Profil Berhasil Diubah !</string>
+    <string name="title_profile_successfully_updated">Data Profil Berhasil Diubah!</string>
     <string name="desc_profile_successfully_updated">Selamat! Profil Anda telah berhasil diubah. Perubahan yang Anda lakukan telah disimpan dengan sukses. Jika ada informasi lain yang perlu diperbarui, jangan ragu untuk mengubahnya kapan saja.</string>
     <string name="desc_no_on_progress_services">Anda belum memiliki service yang sedang berjalan. Silakan pilih dan pesan layanan yang Anda butuhkan untuk melihatnya di sini.</string>
     <string name="desc_no_last_services">Belum ada layanan yang telah selesai. Anda dapat memesan layanan perawatan atau perbaikan kendaraan kapan saja melalui aplikasi kami.</string>
+    <string name="title_oops_there_is_problem">Oops! Ada Masalah</string>
 </resources>

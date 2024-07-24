@@ -9,6 +9,7 @@ import com.caracrepair.app.models.bodymodel.SignUpBody
 import com.caracrepair.app.models.bodymodel.VerifyOtpForgotPasswordBody
 import com.caracrepair.app.models.responsemodel.DataResponse
 import com.caracrepair.app.models.responsemodel.HomePageResponse
+import com.caracrepair.app.models.responsemodel.RepairShopResponse
 import com.caracrepair.app.models.responsemodel.SignInResponse
 import com.caracrepair.app.models.responsemodel.SignUpResponse
 import com.caracrepair.app.models.responsemodel.StatusResponse
@@ -41,4 +42,7 @@ interface ApiService {
 
     @GET("api/home")
     suspend fun getHomePage(): DataResponse<HomePageResponse>
+
+    @GET("api/carshops")
+    suspend fun getRepairShops(): DataResponse<List<RepairShopResponse>>
 }
