@@ -12,5 +12,5 @@ data class SignInResponse(
     @SerializedName("profile_image")
     val profileImage: String?,
     @SerializedName("token")
-    val token: String?,
+    val token: String?
 )

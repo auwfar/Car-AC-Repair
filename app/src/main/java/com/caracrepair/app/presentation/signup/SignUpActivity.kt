@@ -3,12 +3,18 @@ package com.caracrepair.app.presentation.signup
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.databinding.ActivitySignUpBinding
 import com.caracrepair.app.presentation.otpverification.OtpVerificationActivity
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.presentation.signin.SignInActivity
+import com.caracrepair.app.presentation.signup.viewmodel.SignUpViewModel
+import com.caracrepair.app.utils.FormUtil
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
     companion object {
         fun createIntent(context: Context): Intent {
@@ -17,22 +23,52 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivitySignUpBinding
+    private val viewModel by viewModels<SignUpViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        observeViewModel()
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
             }
             btnCreateAccount.setOnClickListener {
-                startActivity(OtpVerificationActivity.createIntent(this@SignUpActivity, OTPType.SignUp))
+                createAccount()
             }
             tvSignIn.setOnClickListener {
                 startActivity(SignInActivity.createIntent(this@SignUpActivity))
             }
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.signUpResult.observe(this) { userId ->
+            if (userId == 0) return@observe
+            startActivity(OtpVerificationActivity.createIntent(this, OTPType.SignUp, userId))
+        }
+        viewModel.errorMessage.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun isValidRegisterForm(name: String, phoneNumber: String, password: String, confirmationPassword: String): Boolean {
+        val isValidName = FormUtil.validateName(binding.tilName, name)
+        val isValidPhoneNumber = FormUtil.validatePhoneNumber(binding.tilPhoneNumber, phoneNumber)
+        val isValidPassword = FormUtil.validatePassword(binding.tilPassword, password)
+        val isValidConfirmationPassword = FormUtil.validateConfirmationPassword(binding.tilConfirmationPassword, password, confirmationPassword)
+        return isValidName && isValidPhoneNumber && isValidPassword && isValidConfirmationPassword
+    }
+
+    private fun createAccount() {
+        val name = binding.etName.text.toString()
+        val phoneNumber = binding.etPhoneNumber.text.toString()
+        val password = binding.etPassword.text.toString()
+        val confirmationPassword = binding.etConfirmationPassword.text.toString()
+        if (isValidRegisterForm(name, phoneNumber, password, confirmationPassword)) {
+            viewModel.signUp(name, phoneNumber, password)
         }
     }
 }

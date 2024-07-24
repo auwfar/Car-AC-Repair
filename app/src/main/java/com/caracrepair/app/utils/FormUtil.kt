@@ -50,4 +50,44 @@ object FormUtil {
         textInputLayout.isErrorEnabled = !isValid
         return isValid
     }
+
+    fun validateName(textInputLayout: TextInputLayout, name: String): Boolean {
+        val fieldName = StringConst.FieldName.NAME
+        val isValid = when {
+            name.isBlank() -> {
+                textInputLayout.error = StringConst.requiredMessage(fieldName)
+                false
+            }
+            else -> {
+                textInputLayout.error = ""
+                true
+            }
+        }
+        textInputLayout.isErrorEnabled = !isValid
+        return isValid
+    }
+
+    fun validateConfirmationPassword(
+        textInputLayout: TextInputLayout,
+        password: String,
+        confirmationPassword: String
+    ): Boolean {
+        val fieldName = "Konfirmasi Password"
+        val isValid = when {
+            confirmationPassword.isBlank() -> {
+                textInputLayout.error = StringConst.requiredMessage(fieldName)
+                false
+            }
+            confirmationPassword != password -> {
+                textInputLayout.error = StringConst.CONFIRMATION_PASSWORD_NOT_SAME_MESSAGE
+                false
+            }
+            else -> {
+                textInputLayout.error = ""
+                true
+            }
+        }
+        textInputLayout.isErrorEnabled = !isValid
+        return isValid
+    }
 }

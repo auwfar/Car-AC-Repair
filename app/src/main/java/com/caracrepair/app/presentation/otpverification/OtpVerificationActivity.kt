@@ -14,9 +14,11 @@ import com.caracrepair.app.presentation.successresponse.constants.SuccessRespons
 class OtpVerificationActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_OTP_TYPE = "EXTRA_OTP_TYPE"
-        fun createIntent(context: Context, otpType: OTPType): Intent {
+        private const val EXTRA_USER_ID = "EXTRA_USER_ID"
+        fun createIntent(context: Context, otpType: OTPType, userId: Int): Intent {
             return Intent(context, OtpVerificationActivity::class.java).apply {
                 putExtra(EXTRA_OTP_TYPE, otpType)
+                putExtra(EXTRA_USER_ID, userId)
             }
         }
     }

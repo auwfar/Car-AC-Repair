@@ -8,7 +8,11 @@ import com.caracrepair.app.databinding.ActivityForgotPasswordBinding
 import com.caracrepair.app.presentation.otpverification.OtpVerificationActivity
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.presentation.signin.SignInActivity
+import com.caracrepair.app.utils.preferences.GeneralPreference
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ForgotPasswordActivity : AppCompatActivity() {
     companion object {
         fun createIntent(context: Context): Intent {
@@ -17,6 +21,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityForgotPasswordBinding
+
+    @Inject
+    lateinit var generalPreference: GeneralPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +35,13 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 finish()
             }
             btnResetPassword.setOnClickListener {
-                startActivity(OtpVerificationActivity.createIntent(this@ForgotPasswordActivity, OTPType.ForgotPassword))
+                startActivity(
+                    OtpVerificationActivity.createIntent(
+                        this@ForgotPasswordActivity,
+                        OTPType.ForgotPassword,
+                        generalPreference.getUser()?.userId ?: 0
+                    )
+                )
             }
             tvSignIn.setOnClickListener {
                 startActivity(SignInActivity.createIntent(this@ForgotPasswordActivity))

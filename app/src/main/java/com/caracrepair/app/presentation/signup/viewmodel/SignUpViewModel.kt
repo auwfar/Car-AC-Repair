@@ -1,42 +1,37 @@
-package com.caracrepair.app.presentation.signin.viewmodel
+package com.caracrepair.app.presentation.signup.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
-import com.caracrepair.app.models.bodymodel.SignInBody
-import com.caracrepair.app.models.viewparam.User
+import com.caracrepair.app.models.bodymodel.SignUpBody
 import com.caracrepair.app.repositories.AccountRepository
 import com.caracrepair.app.utils.FirebaseUtil
-import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(
-    private val accountRepository: AccountRepository,
-    private val generalPreference: GeneralPreference
+class SignUpViewModel @Inject constructor(
+    private val accountRepository: AccountRepository
 ) : ViewModel() {
 
-    private val _signInResult = MutableLiveData<User>()
-    val signInResult: LiveData<User> = _signInResult
+    private val _signUpResult = MutableLiveData<Int>()
+    val signUpResult: LiveData<Int> = _signUpResult
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun signIn(phoneNumber: String, password: String) {
+    fun signUp(name: String, phoneNumber: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = accountRepository.signIn(SignInBody(phoneNumber, password, FirebaseUtil().getInstanceId()))
+            val response = accountRepository.signUp(SignUpBody(name, phoneNumber, password, FirebaseUtil().getInstanceId()))
             if (response != null) {
                 if (response.message == null || response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())
                     return@launch
                 }
-                val user = User(response.data)
-                generalPreference.setUser(user)
-                _signInResult.postValue(user)
+                _signUpResult.postValue(response.data?.userId ?: 0)
             } else {
                 _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
             }

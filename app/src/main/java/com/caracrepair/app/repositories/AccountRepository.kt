@@ -1,9 +1,12 @@
 package com.caracrepair.app.repositories
 
 import com.caracrepair.app.models.bodymodel.SignInBody
+import com.caracrepair.app.models.bodymodel.SignUpBody
 import com.caracrepair.app.network.ApiService
 import com.caracrepair.app.models.responsemodel.DataResponse
 import com.caracrepair.app.models.responsemodel.SignInResponse
+import com.caracrepair.app.models.responsemodel.SignUpResponse
+import com.caracrepair.app.models.responsemodel.StatusResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -20,6 +23,16 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.signIn(body)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun signUp(body: SignUpBody): DataResponse<SignUpResponse>? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.signUp(body)
             } catch (e: Exception) {
                 null
             }
