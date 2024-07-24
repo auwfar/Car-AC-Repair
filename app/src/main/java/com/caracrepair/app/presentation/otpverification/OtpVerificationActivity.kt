@@ -48,7 +48,10 @@ class OtpVerificationActivity : AppCompatActivity() {
                 finish()
             }
             btnVerify.setOnClickListener {
-                viewModel.otpVerification(etOtp.getOTP(), otpType)
+                when (otpType) {
+                    is OTPType.SignUp -> viewModel.verifyOtpSignUp(etOtp.getOTP(), otpType.userId)
+                    is OTPType.ForgotPassword -> viewModel.verifyOtpForgotPassword(etOtp.getOTP(), otpType.phoneNumber)
+                }
             }
             tvResendOtp.setOnClickListener {
                 viewModel.resendOtp(otpType)
@@ -57,15 +60,11 @@ class OtpVerificationActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.otpVerificationResult.observe(this) { otpType ->
-            when(otpType) {
-                is OTPType.SignUp -> {
-                    startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.SignUp))
-                }
-                is OTPType.ForgotPassword -> {
-                    startActivity(ResetPasswordActivity.createIntent(this))
-                }
-            }
+        viewModel.otpSignUpVerificationResult.observe(this) {
+            startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.SignUp))
+        }
+        viewModel.otpForgotPasswordVerificationResult.observe(this) { userId ->
+            startActivity(ResetPasswordActivity.createIntent(this, userId))
         }
         viewModel.resendOtpResult.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

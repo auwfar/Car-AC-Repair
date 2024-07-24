@@ -2,6 +2,7 @@ package com.caracrepair.app.repositories
 
 import com.caracrepair.app.models.bodymodel.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.bodymodel.ResendOtpSignUpBody
+import com.caracrepair.app.models.bodymodel.ResetPasswordBody
 import com.caracrepair.app.models.bodymodel.VerifyOtpForgotPasswordBody
 import com.caracrepair.app.models.bodymodel.VerifyOtpSignUpBody
 import com.caracrepair.app.models.bodymodel.SignInBody
@@ -11,6 +12,7 @@ import com.caracrepair.app.models.responsemodel.DataResponse
 import com.caracrepair.app.models.responsemodel.SignInResponse
 import com.caracrepair.app.models.responsemodel.SignUpResponse
 import com.caracrepair.app.models.responsemodel.StatusResponse
+import com.caracrepair.app.models.responsemodel.VerifyOtpForgotPasswordResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -53,7 +55,7 @@ class AccountRepository @Inject constructor(
         }
     }
 
-    suspend fun verifyOtpForgotPassword(verifyOtpForgotPasswordBody: VerifyOtpForgotPasswordBody): StatusResponse? {
+    suspend fun verifyOtpForgotPassword(verifyOtpForgotPasswordBody: VerifyOtpForgotPasswordBody): DataResponse<VerifyOtpForgotPasswordResponse>? {
         return withContext(coroutineContext) {
             try {
                 apiService.verifyOtpForgotPassword(verifyOtpForgotPasswordBody)
@@ -77,6 +79,16 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.resendOtpForgotPassword(resendOtpForgotPasswordBody)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun resetPassword(resetPasswordBody: ResetPasswordBody): StatusResponse? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.resetPassword(resetPasswordBody)
             } catch (e: Exception) {
                 null
             }
