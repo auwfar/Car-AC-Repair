@@ -1,9 +1,12 @@
 package com.caracrepair.app.network
 
+import com.caracrepair.app.models.bodymodel.SignInBody
+import com.caracrepair.app.models.responsemodel.DataResponse
+import com.caracrepair.app.models.responsemodel.SignInResponse
+import retrofit2.http.Body
+import retrofit2.http.POST
+
 interface ApiService {
-//    @POST("v1/auth/identify")
-//    suspend fun checkDeviceStatus(@Body request: DeviceIdentifierRequest): DataResponse<UserResponse>
-//
-//    @POST("v1/absence/entry")
-//    suspend fun sendPresenceEntry(@Body request: PresenceRequest): StatusResponse
+    @POST("api/login")
+    suspend fun signIn(@Body request: SignInBody): DataResponse<SignInResponse>
 }

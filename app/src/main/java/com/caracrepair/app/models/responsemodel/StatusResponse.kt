@@ -1,4 +1,4 @@
-package com.caracrepair.app.network.model
+package com.caracrepair.app.models.responsemodel
 
 import com.google.gson.annotations.SerializedName
 
@@ -7,8 +7,6 @@ data class DataResponse<T>(
     val status: Boolean?,
     @SerializedName("message")
     val message: String?,
-    @SerializedName("code")
-    val code: String?,
     @SerializedName("data")
     val data: T?,
     @SerializedName("meta")
@@ -16,9 +14,7 @@ data class DataResponse<T>(
 )
 
 data class MetaModel(
-    @SerializedName("current")
-    val current: Int?,
-    @SerializedName("pages")
+    @SerializedName("total_pages")
     val pages: Int?
 )
 
@@ -31,11 +27,7 @@ data class StatusResponse(
 
 data class ErrorResponse(
     @SerializedName("status")
-    val status: Boolean?,
-    @SerializedName("code")
-    val code: String?,
+    val status: Boolean? = false,
     @SerializedName("message")
-    val message: String?,
-    @SerializedName("report")
-    val report: String?
+    val message: String?
 )

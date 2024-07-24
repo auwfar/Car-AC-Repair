@@ -15,7 +15,7 @@ class LoginInterceptor(
 
     private fun handleLogin(request: Request): Request {
         return request.newBuilder().apply {
-            val accessToken = preference.getAccessToken()
+            val accessToken = preference.getUser()?.token
             if (accessToken != null) {
                 addHeader("Authorization", "Bearer $accessToken")
             }

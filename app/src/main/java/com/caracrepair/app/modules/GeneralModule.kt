@@ -1,12 +1,14 @@
 package com.caracrepair.app.modules
 
 import android.content.Context
+import com.caracrepair.app.network.ApiService
 import com.caracrepair.app.utils.FirebaseUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import com.caracrepair.app.utils.GsonUtil
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,9 +16,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class GeneralModule {
-    @Inject
-    lateinit var appContext: Context
-
     @Provides
     @Singleton
     fun provideGsonUtil(): GsonUtil {
@@ -25,7 +24,7 @@ class GeneralModule {
 
     @Provides
     @Singleton
-    fun provideGeneralPreference(gsonUtil: GsonUtil): GeneralPreference {
+    fun provideGeneralPreference(@ApplicationContext appContext: Context, gsonUtil: GsonUtil): GeneralPreference {
         return GeneralPreference(appContext, gsonUtil)
     }
 

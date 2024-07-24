@@ -22,8 +22,11 @@ import com.caracrepair.app.utils.WhatsAppUtil
 
 class ServiceDetailActivity : AppCompatActivity() {
     companion object {
-        fun createIntent(context: Context): Intent {
-            return Intent(context, ServiceDetailActivity::class.java)
+        private const val EXTRA_SERVICE_ID = "extra_service_id"
+        fun createIntent(context: Context, serviceId: Int): Intent {
+            return Intent(context, ServiceDetailActivity::class.java).apply {
+                putExtra(EXTRA_SERVICE_ID, serviceId)
+            }
         }
     }
 

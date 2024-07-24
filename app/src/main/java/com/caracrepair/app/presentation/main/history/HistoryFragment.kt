@@ -83,7 +83,7 @@ class HistoryFragment : Fragment() {
             adapter = historyAdapter.apply {
                 setItems(history)
                 setOnItemClickListener {
-                    startActivity(ServiceDetailActivity.createIntent(requireContext()))
+                    startActivity(ServiceDetailActivity.createIntent(requireContext(), it?.id ?: 0))
                 }
             }
         }

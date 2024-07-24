@@ -7,7 +7,8 @@ import android.app.PendingIntent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.caracrepair.app.R
-import com.caracrepair.app.presentation.main.MainActivity
+import com.caracrepair.app.presentation.servicedetail.ServiceDetailActivity
+import com.caracrepair.app.service.consts.FcmNotificationType
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -16,7 +17,7 @@ class FcmNotificationService : FirebaseMessagingService() {
     companion object {
         private const val KEY_NOTIFICATION_TITLE = "title"
         private const val KEY_NOTIFICATION_CONTENT = "message"
-        private const val KEY_NOTIFICATION_TYPE = "story"
+        private const val KEY_NOTIFICATION_TYPE = "notification_type"
     }
 
     private var notificationManager: NotificationManager? = null
@@ -45,20 +46,23 @@ class FcmNotificationService : FirebaseMessagingService() {
         val notificationType = data[KEY_NOTIFICATION_TYPE]
         if (notificationTitle == null || notificationContent == null) return
 
-        val intent = MainActivity.createIntent(applicationContext)
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(
-            applicationContext,
-            0,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_ONE_SHOT
-        )
-        val builder = NotificationCompat.Builder(applicationContext, getString(R.string.notification_channel_id))
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(notificationTitle)
-            .setContentText(notificationContent)
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
+        if (notificationType == FcmNotificationType.SERVICE_STATUS_CHANGED) {
+            val serviceId = data["order_id"]?.toIntOrNull() ?: return
+            val intent = ServiceDetailActivity.createIntent(applicationContext, serviceId)
+            val pendingIntent: PendingIntent = PendingIntent.getActivity(
+                applicationContext,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_ONE_SHOT
+            )
+            val builder = NotificationCompat.Builder(applicationContext, getString(R.string.notification_channel_id))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(notificationTitle)
+                .setContentText(notificationContent)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
 
-        notificationManager?.notify(1, builder.build())
+            notificationManager?.notify(1, builder.build())
+        }
     }
 }

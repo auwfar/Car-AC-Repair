@@ -4,16 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityMainBinding
-import com.caracrepair.app.presentation.main.adapter.MainAdapter
 import com.caracrepair.app.presentation.bookingservice.BookingServiceActivity
-import com.caracrepair.app.utils.FirebaseUtil
-import kotlinx.coroutines.launch
+import com.caracrepair.app.presentation.main.adapter.MainAdapter
 
 class MainActivity : AppCompatActivity() {
     companion object {
