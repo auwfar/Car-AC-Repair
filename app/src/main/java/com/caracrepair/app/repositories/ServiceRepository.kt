@@ -2,6 +2,7 @@ package com.caracrepair.app.repositories
 
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.ServiceTimesBody
+import com.caracrepair.app.models.response.BookingHistoryResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.ServiceTimeResponse
@@ -32,6 +33,16 @@ class ServiceRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.getServiceTimes(serviceTimesBody)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun getBookingHistory(): DataResponse<List<BookingHistoryResponse>>? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.getBookingHistory()
             } catch (e: Exception) {
                 null
             }

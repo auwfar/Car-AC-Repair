@@ -5,67 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.FragmentHistoryBinding
 import com.caracrepair.app.presentation.main.history.adapter.HistoryAdapter
+import com.caracrepair.app.presentation.main.history.viewmodel.HistoryViewModel
 import com.caracrepair.app.presentation.main.history.viewparam.HistoryItem
 import com.caracrepair.app.presentation.servicedetail.ServiceDetailActivity
 
 class HistoryFragment : Fragment() {
     private lateinit var binding: FragmentHistoryBinding
+    private val viewModel by viewModels<HistoryViewModel>()
 
     private val historyAdapter by lazy { HistoryAdapter() }
-    private val history = listOf(
-        HistoryItem(
-            id = 1,
-            carImage = "https://via.placeholder.com/150",
-            carName = "Toyota Avanza",
-            orderDate = "18 Juli 2024 16:00",
-            serviceDate = "18 Juli 2024 17:00",
-            status = "Sedang Dikerjakan"
-        ),
-        HistoryItem(
-            id = 2,
-            carImage = "https://via.placeholder.com/150",
-            carName = "Honda Jazz",
-            orderDate = "18 Juli 2024 16:00",
-            serviceDate = "18 Juli 2024 17:00",
-            status = "Pengecekan"
-        ),
-        HistoryItem(
-            id = 3,
-            carImage = "https://via.placeholder.com/150",
-            carName = "Toyota Avanza",
-            orderDate = "18 Juli 2024 16:00",
-            serviceDate = "18 Juli 2024 17:00",
-            status = "Menunggu Antrian"
-        ),
-        HistoryItem(
-            id = 4,
-            carImage = "https://via.placeholder.com/150",
-            carName = "Honda Jazz",
-            orderDate = "18 Juli 2024 16:00",
-            serviceDate = "18 Juli 2024 17:00",
-            status = "Jadwal Diubah, Menunggu Antrian"
-        ),
-        HistoryItem(
-            id = 5,
-            carImage = "https://via.placeholder.com/150",
-            carName = "Toyota Avanza",
-            orderDate = "18 Juli 2024 16:00",
-            serviceDate = "18 Juli 2024 17:00",
-            status = "Selesai"
-        ),
-        HistoryItem(
-            id = 6,
-            carImage = "https://via.placeholder.com/150",
-            carName = "Honda Jazz",
-            orderDate = "18 Juli 2024 16:00",
-            serviceDate = "18 Juli 2024 17:00",
-            status = "Selesai"
-        )
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,10 +32,36 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeViewModel()
+        setupRecyclerView()
+        viewModel.getBookingHistory()
+    }
+
+    private fun observeViewModel() {
+        viewModel.serviceHistoryResult.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                binding.llErrorView.isVisible = true
+                binding.tvErrorTitle.text = getString(R.string.title_no_booking_yet)
+                binding.tvErrorDescription.text = getString(R.string.desc_no_booking_yet)
+            } else {
+                binding.llErrorView.isVisible = false
+            }
+            historyAdapter.setItems(it)
+        }
+        viewModel.loadingState.observe(viewLifecycleOwner) { isLoading ->
+            binding.flLoading.isVisible = isLoading
+        }
+        viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
+            binding.llErrorView.isVisible = true
+            binding.tvErrorTitle.text = getString(R.string.title_oops_there_is_problem)
+            binding.tvErrorDescription.text = message
+        }
+    }
+
+    private fun setupRecyclerView() {
         with(binding.rvHistory) {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = historyAdapter.apply {
-                setItems(history)
                 setOnItemClickListener {
                     startActivity(ServiceDetailActivity.createIntent(requireContext(), it?.id ?: 0))
                 }

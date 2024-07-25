@@ -42,7 +42,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
                 val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(16))
                 val requestBuilder = Glide.with(root).load(R.drawable.img_placeholder).apply(requestOptions)
                 Glide.with(root)
-                    .load(item?.carImage)
+                    .load(item?.repairShopImage)
                     .apply(requestOptions)
                     .thumbnail(requestBuilder)
                     .into(ivCar)

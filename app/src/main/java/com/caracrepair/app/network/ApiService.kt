@@ -9,6 +9,7 @@ import com.caracrepair.app.models.body.VerifyOtpSignUpBody
 import com.caracrepair.app.models.body.SignInBody
 import com.caracrepair.app.models.body.SignUpBody
 import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
+import com.caracrepair.app.models.response.BookingHistoryResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.HomePageResponse
@@ -61,4 +62,7 @@ interface ApiService {
 
     @POST("api/order-times")
     suspend fun getServiceTimes(@Body serviceTimesBody: ServiceTimesBody): DataResponse<List<ServiceTimeResponse>>?
+
+    @GET("api/order-history")
+    suspend fun getBookingHistory(): DataResponse<List<BookingHistoryResponse>>?
 }
