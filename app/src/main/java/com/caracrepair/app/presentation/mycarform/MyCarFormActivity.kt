@@ -19,9 +19,6 @@ import com.caracrepair.app.utils.FormUtil
 class MyCarFormActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_MY_CAR_ITEM = "extra_my_car_item"
-        fun createIntent(context: Context): Intent {
-            return Intent(context, MyCarFormActivity::class.java)
-        }
     }
 
     private lateinit var binding: ActivityMyCarFormBinding

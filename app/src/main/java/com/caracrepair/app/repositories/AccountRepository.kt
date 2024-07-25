@@ -1,5 +1,6 @@
 package com.caracrepair.app.repositories
 
+import com.caracrepair.app.models.body.AddAddressBody
 import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.ChangePasswordBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
@@ -10,6 +11,7 @@ import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
 import com.caracrepair.app.models.body.VerifyOtpSignUpBody
 import com.caracrepair.app.models.body.SignInBody
 import com.caracrepair.app.models.body.SignUpBody
+import com.caracrepair.app.models.body.UpdateAddressBody
 import com.caracrepair.app.models.body.UpdateCarBody
 import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.CarResponse
@@ -156,6 +158,26 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.updateCar(updateCarBody)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun addAddress(addAddressBody: AddAddressBody): StatusResponse? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.addAddress(addAddressBody)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun updateAddress(updateAddressBody: UpdateAddressBody): StatusResponse? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.updateAddress(updateAddressBody)
             } catch (e: Exception) {
                 null
             }

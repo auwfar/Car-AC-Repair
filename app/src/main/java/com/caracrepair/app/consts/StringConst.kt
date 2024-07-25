@@ -24,5 +24,6 @@ object StringConst {
         const val NEW_PASSWORD_CONFIRMATION = "Konfirmasi Password Baru"
         const val LICENSE_NUMBER = "Nomor Plat"
         const val YEAR = "Tahun"
+        const val ADDRESS_LABEL = "Label Alamat"
     }
 }

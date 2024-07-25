@@ -14,6 +14,7 @@ import com.caracrepair.app.presentation.myaddress.adapter.MyAddressAdapter
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
 import com.caracrepair.app.presentation.myaddresses.viewmodel.MyAddressViewModel
 import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivity
+import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivityContract
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +30,10 @@ class MyAddressActivity : AppCompatActivity() {
     private val viewModel by viewModels<MyAddressViewModel>()
     private val myAddressAdapter by lazy { MyAddressAdapter() }
 
+    private val myAddressFormLauncher = registerForActivityResult(MyAddressFormActivityContract()) { isUpdated ->
+        if (isUpdated) viewModel.getAddresses()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyAddressBinding.inflate(layoutInflater)
@@ -41,7 +46,7 @@ class MyAddressActivity : AppCompatActivity() {
                 finish()
             }
             btnAddAddress.setOnClickListener {
-                startActivity(MyAddressFormActivity.createIntent(this@MyAddressActivity))
+                myAddressFormLauncher.launch(null)
             }
         }
         viewModel.getAddresses()
@@ -55,7 +60,7 @@ class MyAddressActivity : AppCompatActivity() {
                 binding.tvErrorDescription.text = getString(R.string.desc_no_address)
                 binding.btnErrorAction.text = getString(R.string.title_add_address)
                 binding.btnErrorAction.setOnClickListener {
-                    startActivity(MyAddressFormActivity.createIntent(this@MyAddressActivity))
+                    myAddressFormLauncher.launch(null)
                 }
             } else {
                 binding.llErrorView.isVisible = false
@@ -81,7 +86,7 @@ class MyAddressActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MyAddressActivity)
             adapter = myAddressAdapter.apply {
                 setOnClickChangeDataListener {
-                    startActivity(MyAddressFormActivity.createIntent(this@MyAddressActivity))
+                    myAddressFormLauncher.launch(it)
                 }
                 if (callingActivity != null) {
                     setOnClickItemListener { myAddressItem ->

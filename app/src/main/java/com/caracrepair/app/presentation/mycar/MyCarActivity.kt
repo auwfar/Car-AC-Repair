@@ -13,7 +13,7 @@ import com.caracrepair.app.databinding.ActivityMyCarBinding
 import com.caracrepair.app.presentation.mycar.adapter.MyCarAdapter
 import com.caracrepair.app.presentation.mycar.viewmodel.MyCarViewModel
 import com.caracrepair.app.presentation.mycar.viewparam.MyCarItem
-import com.caracrepair.app.presentation.mycarform.MyCarFormActivity
+import com.caracrepair.app.presentation.mycarform.MyCarFormActivityContract
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +29,10 @@ class MyCarActivity : AppCompatActivity() {
     private val viewModel by viewModels<MyCarViewModel>()
     private val myCarAdapter by lazy { MyCarAdapter() }
 
+    private val myCarFormLauncher = registerForActivityResult(MyCarFormActivityContract()) { isUpdated ->
+        if (isUpdated) viewModel.getCars()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyCarBinding.inflate(layoutInflater)
@@ -41,7 +45,7 @@ class MyCarActivity : AppCompatActivity() {
                 finish()
             }
             btnAddCar.setOnClickListener {
-                startActivity(MyCarFormActivity.createIntent(this@MyCarActivity))
+                myCarFormLauncher.launch(null)
             }
         }
 
@@ -56,7 +60,7 @@ class MyCarActivity : AppCompatActivity() {
                 binding.tvErrorDescription.text = getString(R.string.desc_no_car)
                 binding.btnErrorAction.text = getString(R.string.title_add_car)
                 binding.btnErrorAction.setOnClickListener {
-                    startActivity(MyCarFormActivity.createIntent(this@MyCarActivity))
+                    myCarFormLauncher.launch(null)
                 }
             } else {
                 binding.llErrorView.isVisible = false
@@ -82,7 +86,7 @@ class MyCarActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MyCarActivity)
             adapter = myCarAdapter.apply {
                 setOnClickChangeDataListener {
-                    startActivity(MyCarFormActivity.createIntent(this@MyCarActivity))
+                    myCarFormLauncher.launch(it)
                 }
                 if (callingActivity != null) {
                     setOnClickItemListener { myCarItem ->
