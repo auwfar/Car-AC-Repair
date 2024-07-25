@@ -3,6 +3,7 @@ package com.caracrepair.app.presentation.mycar
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +11,13 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityMyCarBinding
+import com.caracrepair.app.models.viewparam.ButtonParam
+import com.caracrepair.app.models.viewparam.ConfirmationDialogParam
 import com.caracrepair.app.presentation.mycar.adapter.MyCarAdapter
 import com.caracrepair.app.presentation.mycar.viewmodel.MyCarViewModel
 import com.caracrepair.app.presentation.mycar.viewparam.MyCarItem
 import com.caracrepair.app.presentation.mycarform.MyCarFormActivityContract
+import com.caracrepair.app.utils.dialog.ConfirmationDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -67,6 +71,10 @@ class MyCarActivity : AppCompatActivity() {
             }
             myCarAdapter.setItems(car)
         }
+        viewModel.removeCarResult.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            viewModel.getCars()
+        }
         viewModel.loadingState.observe(this) {
             binding.flLoading.isVisible = it
         }
@@ -85,6 +93,9 @@ class MyCarActivity : AppCompatActivity() {
         with(binding.rvMyCar) {
             layoutManager = LinearLayoutManager(this@MyCarActivity)
             adapter = myCarAdapter.apply {
+                setOnClickRemoveDataListener {
+                    showRemoveCarDialog(it)
+                }
                 setOnClickChangeDataListener {
                     myCarFormLauncher.launch(it)
                 }
@@ -98,6 +109,24 @@ class MyCarActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun showRemoveCarDialog(carId: Int) {
+        val dialog = ConfirmationDialog.newInstance(ConfirmationDialogParam(
+            title = getString(R.string.title_remove_data),
+            message = getString(R.string.desc_remove_data),
+            positiveButton = ButtonParam(
+                text = getString(R.string.title_dont_remove),
+                action = {}
+            ),
+            negativeButton = ButtonParam(
+                text = getString(R.string.title_yes_remove_now),
+                action = {
+                    viewModel.removeCar(carId)
+                }
+            )
+        ))
+        dialog.show(supportFragmentManager, null)
     }
 }
 

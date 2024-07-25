@@ -3,8 +3,9 @@ package com.caracrepair.app.repositories
 import com.caracrepair.app.models.body.AddAddressBody
 import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.ChangePasswordBody
-import com.caracrepair.app.models.body.DeleteAddressBody
+import com.caracrepair.app.models.body.RemoveAddressBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
+import com.caracrepair.app.models.body.RemoveCarBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpSignUpBody
 import com.caracrepair.app.models.body.ResetPasswordBody
@@ -165,6 +166,16 @@ class AccountRepository @Inject constructor(
         }
     }
 
+    suspend fun removeCar(removeCarBody: RemoveCarBody): StatusResponse? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.removeCar(removeCarBody)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
     suspend fun addAddress(addAddressBody: AddAddressBody): StatusResponse? {
         return withContext(coroutineContext) {
             try {
@@ -185,10 +196,10 @@ class AccountRepository @Inject constructor(
         }
     }
 
-    suspend fun removeAddress(deleteAddressBody: DeleteAddressBody): StatusResponse? {
+    suspend fun removeAddress(removeAddressBody: RemoveAddressBody): StatusResponse? {
         return withContext(coroutineContext) {
             try {
-                apiService.removeAddress(deleteAddressBody)
+                apiService.removeAddress(removeAddressBody)
             } catch (e: Exception) {
                 null
             }
