@@ -87,6 +87,16 @@ class SuccessResponseActivity : AppCompatActivity() {
                         finishAffinity()
                     }
                 }
+                SuccessResponseType.RescheduleService -> {
+                    ivSuccess.setImageResource(R.drawable.img_reschedule)
+                    tvSuccessTitle.text = getString(R.string.title_service_successfully_rescheduled)
+                    tvSuccessDescription.text = getString(R.string.desc_service_successfully_rescheduled)
+                    tvAction.text = getString(R.string.title_see_detail)
+                    tvAction.setOnClickListener {
+                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getIntExtra(EXTRA_ID, 0)))
+                        finishAffinity()
+                    }
+                }
             }
         }
     }

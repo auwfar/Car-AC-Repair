@@ -139,4 +139,6 @@
     <string name="desc_no_booking_yet">Tidak ada riwayat service yang tercatat. Mulailah memesan layanan perawatan atau perbaikan kendaraan Anda melalui aplikasi kami.</string>
     <string name="title_deliver_to_repair_shop">Antar/Ambil sendiri ke Bengkel</string>
     <string name="title_pick_up_from_repair_shop">Pelayanan Antar/Jemput dari Bengkel</string>
+    <string name="title_service_successfully_rescheduled">Jadwal Service Berhasil Diubah!</string>
+    <string name="desc_service_successfully_rescheduled">Jadwal Service Diperbarui! Kami telah berhasil mengubah jadwal service Anda. Terima kasih atas kepercayaan Anda dan kami siap melayani pada waktu yang baru.</string>
 </resources>

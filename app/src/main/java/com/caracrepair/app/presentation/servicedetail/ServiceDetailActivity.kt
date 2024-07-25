@@ -35,24 +35,28 @@ class ServiceDetailActivity : AppCompatActivity() {
     private val viewModel by viewModels<ServiceDetailViewModel>()
     private val serviceLogAdapter by lazy { ServiceLogAdapter() }
 
+    private var serviceId: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityServiceDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        serviceId = intent.getIntExtra(EXTRA_SERVICE_ID, 0)
 
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
             }
             btnReload.setOnClickListener {
-                viewModel.getServiceDetail(intent.getIntExtra(EXTRA_SERVICE_ID, 0))
+                viewModel.getServiceDetail(serviceId)
             }
         }
 
         observeViewModel()
         setupRecyclerView()
 
-        viewModel.getServiceDetail(intent.getIntExtra(EXTRA_SERVICE_ID, 0))
+        viewModel.getServiceDetail(serviceId)
     }
 
     private fun observeViewModel() {
@@ -124,7 +128,7 @@ class ServiceDetailActivity : AppCompatActivity() {
                 llAction.isVisible = true
                 btnReschedule.isVisible = true
                 btnReschedule.setOnClickListener {
-                    startActivity(RescheduleServiceActivity.createIntent(this@ServiceDetailActivity))
+                    startActivity(RescheduleServiceActivity.createIntent(this@ServiceDetailActivity, serviceId))
                 }
             } else {
                 llAction.isVisible = false

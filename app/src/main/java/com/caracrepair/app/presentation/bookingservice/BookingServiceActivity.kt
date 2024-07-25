@@ -73,7 +73,7 @@ class BookingServiceActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.bookingServiceResult.observe(this) {
-            startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.BookingService))
+            startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.BookingService, it))
         }
         viewModel.serviceTimeResult.observe(this) { serviceTimeItems ->
             binding.rvServiceTime.isVisible = true
