@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.databinding.ActivitySignUpBinding
 import com.caracrepair.app.presentation.otpverification.OtpVerificationActivity
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
@@ -59,7 +60,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun isValidRegisterForm(name: String, phoneNumber: String, password: String, confirmationPassword: String): Boolean {
-        val isValidName = FormUtil.validateName(binding.tilName, name)
+        val isValidName = FormUtil.validateRequired(StringConst.FieldName.NAME, binding.tilName, name)
         val isValidPhoneNumber = FormUtil.validatePhoneNumber(binding.tilPhoneNumber, phoneNumber)
         val isValidPassword = FormUtil.validatePassword(binding.tilPassword, password)
         val isValidConfirmationPassword = FormUtil.validateConfirmationPassword(binding.tilConfirmationPassword, password, confirmationPassword)

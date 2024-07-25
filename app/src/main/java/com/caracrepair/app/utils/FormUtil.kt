@@ -51,10 +51,9 @@ object FormUtil {
         return isValid
     }
 
-    fun validateName(textInputLayout: TextInputLayout, name: String): Boolean {
-        val fieldName = StringConst.FieldName.NAME
+    fun validateRequired(fieldName: String, textInputLayout: TextInputLayout, value: String): Boolean {
         val isValid = when {
-            name.isBlank() -> {
+            value.isBlank() -> {
                 textInputLayout.error = StringConst.requiredMessage(fieldName)
                 false
             }

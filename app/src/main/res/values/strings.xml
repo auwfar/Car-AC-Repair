@@ -132,4 +132,7 @@
     <string name="desc_no_last_services">Belum ada layanan yang telah selesai. Anda dapat memesan layanan perawatan atau perbaikan kendaraan kapan saja melalui aplikasi kami.</string>
     <string name="title_oops_there_is_problem">Oops! Ada Masalah</string>
     <string name="title_reload">Muat Ulang</string>
+    <string name="title_see_detail">Lihat Detail</string>
+    <string name="title_service_successfully_booking">Reservasi Service Berhasil Dibuat!</string>
+    <string name="desc_service_successfully_booking">Berhasil! Reservasi service Anda telah kami terima dan tinggal menunggu antrian. Kami akan segera memprosesnya. Terima kasih telah menggunakan layanan kami.</string>
 </resources>

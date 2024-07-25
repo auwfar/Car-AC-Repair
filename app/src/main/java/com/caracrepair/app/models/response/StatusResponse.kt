@@ -1,4 +1,4 @@
-package com.caracrepair.app.models.responsemodel
+package com.caracrepair.app.models.response
 
 import com.google.gson.annotations.SerializedName
 

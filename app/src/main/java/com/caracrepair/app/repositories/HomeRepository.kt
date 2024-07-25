@@ -1,7 +1,7 @@
 package com.caracrepair.app.repositories
 
-import com.caracrepair.app.models.responsemodel.DataResponse
-import com.caracrepair.app.models.responsemodel.HomePageResponse
+import com.caracrepair.app.models.response.DataResponse
+import com.caracrepair.app.models.response.HomePageResponse
 import com.caracrepair.app.network.ApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

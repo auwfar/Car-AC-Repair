@@ -3,6 +3,7 @@ package com.caracrepair.app.presentation.rescheduleservice
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,6 +12,8 @@ import com.caracrepair.app.databinding.ActivityRescheduleServiceBinding
 import com.caracrepair.app.presentation.bookingservice.adapter.ServiceTimeAdapter
 import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
 import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivity
+import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivityContract
+import com.caracrepair.app.presentation.rescheduleservice.viewmodel.RescheduleServiceViewModel
 import com.caracrepair.app.utils.SimpleDateUtil
 import com.google.android.material.datepicker.MaterialDatePicker
 
@@ -22,7 +25,14 @@ class RescheduleServiceActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityRescheduleServiceBinding
+    private val viewModel by viewModels<RescheduleServiceViewModel>()
     private val serviceTimeAdapter by lazy { ServiceTimeAdapter() }
+
+
+    private val chooseRepairShopLauncher = registerForActivityResult(ChooseRepairShopActivityContract()) { selectedRepairShop ->
+        binding.etRepairShop.setText(selectedRepairShop?.name)
+        viewModel.selectedRepairShopId = selectedRepairShop?.id ?: 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +49,7 @@ class RescheduleServiceActivity : AppCompatActivity() {
                 finish()
             }
             etRepairShop.setOnClickListener {
-                startActivity(ChooseRepairShopActivity.createIntent(this@RescheduleServiceActivity))
+                chooseRepairShopLauncher.launch(null)
             }
             etServiceDate.setOnClickListener {
                 MaterialDatePicker.Builder.datePicker()

@@ -21,6 +21,8 @@ class RepairShopOptionAdapter : RecyclerView.Adapter<RepairShopOptionAdapter.Vie
         onCheckLocationClickListener = listener
     }
 
+    fun getSelectedItem() = items.getOrNull(selectedPosition)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         ItemRepairShopOptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )

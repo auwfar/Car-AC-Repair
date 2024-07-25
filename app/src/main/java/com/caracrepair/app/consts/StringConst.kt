@@ -13,5 +13,12 @@ object StringConst {
         const val PASSWORD = "Password"
         const val NAME = "Nama"
         const val PASSWORD_CONFIRMATION = "Konfirmasi Password"
+        const val ADDRESS = "Alamat"
+        const val SERVICE_TIME = "Waktu Layanan"
+        const val SERVICE_DATE = "Tanggal Layanan"
+        const val CAR = "Mobil"
+        const val CAR_DISTANCE = "Jarak Tempuh Mobil"
+        const val COMPLAINT = "Keluhan"
+        const val REPAIR_SHOP = "Bengkel"
     }
 }

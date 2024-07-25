@@ -1,6 +1,6 @@
 package com.caracrepair.app.presentation.main.home.viewparam
 
-import com.caracrepair.app.models.responsemodel.HomePageResponse
+import com.caracrepair.app.models.response.HomePageResponse
 
 data class RepairShopSliderItem(
     val image: String,

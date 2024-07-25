@@ -7,12 +7,16 @@ import com.caracrepair.app.databinding.ItemMyAddressBinding
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
 
 class MyAddressAdapter : RecyclerView.Adapter<MyAddressAdapter.ViewHolder>() {
-
     private var items = listOf<MyAddressItem>()
+    private var onClickItemListener: ((MyAddressItem?) -> Unit)? = null
 
     fun setItems(items: List<MyAddressItem>) {
         this.items = items
         notifyItemRangeInserted(0, items.size)
+    }
+
+    fun setOnClickItemListener(listener: (MyAddressItem?) -> Unit) {
+        this.onClickItemListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
@@ -26,11 +30,15 @@ class MyAddressAdapter : RecyclerView.Adapter<MyAddressAdapter.ViewHolder>() {
         holder.bind(item)
     }
 
-    class ViewHolder(val binding: ItemMyAddressBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemMyAddressBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MyAddressItem?) {
             with(binding) {
                 tvAddressLabel.text = item?.addressLabel
                 tvAddress.text = item?.address
+
+                root.setOnClickListener {
+                     onClickItemListener?.invoke(item)
+                }
             }
         }
     }

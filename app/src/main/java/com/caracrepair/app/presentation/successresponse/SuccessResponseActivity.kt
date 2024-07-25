@@ -7,14 +7,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivitySuccessResponseBinding
 import com.caracrepair.app.presentation.onboarding.OnboardingActivity
+import com.caracrepair.app.presentation.servicedetail.ServiceDetailActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 
 class SuccessResponseActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_SUCCESS_RESPONSE_TYPE = "EXTRA_SUCCESS_RESPONSE_TYPE"
-        fun createIntent(context: Context, successResponseType: SuccessResponseType): Intent {
+        private const val EXTRA_ID = "EXTRA_ID"
+        fun createIntent(context: Context, successResponseType: SuccessResponseType, id: Int? = null): Intent {
             return Intent(context, SuccessResponseActivity::class.java).apply {
                 putExtra(EXTRA_SUCCESS_RESPONSE_TYPE, successResponseType)
+                id?.let { putExtra(EXTRA_ID, it) }
             }
         }
     }
@@ -72,6 +75,16 @@ class SuccessResponseActivity : AppCompatActivity() {
                     tvAction.text = getString(R.string.back)
                     tvAction.setOnClickListener {
                         finish()
+                    }
+                }
+                SuccessResponseType.BookingService -> {
+                    ivSuccess.setImageResource(R.drawable.img_booking)
+                    tvSuccessTitle.text = getString(R.string.title_service_successfully_booking)
+                    tvSuccessDescription.text = getString(R.string.desc_service_successfully_booking)
+                    tvAction.text = getString(R.string.title_see_detail)
+                    tvAction.setOnClickListener {
+                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getIntExtra(EXTRA_ID, 0)))
+                        finishAffinity()
                     }
                 }
             }

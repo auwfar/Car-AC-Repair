@@ -3,6 +3,7 @@ package com.caracrepair.app.presentation.chooserepairshop
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caracrepair.app.databinding.ActivityChooseRepairShopBinding
@@ -12,9 +13,7 @@ import com.caracrepair.app.utils.GMapsUtil
 
 class ChooseRepairShopActivity : AppCompatActivity() {
     companion object {
-        fun createIntent(context: Context): Intent {
-            return Intent(context, ChooseRepairShopActivity::class.java)
-        }
+        const val EXTRA_REPAIR_SHOP_OPTION_ITEM = "extra_repair_shop_option_item"
     }
 
     private lateinit var binding: ActivityChooseRepairShopBinding
@@ -51,6 +50,14 @@ class ChooseRepairShopActivity : AppCompatActivity() {
             ivBack.setOnClickListener {
                 finish()
             }
+            btnChoose.setOnClickListener {
+                val intent = Intent().apply {
+                    putExtra(EXTRA_REPAIR_SHOP_OPTION_ITEM, repairShopOptionAdapter.getSelectedItem())
+                }
+                setResult(RESULT_OK, intent)
+                finish()
+
+            }
         }
         setupRecyclerView()
     }
@@ -67,5 +74,15 @@ class ChooseRepairShopActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+}
+
+class ChooseRepairShopActivityContract : ActivityResultContract<Unit?, RepairShopOptionItem?>() {
+    override fun createIntent(context: Context, input: Unit?): Intent {
+        return Intent(context, ChooseRepairShopActivity::class.java)
+    }
+
+    override fun parseResult(resultCode: Int, intent: Intent?): RepairShopOptionItem? {
+        return intent?.getParcelableExtra(ChooseRepairShopActivity.EXTRA_REPAIR_SHOP_OPTION_ITEM)
     }
 }

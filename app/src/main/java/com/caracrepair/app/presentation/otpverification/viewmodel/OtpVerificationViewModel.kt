@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
-import com.caracrepair.app.models.bodymodel.ResendOtpForgotPasswordBody
-import com.caracrepair.app.models.bodymodel.ResendOtpSignUpBody
-import com.caracrepair.app.models.bodymodel.VerifyOtpForgotPasswordBody
-import com.caracrepair.app.models.bodymodel.VerifyOtpSignUpBody
+import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
+import com.caracrepair.app.models.body.ResendOtpSignUpBody
+import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
+import com.caracrepair.app.models.body.VerifyOtpSignUpBody
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.repositories.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

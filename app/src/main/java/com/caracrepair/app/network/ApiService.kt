@@ -1,30 +1,35 @@
 package com.caracrepair.app.network
 
-import com.caracrepair.app.models.bodymodel.ResendOtpForgotPasswordBody
-import com.caracrepair.app.models.bodymodel.ResendOtpSignUpBody
-import com.caracrepair.app.models.bodymodel.ResetPasswordBody
-import com.caracrepair.app.models.bodymodel.VerifyOtpSignUpBody
-import com.caracrepair.app.models.bodymodel.SignInBody
-import com.caracrepair.app.models.bodymodel.SignUpBody
-import com.caracrepair.app.models.bodymodel.VerifyOtpForgotPasswordBody
-import com.caracrepair.app.models.responsemodel.DataResponse
-import com.caracrepair.app.models.responsemodel.HomePageResponse
-import com.caracrepair.app.models.responsemodel.RepairShopDetailResponse
-import com.caracrepair.app.models.responsemodel.RepairShopResponse
-import com.caracrepair.app.models.responsemodel.SignInResponse
-import com.caracrepair.app.models.responsemodel.SignUpResponse
-import com.caracrepair.app.models.responsemodel.StatusResponse
-import com.caracrepair.app.models.responsemodel.VerifyOtpForgotPasswordResponse
+import com.caracrepair.app.models.body.BookingServiceBody
+import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
+import com.caracrepair.app.models.body.ResendOtpSignUpBody
+import com.caracrepair.app.models.body.ResetPasswordBody
+import com.caracrepair.app.models.body.ServiceTimesBody
+import com.caracrepair.app.models.body.VerifyOtpSignUpBody
+import com.caracrepair.app.models.body.SignInBody
+import com.caracrepair.app.models.body.SignUpBody
+import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
+import com.caracrepair.app.models.response.BookingServiceResponse
+import com.caracrepair.app.models.response.DataResponse
+import com.caracrepair.app.models.response.HomePageResponse
+import com.caracrepair.app.models.response.RepairShopDetailResponse
+import com.caracrepair.app.models.response.RepairShopResponse
+import com.caracrepair.app.models.response.ServiceTimeResponse
+import com.caracrepair.app.models.response.SignInResponse
+import com.caracrepair.app.models.response.SignUpResponse
+import com.caracrepair.app.models.response.StatusResponse
+import com.caracrepair.app.models.response.VerifyOtpForgotPasswordResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @POST("api/login")
     suspend fun signIn(@Body request: SignInBody): DataResponse<SignInResponse>
 
-    @POST("api/register")
+    @POST("api/auth/register")
     suspend fun signUp(@Body request: SignUpBody): DataResponse<SignUpResponse>
 
     @POST("api/verify-otp-register")
@@ -50,4 +55,10 @@ interface ApiService {
 
     @GET("api/carshops/{repair_shop_id}")
     suspend fun getRepairShopDetail(@Path("repair_shop_id") repairShopId: Int): DataResponse<RepairShopDetailResponse>
+
+    @POST("api/order-service")
+    suspend fun bookingService(@Body request: BookingServiceBody): DataResponse<BookingServiceResponse>?
+
+    @POST("api/order-times")
+    suspend fun getServiceTimes(@Body serviceTimesBody: ServiceTimesBody): DataResponse<List<ServiceTimeResponse>>?
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
-import com.caracrepair.app.models.bodymodel.ResetPasswordBody
+import com.caracrepair.app.models.body.ResetPasswordBody
 import com.caracrepair.app.repositories.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

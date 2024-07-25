@@ -1,6 +1,6 @@
 package com.caracrepair.app.presentation.main.repairshop.viewparam
 
-import com.caracrepair.app.models.responsemodel.RepairShopResponse
+import com.caracrepair.app.models.response.RepairShopResponse
 
 data class RepairShopItem(
     val id: Int,

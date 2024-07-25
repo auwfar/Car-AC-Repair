@@ -1,14 +1,12 @@
-package com.caracrepair.app.models.bodymodel
+package com.caracrepair.app.models.body
 
 import com.google.gson.annotations.SerializedName
 
 data class SignUpBody(
     @SerializedName("name")
     val name: String,
-    @SerializedName("phone_number")
+    @SerializedName("phone")
     val phoneNumber: String,
     @SerializedName("password")
-    val password: String,
-    @SerializedName("fcm_token")
-    val fcmToken: String
+    val password: String
 )

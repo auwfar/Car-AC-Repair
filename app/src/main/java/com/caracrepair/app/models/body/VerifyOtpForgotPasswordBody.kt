@@ -1,4 +1,4 @@
-package com.caracrepair.app.models.bodymodel
+package com.caracrepair.app.models.body
 
 import com.google.gson.annotations.SerializedName
 

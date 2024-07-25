@@ -1,6 +1,6 @@
 package com.caracrepair.app.models.viewparam
 
-import com.caracrepair.app.models.responsemodel.SignInResponse
+import com.caracrepair.app.models.response.SignInResponse
 import com.google.gson.annotations.SerializedName
 
 data class User(

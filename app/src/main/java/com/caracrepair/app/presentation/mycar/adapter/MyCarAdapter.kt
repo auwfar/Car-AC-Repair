@@ -8,10 +8,15 @@ import com.caracrepair.app.presentation.mycar.viewparam.MyCarItem
 
 class MyCarAdapter : RecyclerView.Adapter<MyCarAdapter.ViewHolder>() {
     private var items = listOf<MyCarItem>()
+    private var onClickItemListener: ((MyCarItem?) -> Unit)? = null
 
     fun setItems(items: List<MyCarItem>) {
         this.items = items
         notifyItemRangeInserted(0, items.size)
+    }
+
+    fun setOnClickItemListener(listener: (MyCarItem?) -> Unit) {
+        onClickItemListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
@@ -25,11 +30,15 @@ class MyCarAdapter : RecyclerView.Adapter<MyCarAdapter.ViewHolder>() {
         holder.bind(item)
     }
 
-    class ViewHolder(val binding: ItemMyCarBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemMyCarBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MyCarItem?) {
             with(binding) {
                 tvCarName.text = item?.carName
                 tvCarLicenseNumber.text = item?.carLicenseNumber
+
+                root.setOnClickListener {
+                    onClickItemListener?.invoke(item)
+                }
             }
         }
     }

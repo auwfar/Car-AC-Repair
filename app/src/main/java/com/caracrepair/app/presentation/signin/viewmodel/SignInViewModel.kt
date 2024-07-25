@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
-import com.caracrepair.app.models.bodymodel.SignInBody
+import com.caracrepair.app.models.body.SignInBody
 import com.caracrepair.app.models.viewparam.User
 import com.caracrepair.app.repositories.AccountRepository
 import com.caracrepair.app.utils.FirebaseUtil

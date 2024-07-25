@@ -1,6 +1,6 @@
 package com.caracrepair.app.models.viewparam
 
-import com.caracrepair.app.models.responsemodel.LocationResponse
+import com.caracrepair.app.models.response.LocationResponse
 
 data class Location(
     val lat: Double,

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
-import com.caracrepair.app.models.bodymodel.SignUpBody
+import com.caracrepair.app.models.body.SignUpBody
 import com.caracrepair.app.repositories.AccountRepository
 import com.caracrepair.app.utils.FirebaseUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,7 +28,7 @@ class SignUpViewModel @Inject constructor(
     fun signUp(name: String, phoneNumber: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = accountRepository.signUp(SignUpBody(name, phoneNumber, password, FirebaseUtil().getInstanceId()))
+            val response = accountRepository.signUp(SignUpBody(name, phoneNumber, password))
             if (response != null) {
                 if (response.message == null || response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())

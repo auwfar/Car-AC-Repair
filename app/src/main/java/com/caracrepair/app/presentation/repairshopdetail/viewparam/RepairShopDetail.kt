@@ -1,6 +1,6 @@
 package com.caracrepair.app.presentation.repairshopdetail.viewparam
 
-import com.caracrepair.app.models.responsemodel.RepairShopDetailResponse
+import com.caracrepair.app.models.response.RepairShopDetailResponse
 import com.caracrepair.app.models.viewparam.Location
 
 data class RepairShopDetail(
