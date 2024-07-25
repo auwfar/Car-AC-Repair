@@ -14,7 +14,9 @@ import com.caracrepair.app.presentation.myaddress.adapter.MyAddressAdapter
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
 import com.caracrepair.app.presentation.myaddresses.viewmodel.MyAddressViewModel
 import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyAddressActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_MY_ADDRESS_ITEM = "extra_my_address_item"

@@ -10,9 +10,16 @@ import com.caracrepair.app.presentation.changepassword.ChangePasswordActivity
 import com.caracrepair.app.presentation.changeprofile.ChangeProfileActivity
 import com.caracrepair.app.presentation.myaddress.MyAddressActivity
 import com.caracrepair.app.presentation.mycar.MyCarActivity
+import com.caracrepair.app.utils.preferences.GeneralPreference
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
+
+    @Inject
+    lateinit var generalPreference: GeneralPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,9 +33,8 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            // Remove later after integrate to server
-            tvUserName.text = "Ach Chadil Auwfar"
-            tvUserPhoneNumber.text = "08984119934"
+            tvUserName.text = generalPreference.getUser()?.name
+            tvUserPhoneNumber.text = generalPreference.getUser()?.phoneNumber
 
             btnChangeProfile.setOnClickListener {
                 startActivity(ChangeProfileActivity.createIntent(requireContext()))

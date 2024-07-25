@@ -14,7 +14,9 @@ import com.caracrepair.app.presentation.mycar.adapter.MyCarAdapter
 import com.caracrepair.app.presentation.mycar.viewmodel.MyCarViewModel
 import com.caracrepair.app.presentation.mycar.viewparam.MyCarItem
 import com.caracrepair.app.presentation.mycarform.MyCarFormActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyCarActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_MY_CAR_ITEM = "extra_my_car_item"
