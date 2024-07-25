@@ -84,7 +84,6 @@ dependencies {
 
     // Maps
     implementation(libs.mapbox)
-    implementation(libs.play.services.location)
 
     testImplementation(libs.junit)
 

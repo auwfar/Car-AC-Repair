@@ -12,5 +12,5 @@ data class AddAddressBody(
     @SerializedName("address_note")
     val addressNote: String,
     @SerializedName("location")
-    val location: LocationBody
+    val location: LocationBody?
 )

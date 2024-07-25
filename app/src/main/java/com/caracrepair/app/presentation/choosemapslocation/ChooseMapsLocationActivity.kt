@@ -4,37 +4,28 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.lifecycle.lifecycleScope
 import com.caracrepair.app.databinding.ActivityChooseMapsLocationBinding
-import com.caracrepair.app.utils.GpsUtil
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
-import com.google.android.gms.tasks.CancellationTokenSource
+import com.caracrepair.app.models.viewparam.Location
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.plugin.attribution.attribution
+import com.mapbox.maps.plugin.gestures.gestures
+import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
+import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
+import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.logo.logo
-import kotlinx.coroutines.launch
 
 class ChooseMapsLocationActivity : AppCompatActivity() {
     companion object {
-        fun createIntent(context: Context): Intent {
-            return Intent(context, ChooseMapsLocationActivity::class.java)
-        }
+        const val EXTRA_LOCATION = "extra_location"
     }
 
     private lateinit var binding: ActivityChooseMapsLocationBinding
-    private val gpsUtil by lazy { GpsUtil(this) }
-
-    private var cancellationTokenSource: CancellationTokenSource? = null
-    private val fusedLocationClient by lazy {
-        LocationServices.getFusedLocationProviderClient(this)
-    }
+    private var currentLocation: Location? = null
 
     private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
         var isGranted = false
@@ -45,11 +36,7 @@ class ChooseMapsLocationActivity : AppCompatActivity() {
             }
             isGranted = true
         }
-        if (isGranted) getCurrentLocation()
-    }
-
-    private val gpsListener = { isEnable: Boolean ->
-        if (isEnable) getCurrentLocation()
+        if (isGranted) setupMapView()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,53 +44,23 @@ class ChooseMapsLocationActivity : AppCompatActivity() {
         binding = ActivityChooseMapsLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        currentLocation = intent.getParcelableExtra(EXTRA_LOCATION)
+
         binding.ivBack.setOnClickListener {
             finish()
         }
-        setupMapView()
-        getCurrentLocation()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        cancellationTokenSource?.cancel()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == GpsUtil.RC_GPS) {
-            gpsListener(true)
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+        binding.btnChoose.setOnClickListener {
+            val mapLatLng = binding.mapView.mapboxMap.cameraState.center
+            val location = Location(mapLatLng.latitude(), mapLatLng.longitude())
+            setResult(Activity.RESULT_OK, Intent().apply {
+                putExtra(EXTRA_LOCATION, location)
+            })
         }
-    }
-
-    private fun getCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermission.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION))
-            return
-        } else if (!gpsUtil.isGpsOn()) {
-            gpsUtil.turnGPSOn(gpsListener)
-            return
+        binding.ivCurrentLocation.setOnClickListener {
+            getCurrentLocation()
         }
 
-        lifecycleScope.launch {
-            val cancellationToken = CancellationTokenSource().also {
-                this@ChooseMapsLocationActivity.cancellationTokenSource = it
-            }
-            fusedLocationClient.getCurrentLocation(
-                Priority.PRIORITY_HIGH_ACCURACY,
-                cancellationToken.token
-            ).addOnSuccessListener { location ->
-                binding.mapView.mapboxMap.setCamera(
-                    CameraOptions.Builder()
-                        .center(Point.fromLngLat(location.longitude, location.latitude))
-                        .zoom(16.0)
-                        .build()
-                )
-            }.addOnFailureListener {
-                it.printStackTrace()
-            }
-        }
+        requestPermission.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION))
     }
 
     private fun setupMapView() {
@@ -113,11 +70,40 @@ class ChooseMapsLocationActivity : AppCompatActivity() {
             mapboxMap.apply {
                 setCamera(
                     CameraOptions.Builder()
-                        .center(Point.fromLngLat(106.816666, -6.200000))
+                        .center(Point.fromLngLat(currentLocation?.long ?: 106.816666, currentLocation?.lat ?: -6.200000))
                         .zoom(13.0)
                         .build()
                 )
             }
         }
+        if (currentLocation == null) getCurrentLocation()
+    }
+
+    private fun getCurrentLocation() {
+        val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
+            binding.mapView.mapboxMap.setCamera(CameraOptions.Builder().bearing(it).build())
+        }
+
+        val onIndicatorPositionChangedListener = OnIndicatorPositionChangedListener {
+            binding.mapView.mapboxMap.setCamera(CameraOptions.Builder().center(it).build())
+            binding.mapView.gestures.focalPoint = binding.mapView.mapboxMap.pixelForCoordinate(it)
+        }
+
+        binding.mapView.location.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
+        binding.mapView.location.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+    }
+}
+
+class ChooseMapsLocationActivityContract : ActivityResultContract<Location?, Location?>() {
+    override fun createIntent(context: Context, input: Location?): Intent {
+        return Intent(context, ChooseMapsLocationActivity::class.java).apply {
+            putExtra(ChooseMapsLocationActivity.EXTRA_LOCATION, input)
+        }
+    }
+
+    override fun parseResult(resultCode: Int, intent: Intent?): Location? {
+        return if (resultCode == Activity.RESULT_OK) {
+            intent?.getParcelableExtra(ChooseMapsLocationActivity.EXTRA_LOCATION)
+        } else null
     }
 }

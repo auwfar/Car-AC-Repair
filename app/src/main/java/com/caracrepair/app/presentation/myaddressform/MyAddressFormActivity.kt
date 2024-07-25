@@ -15,9 +15,11 @@ import com.caracrepair.app.databinding.ActivityMyAddressFormBinding
 import com.caracrepair.app.models.body.LocationBody
 import com.caracrepair.app.models.viewparam.Location
 import com.caracrepair.app.presentation.choosemapslocation.ChooseMapsLocationActivity
+import com.caracrepair.app.presentation.choosemapslocation.ChooseMapsLocationActivityContract
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
 import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivity.Companion.EXTRA_MY_ADDRESS_ITEM
 import com.caracrepair.app.presentation.myaddressform.viewmodel.MyAddressFormViewModel
+import com.caracrepair.app.presentation.mycarform.MyCarFormActivityContract
 import com.caracrepair.app.utils.FormUtil
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
@@ -31,11 +33,18 @@ class MyAddressFormActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMyAddressFormBinding
     private val viewModel by viewModels<MyAddressFormViewModel>()
-    private var selectedLocation = Location(-6.200000, 106.816666)
+    private var selectedLocation: Location? = null
     private val requestPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) setupMapView()
         }
+
+    private val chooseMapsLocationLauncher = registerForActivityResult(ChooseMapsLocationActivityContract()) { location ->
+        if (location != null) {
+            selectedLocation = location
+            setupMapView()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,8 +73,8 @@ class MyAddressFormActivity : AppCompatActivity() {
     private fun setupViews() {
         val myAddressItem = intent.getParcelableExtra<MyAddressItem>(EXTRA_MY_ADDRESS_ITEM)
         with(binding) {
+            selectedLocation = myAddressItem?.location
             etInputAddressName.setText(myAddressItem?.addressLabel)
-            selectedLocation = myAddressItem?.location ?: selectedLocation
             etInputLocationAddress.setText(myAddressItem?.address)
             etInputAddressNotes.setText(myAddressItem?.addressNote)
 
@@ -80,7 +89,7 @@ class MyAddressFormActivity : AppCompatActivity() {
 
     private fun setupMapView() {
         binding.viewAddressLocation.setOnClickListener {
-            startActivity(ChooseMapsLocationActivity.createIntent(this@MyAddressFormActivity))
+            chooseMapsLocationLauncher.launch(selectedLocation)
         }
         with(binding.mapView) {
             logo.enabled = false
@@ -105,9 +114,10 @@ class MyAddressFormActivity : AppCompatActivity() {
                 }
                 setCamera(
                     CameraOptions.Builder()
-                        .center(Point.fromLngLat(selectedLocation.long, selectedLocation.lat))
-                        .zoom(13.0)
-                        .build()
+                        .center(Point.fromLngLat(
+                            selectedLocation?.long ?: 106.816666,
+                            selectedLocation?.lat ?: -6.200000
+                        )).zoom(13.0).build()
                 )
             }
         }
@@ -129,7 +139,7 @@ class MyAddressFormActivity : AppCompatActivity() {
         val addressNote = binding.etInputAddressNotes.text.toString()
 
         if (isValidMyAddressForm(label, address)) {
-            viewModel.updateAddress(addressId, label, address, addressNote, LocationBody(selectedLocation))
+            viewModel.updateAddress(addressId, label, address, addressNote, selectedLocation?.let { LocationBody(it) })
         }
     }
 }

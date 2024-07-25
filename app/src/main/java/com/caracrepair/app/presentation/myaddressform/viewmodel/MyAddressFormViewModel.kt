@@ -33,7 +33,7 @@ class MyAddressFormViewModel @Inject constructor(
         label: String,
         address: String,
         addressNote: String,
-        location: LocationBody
+        location: LocationBody?
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
