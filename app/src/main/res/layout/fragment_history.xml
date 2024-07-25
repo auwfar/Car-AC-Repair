@@ -36,12 +36,13 @@
         tools:listitem="@layout/item_repair_shop" />
 
 
-
     <LinearLayout
         android:id="@+id/ll_error_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="32dp"
@@ -89,6 +90,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/black_40"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

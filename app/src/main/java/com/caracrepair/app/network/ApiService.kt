@@ -15,6 +15,7 @@ import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.HomePageResponse
 import com.caracrepair.app.models.response.RepairShopDetailResponse
 import com.caracrepair.app.models.response.RepairShopResponse
+import com.caracrepair.app.models.response.ServiceDetailResponse
 import com.caracrepair.app.models.response.ServiceTimeResponse
 import com.caracrepair.app.models.response.SignInResponse
 import com.caracrepair.app.models.response.SignUpResponse
@@ -65,4 +66,7 @@ interface ApiService {
 
     @GET("api/order-history")
     suspend fun getBookingHistory(): DataResponse<List<BookingHistoryResponse>>?
+
+    @GET("api/order/{order_id}")
+    suspend fun getServiceDetail(@Path("order_id") serviceId: Int, @Query("user_id") userId: Int): DataResponse<ServiceDetailResponse>?
 }

@@ -7,19 +7,19 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.caracrepair.app.R
-import com.caracrepair.app.databinding.ItemStatusBinding
-import com.caracrepair.app.presentation.servicedetail.viewparam.StatusItem
+import com.caracrepair.app.databinding.ItemServiceLogBinding
+import com.caracrepair.app.presentation.servicedetail.viewparam.ServiceLogItem
 
-class StatusAdapter : RecyclerView.Adapter<StatusAdapter.ViewHolder>() {
-    private var items = listOf<StatusItem>()
+class ServiceLogAdapter : RecyclerView.Adapter<ServiceLogAdapter.ViewHolder>() {
+    private var items = listOf<ServiceLogItem>()
 
-    fun setItems(items: List<StatusItem>) {
+    fun setItems(items: List<ServiceLogItem>) {
         this.items = items
         notifyItemRangeInserted(0, items.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemServiceLogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun getItemCount() = items.size
@@ -39,13 +39,13 @@ class StatusAdapter : RecyclerView.Adapter<StatusAdapter.ViewHolder>() {
         }
     }
 
-    class ViewHolder(val binding: ItemStatusBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemServiceLogBinding) : RecyclerView.ViewHolder(binding.root) {
         private val feeDetailAdapter by lazy { FeeDetailAdapter() }
-        fun bind(item: StatusItem?) {
+        fun bind(item: ServiceLogItem?) {
             with(binding) {
-                tvStatusTitle.text = item?.statusTitle
-                tvStatusDescription.text = item?.statusDescription
-                tvStatusTime.text = item?.statusTime
+                tvStatusTitle.text = item?.title
+                tvStatusDescription.text = item?.description
+                tvStatusTime.text = item?.time
                 if (item?.fee != null) {
                     groupFee.isVisible = true
                     tvFeeTotal.text = item.fee.feeTotal

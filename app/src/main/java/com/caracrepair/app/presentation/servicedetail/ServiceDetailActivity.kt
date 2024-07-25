@@ -3,6 +3,7 @@ package com.caracrepair.app.presentation.servicedetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,12 +12,12 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.caracrepair.app.R
+import com.caracrepair.app.consts.ServiceTypeConst
 import com.caracrepair.app.databinding.ActivityServiceDetailBinding
 import com.caracrepair.app.presentation.rescheduleservice.RescheduleServiceActivity
-import com.caracrepair.app.presentation.servicedetail.adapter.StatusAdapter
-import com.caracrepair.app.presentation.servicedetail.viewparam.FeeDetailItem
-import com.caracrepair.app.presentation.servicedetail.viewparam.FeeItem
-import com.caracrepair.app.presentation.servicedetail.viewparam.StatusItem
+import com.caracrepair.app.presentation.servicedetail.adapter.ServiceLogAdapter
+import com.caracrepair.app.presentation.servicedetail.viewmodel.ServiceDetailViewModel
+import com.caracrepair.app.presentation.servicedetail.viewparam.ServiceDetail
 import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity
 import com.caracrepair.app.utils.WhatsAppUtil
 
@@ -31,69 +32,54 @@ class ServiceDetailActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityServiceDetailBinding
-    private val statusAdapter by lazy { StatusAdapter() }
-    private val status = listOf(
-        StatusItem(
-            statusTitle = "Konfirmasi Pengecekan",
-            statusDescription = "Kami menemukan kompresor yang lemah, kebocoran freon, dan filter kabin yang kotor. Kami merekomendasikan penggantian kompresor, perbaikan kebocoran, pengisian ulang freon, serta penggantian filter kabin untuk memastikan AC bekerja optimal. Mohon konfirmasi jika Anda ingin melanjutkan perbaikan ini.",
-            statusTime = "24 Juni 2024, 17:15",
-            fee = FeeItem(
-                feeTotal = "Rp 1.000.000",
-                fees = listOf(
-                    FeeDetailItem(
-                        feeName = "Biaya Layanan",
-                        feeTotal = "Rp 500.000"
-                    ),
-                    FeeDetailItem(
-                        feeName = "Biaya Sparepart",
-                        feeTotal = "Rp 500.000"
-                    )
-                )
-            )
-        ),
-        StatusItem(
-            statusTitle = "Pengecekan",
-            statusDescription = "Kendaraan Anda sedang dalam tahap pengecekan oleh teknisi kami. Kami sedang melakukan pemeriksaan menyeluruh untuk mengidentifikasi semua masalah potensial.",
-            statusTime = "24 Juni 2024, 17:10",
-            fee = null
-        ),
-        StatusItem(
-            statusTitle = "Mobil Sedang Dijemput",
-            statusDescription = "Kami sedang menjemput mobil Anda di lokasi yang telah disepakati. Pastikan mobil siap untuk diambil. Kami akan menghubungi Anda setelah mobil sampai di bengkel.",
-            statusTime = "24 Juni 2024, 17:00",
-            fee = null
-        ),
-        StatusItem(
-            statusTitle = "Menunggu Antrian",
-            statusDescription = "Pesanan Anda telah diterima dan sedang menunggu giliran untuk dilayani oleh mekanik kami. Kami akan segera memproses pesanan Anda.",
-            statusTime = "24 Juni 2024, 16:08",
-            fee = null
-        )
-    )
+    private val viewModel by viewModels<ServiceDetailViewModel>()
+    private val serviceLogAdapter by lazy { ServiceLogAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityServiceDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupViews()
-        setupRecyclerView()
-    }
-
-    private fun setupViews() {
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
             }
+            btnReload.setOnClickListener {
+                viewModel.getServiceDetail(intent.getIntExtra(EXTRA_SERVICE_ID, 0))
+            }
+        }
+
+        observeViewModel()
+        setupRecyclerView()
+
+        viewModel.getServiceDetail(intent.getIntExtra(EXTRA_SERVICE_ID, 0))
+    }
+
+    private fun observeViewModel() {
+        viewModel.serviceDetailResult.observe(this) {
+            binding.llErrorView.isVisible = false
+            setupViews(it)
+        }
+        viewModel.loadingState.observe(this) { isLoading ->
+            binding.flLoading.isVisible = isLoading
+        }
+        viewModel.errorMessage.observe(this) { message ->
+            binding.llErrorView.isVisible = true
+            binding.tvErrorDescription.text = message
+        }
+    }
+
+    private fun setupViews(detail: ServiceDetail) {
+        with(binding) {
             ivContactAdmin.setOnClickListener {
                 val message = getString(
                     R.string.desc_contact_admin_from_service_detail,
-                    "Car AC Repair",
-                    "Order: S-46726733"
+                    detail.repairShop.name,
+                    detail.orderId.toString()
                 )
                 WhatsAppUtil.sendWhatsAppMessage(
                     this@ServiceDetailActivity,
-                    "+628984119934",
+                    detail.repairShop.adminPhoneNumber,
                     message
                 )
             }
@@ -101,31 +87,47 @@ class ServiceDetailActivity : AppCompatActivity() {
             val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(8))
             val requestBuilder = Glide.with(root).load(R.drawable.img_placeholder).apply(requestOptions)
             Glide.with(root)
-                .load("https://www.caracrepair.com/assets/images/repair-shop/repair-shop-1.jpg")
+                .load(detail.repairShop.imageUrl)
                 .apply(requestOptions)
                 .thumbnail(requestBuilder)
                 .into(ivRepairShop)
 
-            tvOrderId.text = "Order: S-46726733"
-            tvOrderDate.text = "24 Juni 2024, 16:08"
-            tvServiceTime.text = "24 Juni 2024, 17:00"
-            tvCarName.text = "Toyota Avanza"
-            tvCarDistance.text = "100.000 km"
-            tvRepairShopName.text = "Bengkel AC Mobil"
-            tvRepairShopAddress.text = "Jl. Raya Bogor No. 1, Jakarta"
-            tvComplaint.text = "AC tidak dingin"
-            tvOrderType.text = "Antar/Ambil sendiri ke Bengkel"
-            tvServiceMechanic.text = "Budi"
-            tvServiceStatus.text = "Konfirmasi Pengecekan"
-
-            tvRepairShopAddress.isVisible = true // Show Only for Service Type "Pelayanan Antar/Jemput dari Bengkel"
-            tvServiceAddress.isVisible = false // Show Only for Service Type "Antar/Ambil sendiri ke Bengkel"
-
-            btnReschedule.setOnClickListener {
-                startActivity(RescheduleServiceActivity.createIntent(this@ServiceDetailActivity))
+            tvOrderId.text = detail.orderId.toString()
+            tvOrderDate.text = detail.orderTime
+            tvServiceTime.text = detail.serviceTime
+            tvCarName.text = detail.carName
+            tvCarDistance.text = detail.carDistance
+            tvRepairShopName.text = detail.repairShop.name
+            tvRepairShopAddress.text = detail.repairShop.address
+            tvComplaint.text = detail.complaint
+            tvOrderType.text = if (detail.serviceType == ServiceTypeConst.TYPE_DELIVER) {
+                getString(R.string.title_deliver_to_repair_shop)
+            } else {
+                getString(R.string.title_pick_up_from_repair_shop)
             }
-            btnPay.setOnClickListener {
-                startActivity(ServicePaymentActivity.createIntent(this@ServiceDetailActivity))
+            tvServiceAddress.text = detail.pickUpAddress
+            tvServiceMechanic.text = detail.mechanicName
+            tvServiceStatus.text = detail.status
+
+            tvRepairShopAddress.isVisible = (detail.serviceType == ServiceTypeConst.TYPE_DELIVER)
+            tvServiceAddress.isVisible = (detail.serviceType == ServiceTypeConst.TYPE_PICKUP)
+
+            serviceLogAdapter.setItems(detail.serviceLogs)
+
+            if (detail.isAbleToPay) {
+                llAction.isVisible = true
+                btnPay.isVisible = true
+                btnPay.setOnClickListener {
+                    startActivity(ServicePaymentActivity.createIntent(this@ServiceDetailActivity))
+                }
+            } else if (detail.isAbleToReschedule) {
+                llAction.isVisible = true
+                btnReschedule.isVisible = true
+                btnReschedule.setOnClickListener {
+                    startActivity(RescheduleServiceActivity.createIntent(this@ServiceDetailActivity))
+                }
+            } else {
+                llAction.isVisible = false
             }
         }
     }
@@ -133,9 +135,7 @@ class ServiceDetailActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         with(binding.rvStatus) {
             layoutManager = LinearLayoutManager(this@ServiceDetailActivity)
-            adapter = statusAdapter.apply {
-                setItems(status)
-            }
+            adapter = serviceLogAdapter
         }
     }
 }

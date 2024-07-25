@@ -5,6 +5,7 @@ import com.caracrepair.app.models.body.ServiceTimesBody
 import com.caracrepair.app.models.response.BookingHistoryResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.DataResponse
+import com.caracrepair.app.models.response.ServiceDetailResponse
 import com.caracrepair.app.models.response.ServiceTimeResponse
 import com.caracrepair.app.network.ApiService
 import kotlinx.coroutines.CoroutineScope
@@ -43,6 +44,16 @@ class ServiceRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.getBookingHistory()
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun getServiceDetail(serviceId: Int, userId: Int): DataResponse<ServiceDetailResponse>? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.getServiceDetail(serviceId, userId)
             } catch (e: Exception) {
                 null
             }

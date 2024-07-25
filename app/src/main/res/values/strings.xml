@@ -137,4 +137,6 @@
     <string name="desc_service_successfully_booking">Berhasil! Reservasi service Anda telah kami terima dan tinggal menunggu antrian. Kami akan segera memprosesnya. Terima kasih telah menggunakan layanan kami.</string>
     <string name="title_no_booking_yet">Belum Ada Riwayat Service</string>
     <string name="desc_no_booking_yet">Tidak ada riwayat service yang tercatat. Mulailah memesan layanan perawatan atau perbaikan kendaraan Anda melalui aplikasi kami.</string>
+    <string name="title_deliver_to_repair_shop">Antar/Ambil sendiri ke Bengkel</string>
+    <string name="title_pick_up_from_repair_shop">Pelayanan Antar/Jemput dari Bengkel</string>
 </resources>

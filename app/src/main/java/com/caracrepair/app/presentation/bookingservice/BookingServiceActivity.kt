@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.caracrepair.app.R
+import com.caracrepair.app.consts.ServiceTypeConst
 import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.databinding.ActivityBookingServiceBinding
 import com.caracrepair.app.models.body.BookingServiceBody
@@ -166,9 +167,9 @@ class BookingServiceActivity : AppCompatActivity() {
 
     private fun bookingService() {
         val serviceType = if (binding.toggleOrderType.checkedButtonId == R.id.btn_pickup) {
-            "pickup"
+            ServiceTypeConst.TYPE_PICKUP
         } else {
-            "deliver"
+            ServiceTypeConst.TYPE_DELIVER
         }
         val carId = binding.etCar.text.toString()
         val carDistance = binding.etCarDistance.text.toString()
