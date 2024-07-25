@@ -13,6 +13,7 @@ import com.caracrepair.app.models.body.SignUpBody
 import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
 import com.caracrepair.app.models.response.BookingHistoryResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
+import com.caracrepair.app.models.response.CarResponse
 import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.HomePageResponse
 import com.caracrepair.app.models.response.RepairShopDetailResponse
@@ -82,4 +83,7 @@ interface ApiService {
 
     @POST("api/change-password")
     suspend fun changePassword(@Body request: ChangePasswordBody): StatusResponse?
+
+    @GET("api/cars")
+    suspend fun getCars(): DataResponse<List<CarResponse>>
 }

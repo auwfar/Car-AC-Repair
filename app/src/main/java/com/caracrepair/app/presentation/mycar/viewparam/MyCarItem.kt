@@ -1,6 +1,7 @@
 package com.caracrepair.app.presentation.mycar.viewparam
 
 import android.os.Parcelable
+import com.caracrepair.app.models.response.CarResponse
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -8,4 +9,10 @@ data class MyCarItem(
     val id: Int,
     val carName: String,
     val carLicenseNumber: String
-) : Parcelable
+) : Parcelable {
+    constructor(data: CarResponse?) : this(
+        id = data?.id ?: 0,
+        carName = data?.name.orEmpty(),
+        carLicenseNumber = data?.licenseNumber.orEmpty()
+    )
+}
