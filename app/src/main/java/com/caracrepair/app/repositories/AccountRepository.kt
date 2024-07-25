@@ -1,5 +1,6 @@
 package com.caracrepair.app.repositories
 
+import com.caracrepair.app.models.body.ChangePasswordBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpSignUpBody
 import com.caracrepair.app.models.body.ResetPasswordBody
@@ -89,6 +90,16 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.resetPassword(resetPasswordBody)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun changePassword(changePasswordBody: ChangePasswordBody): StatusResponse? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.changePassword(changePasswordBody)
             } catch (e: Exception) {
                 null
             }

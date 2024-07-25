@@ -30,8 +30,7 @@ object FormUtil {
         return isValid
     }
 
-    fun validatePassword(textInputLayout: TextInputLayout, password: String): Boolean {
-        val fieldName = StringConst.FieldName.PASSWORD
+    fun validatePassword(fieldName: String, textInputLayout: TextInputLayout, password: String): Boolean {
         val minimumPasswordCharacter = 8
         val isValid = when {
             password.isBlank() -> {
@@ -67,11 +66,11 @@ object FormUtil {
     }
 
     fun validateConfirmationPassword(
+        fieldName: String,
         textInputLayout: TextInputLayout,
         password: String,
         confirmationPassword: String
     ): Boolean {
-        val fieldName = StringConst.FieldName.PASSWORD_CONFIRMATION
         val isValid = when {
             confirmationPassword.isBlank() -> {
                 textInputLayout.error = StringConst.requiredMessage(fieldName)

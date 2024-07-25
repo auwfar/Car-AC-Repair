@@ -1,6 +1,7 @@
 package com.caracrepair.app.network
 
 import com.caracrepair.app.models.body.BookingServiceBody
+import com.caracrepair.app.models.body.ChangePasswordBody
 import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpSignUpBody
@@ -78,4 +79,7 @@ interface ApiService {
 
     @GET("api/order-payment/{order_id}")
     suspend fun getServicePayment(@Path("order_id") serviceId: Int, @Query("user_id") userId: Int): DataResponse<ServicePaymentResponse>?
+
+    @POST("api/change-password")
+    suspend fun changePassword(@Body request: ChangePasswordBody): StatusResponse?
 }

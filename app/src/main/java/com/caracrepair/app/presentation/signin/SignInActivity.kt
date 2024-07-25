@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.databinding.ActivitySignInBinding
 import com.caracrepair.app.presentation.signup.SignUpActivity
 import com.caracrepair.app.presentation.forgotpassword.ForgotPasswordActivity
@@ -62,7 +63,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun isValidPhoneNumberAndPassword(phoneNumber: String, password: String): Boolean {
         val isValidPhoneNumber = FormUtil.validatePhoneNumber(binding.tilPhoneNumber, phoneNumber)
-        val isValidPassword = FormUtil.validatePassword(binding.tilPassword, password)
+        val isValidPassword = FormUtil.validatePassword(StringConst.FieldName.PASSWORD, binding.tilPassword, password)
         return isValidPhoneNumber && isValidPassword
     }
 

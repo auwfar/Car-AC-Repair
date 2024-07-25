@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.databinding.ActivityResetPasswordBinding
 import com.caracrepair.app.presentation.resetpassword.viewmodel.ResetPasswordViewModel
 import com.caracrepair.app.presentation.signin.SignInActivity
@@ -61,8 +62,8 @@ class ResetPasswordActivity : AppCompatActivity() {
     }
 
     private fun isValidResetPasswordForm(password: String, confirmationPassword: String): Boolean {
-        val isValidPassword = FormUtil.validatePassword(binding.tilNewPassword, password)
-        val isValidConfirmationPassword = FormUtil.validateConfirmationPassword(binding.tilConfirmationNewPassword, password, confirmationPassword)
+        val isValidPassword = FormUtil.validatePassword(StringConst.FieldName.PASSWORD, binding.tilNewPassword, password)
+        val isValidConfirmationPassword = FormUtil.validateConfirmationPassword(StringConst.FieldName.PASSWORD_CONFIRMATION, binding.tilConfirmationNewPassword, password, confirmationPassword)
         return isValidPassword && isValidConfirmationPassword
     }
 

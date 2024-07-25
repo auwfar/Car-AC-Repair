@@ -20,5 +20,7 @@ object StringConst {
         const val CAR_DISTANCE = "Jarak Tempuh Mobil"
         const val COMPLAINT = "Keluhan"
         const val REPAIR_SHOP = "Bengkel"
+        const val NEW_PASSWORD = "Password Baru"
+        const val NEW_PASSWORD_CONFIRMATION = "Konfirmasi Password Baru"
     }
 }

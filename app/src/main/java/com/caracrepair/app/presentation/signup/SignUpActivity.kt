@@ -62,8 +62,8 @@ class SignUpActivity : AppCompatActivity() {
     private fun isValidRegisterForm(name: String, phoneNumber: String, password: String, confirmationPassword: String): Boolean {
         val isValidName = FormUtil.validateRequired(StringConst.FieldName.NAME, binding.tilName, name)
         val isValidPhoneNumber = FormUtil.validatePhoneNumber(binding.tilPhoneNumber, phoneNumber)
-        val isValidPassword = FormUtil.validatePassword(binding.tilPassword, password)
-        val isValidConfirmationPassword = FormUtil.validateConfirmationPassword(binding.tilConfirmationPassword, password, confirmationPassword)
+        val isValidPassword = FormUtil.validatePassword(StringConst.FieldName.PASSWORD, binding.tilPassword, password)
+        val isValidConfirmationPassword = FormUtil.validateConfirmationPassword(StringConst.FieldName.PASSWORD_CONFIRMATION, binding.tilConfirmationPassword, password, confirmationPassword)
         return isValidName && isValidPhoneNumber && isValidPassword && isValidConfirmationPassword
     }
 
