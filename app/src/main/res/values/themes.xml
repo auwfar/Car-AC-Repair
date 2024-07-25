@@ -28,4 +28,12 @@
     <style name="App.Material3.MaterialCalendar.HeaderLayout" parent="@style/Widget.Material3.MaterialCalendar.HeaderLayout">
         <item name="android:visibility">gone</item>
     </style>
+
+    <style name="AppTheme.SheetDialogTheme" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppTheme.SheetDialogStyle</item>
+    </style>
+
+    <style name="AppTheme.SheetDialogStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_white_top_radius_8</item>
+    </style>
 </resources>

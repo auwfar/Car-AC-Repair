@@ -4,6 +4,7 @@ import com.caracrepair.app.models.body.AddAddressBody
 import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.ChangePasswordBody
+import com.caracrepair.app.models.body.DeleteAddressBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
 import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
@@ -111,4 +112,7 @@ interface ApiService {
 
     @POST("api/address-update")
     suspend fun updateAddress(@Body request: UpdateAddressBody): StatusResponse
+
+    @POST("api/address-delete")
+    suspend fun removeAddress(@Body request: DeleteAddressBody): StatusResponse
 }

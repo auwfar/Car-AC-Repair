@@ -141,4 +141,8 @@
     <string name="title_pick_up_from_repair_shop">Pelayanan Antar/Jemput dari Bengkel</string>
     <string name="title_service_successfully_rescheduled">Jadwal Service Berhasil Diubah!</string>
     <string name="desc_service_successfully_rescheduled">Jadwal Service Diperbarui! Kami telah berhasil mengubah jadwal service Anda. Terima kasih atas kepercayaan Anda dan kami siap melayani pada waktu yang baru.</string>
+    <string name="desc_remove_data">Menghapus data ini akan menghapusnya secara permanen dari sistem. Konfirmasi untuk melanjutkan atau batalkan untuk mempertahankan data.</string>
+    <string name="title_remove_data">Hapus Data?</string>
+    <string name="title_dont_remove">Tidak, Jangan Hapus</string>
+    <string name="title_yes_remove_now">Ya, Hapus Sekarang</string>
 </resources>

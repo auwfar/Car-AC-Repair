@@ -27,9 +27,6 @@ import com.mapbox.maps.plugin.logo.logo
 class MyAddressFormActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_MY_ADDRESS_ITEM = "extra_my_address_item"
-        fun createIntent(context: Context): Intent {
-            return Intent(context, MyAddressFormActivity::class.java)
-        }
     }
 
     private lateinit var binding: ActivityMyAddressFormBinding

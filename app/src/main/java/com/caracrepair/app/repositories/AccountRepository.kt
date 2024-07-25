@@ -3,6 +3,7 @@ package com.caracrepair.app.repositories
 import com.caracrepair.app.models.body.AddAddressBody
 import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.ChangePasswordBody
+import com.caracrepair.app.models.body.DeleteAddressBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpSignUpBody
@@ -178,6 +179,16 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.updateAddress(updateAddressBody)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun removeAddress(deleteAddressBody: DeleteAddressBody): StatusResponse? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.removeAddress(deleteAddressBody)
             } catch (e: Exception) {
                 null
             }

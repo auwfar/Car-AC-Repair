@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
+import com.caracrepair.app.models.body.DeleteAddressBody
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
 import com.caracrepair.app.repositories.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,8 @@ class MyAddressViewModel @Inject constructor(
 
     private val _addressesResult = MutableLiveData<List<MyAddressItem>>()
     val addressesResult: LiveData<List<MyAddressItem>> = _addressesResult
+    private val _removeAddressResult = MutableLiveData<String>()
+    val removeAddressResult: LiveData<String> = _removeAddressResult
     private val _loadingState = MutableLiveData<Boolean>()
     val loadingState: LiveData<Boolean> = _loadingState
     private val _errorMessage = MutableLiveData<String>()
@@ -34,6 +37,23 @@ class MyAddressViewModel @Inject constructor(
                     return@launch
                 }
                 _addressesResult.postValue(response.data?.map { MyAddressItem(it) }.orEmpty())
+            } else {
+                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+            }
+            _loadingState.postValue(false)
+        }
+    }
+
+    fun removeAddress(addressId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _loadingState.postValue(true)
+            val response = accountRepository.removeAddress(DeleteAddressBody(addressId))
+            if (response != null) {
+                if (response.status != true) {
+                    _errorMessage.postValue(response.message.orEmpty())
+                    return@launch
+                }
+                _removeAddressResult.postValue(response.message.orEmpty())
             } else {
                 _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
             }

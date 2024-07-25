@@ -3,6 +3,7 @@ package com.caracrepair.app.presentation.myaddress
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,11 +11,13 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityMyAddressBinding
+import com.caracrepair.app.models.viewparam.ButtonParam
+import com.caracrepair.app.models.viewparam.ConfirmationDialogParam
 import com.caracrepair.app.presentation.myaddress.adapter.MyAddressAdapter
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
 import com.caracrepair.app.presentation.myaddresses.viewmodel.MyAddressViewModel
-import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivity
 import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivityContract
+import com.caracrepair.app.utils.dialog.ConfirmationDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -67,6 +70,10 @@ class MyAddressActivity : AppCompatActivity() {
             }
             myAddressAdapter.setItems(address)
         }
+        viewModel.removeAddressResult.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            viewModel.getAddresses()
+        }
         viewModel.loadingState.observe(this) {
             binding.flLoading.isVisible = it
         }
@@ -85,6 +92,9 @@ class MyAddressActivity : AppCompatActivity() {
         with(binding.rvMyAddress) {
             layoutManager = LinearLayoutManager(this@MyAddressActivity)
             adapter = myAddressAdapter.apply {
+                setOnClickRemoveDataListener {
+                    showRemoveAddressDialog(it)
+                }
                 setOnClickChangeDataListener {
                     myAddressFormLauncher.launch(it)
                 }
@@ -98,6 +108,24 @@ class MyAddressActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun showRemoveAddressDialog(addressId: Int) {
+        val dialog = ConfirmationDialog.newInstance(ConfirmationDialogParam(
+            title = getString(R.string.title_remove_data),
+            message = getString(R.string.desc_remove_data),
+            positiveButton = ButtonParam(
+                text = getString(R.string.title_dont_remove),
+                action = {}
+            ),
+            negativeButton = ButtonParam(
+                text = getString(R.string.title_yes_remove_now),
+                action = {
+                    viewModel.removeAddress(addressId)
+                }
+            )
+        ))
+        dialog.show(supportFragmentManager, null)
     }
 }
 
