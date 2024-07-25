@@ -12,5 +12,7 @@ data class RepairShopResponse(
     @SerializedName("address")
     val address: String?,
     @SerializedName("admin_phone_number")
-    val adminPhoneNumber: String?
+    val adminPhoneNumber: String?,
+    @SerializedName("location")
+    val location: LocationResponse?
 )
