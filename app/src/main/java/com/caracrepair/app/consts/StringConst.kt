@@ -22,5 +22,7 @@ object StringConst {
         const val REPAIR_SHOP = "Bengkel"
         const val NEW_PASSWORD = "Password Baru"
         const val NEW_PASSWORD_CONFIRMATION = "Konfirmasi Password Baru"
+        const val LICENSE_NUMBER = "Nomor Plat"
+        const val YEAR = "Tahun"
     }
 }

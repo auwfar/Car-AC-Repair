@@ -37,7 +37,7 @@ class OtpVerificationViewModel @Inject constructor(
             _loadingState.postValue(true)
             val response = accountRepository.verifyOtpSignUp(VerifyOtpSignUpBody(otpCode, userId))
             if (response != null) {
-                if (response.message == null || response.status != true) {
+                if (response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())
                     return@launch
                 }
@@ -54,7 +54,7 @@ class OtpVerificationViewModel @Inject constructor(
             _loadingState.postValue(true)
             val response = accountRepository.verifyOtpForgotPassword(VerifyOtpForgotPasswordBody(otpCode, userId))
             if (response != null) {
-                if (response.message == null || response.status != true) {
+                if (response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())
                     return@launch
                 }

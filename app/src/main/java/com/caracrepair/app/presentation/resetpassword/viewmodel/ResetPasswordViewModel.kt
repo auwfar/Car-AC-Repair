@@ -29,7 +29,7 @@ class ResetPasswordViewModel @Inject constructor(
             _loadingState.postValue(true)
             val response = accountRepository.resetPassword(ResetPasswordBody(userId, password))
             if (response != null) {
-                if (response.message == null || response.status != true) {
+                if (response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())
                     return@launch
                 }

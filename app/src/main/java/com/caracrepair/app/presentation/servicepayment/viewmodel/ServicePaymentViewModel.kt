@@ -31,7 +31,7 @@ class ServicePaymentViewModel @Inject constructor(
             _loadingState.postValue(true)
             val response = serviceRepository.getServicePayment(serviceId, generalPreference.getUser()?.userId ?: 0)
             if (response != null) {
-                if (response.message == null || response.status != true) {
+                if (response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())
                     return@launch
                 }

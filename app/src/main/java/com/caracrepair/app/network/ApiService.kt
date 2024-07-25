@@ -1,5 +1,6 @@
 package com.caracrepair.app.network
 
+import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.ChangePasswordBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
@@ -10,6 +11,7 @@ import com.caracrepair.app.models.body.ResetPasswordBody
 import com.caracrepair.app.models.body.ServiceTimesBody
 import com.caracrepair.app.models.body.SignInBody
 import com.caracrepair.app.models.body.SignUpBody
+import com.caracrepair.app.models.body.UpdateCarBody
 import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
 import com.caracrepair.app.models.body.VerifyOtpSignUpBody
 import com.caracrepair.app.models.response.AddressResponse
@@ -95,4 +97,10 @@ interface ApiService {
 
     @GET("api/addresses")
     suspend fun getAddresses(): DataResponse<List<AddressResponse>>
+
+    @POST("api/car-add")
+    suspend fun addCar(@Body request: AddCarBody): StatusResponse
+
+    @POST("api/car-update")
+    suspend fun updateCar(@Body request: UpdateCarBody): StatusResponse
 }

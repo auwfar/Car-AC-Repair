@@ -7,10 +7,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.databinding.ActivityForgotPasswordBinding
 import com.caracrepair.app.presentation.forgotpassword.viewmodel.ForgotPasswordViewModel
-import com.caracrepair.app.presentation.main.MainActivity
 import com.caracrepair.app.presentation.otpverification.OtpVerificationActivity
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.presentation.signin.SignInActivity

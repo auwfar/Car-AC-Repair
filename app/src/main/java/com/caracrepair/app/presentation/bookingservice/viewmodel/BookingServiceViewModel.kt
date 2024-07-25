@@ -43,7 +43,7 @@ class BookingServiceViewModel @Inject constructor(
             _loadingState.postValue(true)
             val response = serviceRepository.bookingService(body)
             if (response != null) {
-                if (response.message == null || response.status != true) {
+                if (response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())
                     return@launch
                 }
@@ -64,7 +64,7 @@ class BookingServiceViewModel @Inject constructor(
                 date
             ))
             if (response != null) {
-                if (response.message == null || response.status != true) {
+                if (response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())
                     return@launch
                 }

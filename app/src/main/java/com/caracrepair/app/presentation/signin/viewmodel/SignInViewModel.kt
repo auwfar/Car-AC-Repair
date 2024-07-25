@@ -33,7 +33,7 @@ class SignInViewModel @Inject constructor(
             _loadingState.postValue(true)
             val response = accountRepository.signIn(SignInBody(phoneNumber, password, FirebaseUtil().getInstanceId()))
             if (response != null) {
-                if (response.message == null || response.status != true) {
+                if (response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())
                     return@launch
                 }

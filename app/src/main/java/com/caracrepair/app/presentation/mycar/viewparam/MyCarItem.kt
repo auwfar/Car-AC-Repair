@@ -8,11 +8,13 @@ import kotlinx.parcelize.Parcelize
 data class MyCarItem(
     val id: Int,
     val carName: String,
-    val carLicenseNumber: String
+    val carLicenseNumber: String,
+    val carYear: String
 ) : Parcelable {
     constructor(data: CarResponse?) : this(
         id = data?.id ?: 0,
         carName = data?.name.orEmpty(),
-        carLicenseNumber = data?.licenseNumber.orEmpty()
+        carLicenseNumber = data?.licenseNumber.orEmpty(),
+        carYear = data?.carYear.orEmpty()
     )
 }
