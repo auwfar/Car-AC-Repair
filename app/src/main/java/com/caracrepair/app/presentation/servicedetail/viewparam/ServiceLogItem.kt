@@ -7,7 +7,7 @@ data class ServiceLogItem(
     val title: String,
     val description: String,
     val time: String,
-    val fee: FeeItem? = null
+    val fee: FeeItem?
 ) {
     constructor(response: ServiceLogResponse?) : this(
         response?.title.orEmpty(),

@@ -8,8 +8,8 @@ import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.RescheduleServiceResponse
 import com.caracrepair.app.models.response.ServiceDetailResponse
+import com.caracrepair.app.models.response.ServicePaymentResponse
 import com.caracrepair.app.models.response.ServiceTimeResponse
-import com.caracrepair.app.models.response.StatusResponse
 import com.caracrepair.app.network.ApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -67,6 +67,16 @@ class ServiceRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.rescheduleService(request)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun getServicePayment(serviceId: Int, userId: Int): DataResponse<ServicePaymentResponse>? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.getServicePayment(serviceId, userId)
             } catch (e: Exception) {
                 null
             }

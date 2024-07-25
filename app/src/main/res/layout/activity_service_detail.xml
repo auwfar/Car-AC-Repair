@@ -474,5 +474,4 @@
             android:layout_gravity="center"
             android:progressTint="@color/white" />
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

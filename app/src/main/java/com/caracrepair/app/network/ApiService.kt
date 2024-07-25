@@ -18,6 +18,7 @@ import com.caracrepair.app.models.response.RepairShopDetailResponse
 import com.caracrepair.app.models.response.RepairShopResponse
 import com.caracrepair.app.models.response.RescheduleServiceResponse
 import com.caracrepair.app.models.response.ServiceDetailResponse
+import com.caracrepair.app.models.response.ServicePaymentResponse
 import com.caracrepair.app.models.response.ServiceTimeResponse
 import com.caracrepair.app.models.response.SignInResponse
 import com.caracrepair.app.models.response.SignUpResponse
@@ -74,4 +75,7 @@ interface ApiService {
 
     @POST("api/reschedule-service")
     suspend fun rescheduleService(@Body request: RescheduleServiceBody): DataResponse<RescheduleServiceResponse>?
+
+    @GET("api/order-payment/{order_id}")
+    suspend fun getServicePayment(@Path("order_id") serviceId: Int, @Query("user_id") userId: Int): DataResponse<ServicePaymentResponse>?
 }

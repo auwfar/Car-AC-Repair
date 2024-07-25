@@ -122,7 +122,7 @@ class ServiceDetailActivity : AppCompatActivity() {
                 llAction.isVisible = true
                 btnPay.isVisible = true
                 btnPay.setOnClickListener {
-                    startActivity(ServicePaymentActivity.createIntent(this@ServiceDetailActivity))
+                    startActivity(ServicePaymentActivity.createIntent(this@ServiceDetailActivity, serviceId))
                 }
             } else if (detail.isAbleToReschedule) {
                 llAction.isVisible = true
