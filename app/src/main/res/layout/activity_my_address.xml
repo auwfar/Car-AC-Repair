@@ -47,7 +47,7 @@
         tools:listitem="@layout/item_my_address" />
 
     <LinearLayout
-        android:id="@+id/ll_empty_view"
+        android:id="@+id/ll_error_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -62,6 +62,7 @@
         app:layout_constraintTop_toBottomOf="@id/ll_toolbar">
 
         <TextView
+            android:id="@+id/tv_error_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -72,6 +73,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tv_error_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -82,7 +84,7 @@
             android:textSize="18sp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_empty_add_data"
+            android:id="@+id/btn_error_action"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
             android:layout_marginTop="24dp"
@@ -91,8 +93,27 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:cornerRadius="8dp" />
-
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_loading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/black_40"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/fl_add_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_toolbar">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:progressTint="@color/white" />
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/fl_add_address"

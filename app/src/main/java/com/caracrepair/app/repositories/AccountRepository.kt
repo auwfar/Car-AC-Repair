@@ -8,6 +8,7 @@ import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
 import com.caracrepair.app.models.body.VerifyOtpSignUpBody
 import com.caracrepair.app.models.body.SignInBody
 import com.caracrepair.app.models.body.SignUpBody
+import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.CarResponse
 import com.caracrepair.app.network.ApiService
 import com.caracrepair.app.models.response.DataResponse
@@ -111,6 +112,16 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.getCars()
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun getAddresses(): DataResponse<List<AddressResponse>>? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.getAddresses()
             } catch (e: Exception) {
                 null
             }

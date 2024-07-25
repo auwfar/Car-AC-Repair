@@ -9,6 +9,7 @@ import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
 class MyAddressAdapter : RecyclerView.Adapter<MyAddressAdapter.ViewHolder>() {
     private var items = listOf<MyAddressItem>()
     private var onClickItemListener: ((MyAddressItem?) -> Unit)? = null
+    private var onClickChangeDataListener: ((MyAddressItem?) -> Unit)? = null
 
     fun setItems(items: List<MyAddressItem>) {
         this.items = items
@@ -17,6 +18,10 @@ class MyAddressAdapter : RecyclerView.Adapter<MyAddressAdapter.ViewHolder>() {
 
     fun setOnClickItemListener(listener: (MyAddressItem?) -> Unit) {
         this.onClickItemListener = listener
+    }
+
+    fun setOnClickChangeDataListener(listener: (MyAddressItem?) -> Unit) {
+        onClickChangeDataListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
@@ -36,8 +41,11 @@ class MyAddressAdapter : RecyclerView.Adapter<MyAddressAdapter.ViewHolder>() {
                 tvAddressLabel.text = item?.addressLabel
                 tvAddress.text = item?.address
 
+                btnChangeData.setOnClickListener {
+                    onClickChangeDataListener?.invoke(item)
+                }
                 root.setOnClickListener {
-                     onClickItemListener?.invoke(item)
+                    onClickItemListener?.invoke(item)
                 }
             }
         }

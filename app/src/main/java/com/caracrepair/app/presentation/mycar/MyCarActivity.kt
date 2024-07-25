@@ -41,10 +41,9 @@ class MyCarActivity : AppCompatActivity() {
             btnAddCar.setOnClickListener {
                 startActivity(MyCarFormActivity.createIntent(this@MyCarActivity))
             }
-            btnEmptyAddCar.setOnClickListener {
-                startActivity(MyCarFormActivity.createIntent(this@MyCarActivity))
-            }
         }
+
+        viewModel.getCars()
     }
 
     private fun observeViewModel() {
@@ -53,6 +52,10 @@ class MyCarActivity : AppCompatActivity() {
                 binding.llErrorView.isVisible = true
                 binding.tvErrorTitle.text = getString(R.string.title_no_car_yet)
                 binding.tvErrorDescription.text = getString(R.string.desc_no_car)
+                binding.btnErrorAction.text = getString(R.string.title_add_car)
+                binding.btnErrorAction.setOnClickListener {
+                    startActivity(MyCarFormActivity.createIntent(this@MyCarActivity))
+                }
             } else {
                 binding.llErrorView.isVisible = false
             }
@@ -65,6 +68,10 @@ class MyCarActivity : AppCompatActivity() {
             binding.llErrorView.isVisible = true
             binding.tvErrorTitle.text = getString(R.string.title_oops_there_is_problem)
             binding.tvErrorDescription.text = message
+            binding.btnErrorAction.text = getString(R.string.title_reload)
+            binding.btnErrorAction.setOnClickListener {
+                viewModel.getCars()
+            }
         }
     }
 

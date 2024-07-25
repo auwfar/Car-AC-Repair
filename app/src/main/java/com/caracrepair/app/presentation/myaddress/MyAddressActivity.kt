@@ -4,12 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityMyAddressBinding
 import com.caracrepair.app.presentation.myaddress.adapter.MyAddressAdapter
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
+import com.caracrepair.app.presentation.myaddresses.viewmodel.MyAddressViewModel
 import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivity
 
 class MyAddressActivity : AppCompatActivity() {
@@ -21,46 +24,16 @@ class MyAddressActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityMyAddressBinding
+    private val viewModel by viewModels<MyAddressViewModel>()
     private val myAddressAdapter by lazy { MyAddressAdapter() }
-    private val emptyAddress = listOf<MyAddressItem>()
-    private val address = listOf(
-        MyAddressItem(
-            id = 1,
-            addressLabel = "Rumah",
-            address = "Jl. Raya Bogor No. 1, Jakarta"
-        ),
-        MyAddressItem(
-            id = 2,
-            addressLabel = "Kantor",
-            address = "Jl. Raya Bogor No. 2, Jakarta"
-        ),
-        MyAddressItem(
-            id = 3,
-            addressLabel = "Toko",
-            address = "Jl. Raya Bogor No. 3, Jakarta"
-        ),
-        MyAddressItem(
-            id = 4,
-            addressLabel = "Apartemen",
-            address = "Jl. Raya Bogor No. 4, Jakarta"
-        ),
-        MyAddressItem(
-            id = 5,
-            addressLabel = "Gudang",
-            address = "Jl. Raya Bogor No. 5, Jakarta"
-        ),
-        MyAddressItem(
-            id = 6,
-            addressLabel = "Pabrik",
-            address = "Jl. Raya Bogor No. 6, Jakarta"
-        )
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        observeViewModel()
+        setupRecyclerView()
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
@@ -68,19 +41,46 @@ class MyAddressActivity : AppCompatActivity() {
             btnAddAddress.setOnClickListener {
                 startActivity(MyAddressFormActivity.createIntent(this@MyAddressActivity))
             }
-            btnEmptyAddData.setOnClickListener {
-                startActivity(MyAddressFormActivity.createIntent(this@MyAddressActivity))
+        }
+        viewModel.getAddresses()
+    }
+
+    private fun observeViewModel() {
+        viewModel.addressesResult.observe(this) { address ->
+            if (address.isEmpty()) {
+                binding.llErrorView.isVisible = true
+                binding.tvErrorTitle.text = getString(R.string.title_no_address_yet)
+                binding.tvErrorDescription.text = getString(R.string.desc_no_address)
+                binding.btnErrorAction.text = getString(R.string.title_add_address)
+                binding.btnErrorAction.setOnClickListener {
+                    startActivity(MyAddressFormActivity.createIntent(this@MyAddressActivity))
+                }
+            } else {
+                binding.llErrorView.isVisible = false
+            }
+            myAddressAdapter.setItems(address)
+        }
+        viewModel.loadingState.observe(this) {
+            binding.flLoading.isVisible = it
+        }
+        viewModel.errorMessage.observe(this) { message ->
+            binding.llErrorView.isVisible = true
+            binding.tvErrorTitle.text = getString(R.string.title_oops_there_is_problem)
+            binding.tvErrorDescription.text = message
+            binding.btnErrorAction.text = getString(R.string.title_reload)
+            binding.btnErrorAction.setOnClickListener {
+                viewModel.getAddresses()
             }
         }
-        setupRecyclerView()
     }
 
     private fun setupRecyclerView() {
         with(binding.rvMyAddress) {
             layoutManager = LinearLayoutManager(this@MyAddressActivity)
             adapter = myAddressAdapter.apply {
-                showEmptyView(address.isEmpty())
-                setItems(address)
+                setOnClickChangeDataListener {
+                    startActivity(MyAddressFormActivity.createIntent(this@MyAddressActivity))
+                }
                 if (callingActivity != null) {
                     setOnClickItemListener { myAddressItem ->
                         setResult(RESULT_OK, Intent().apply {
@@ -91,11 +91,6 @@ class MyAddressActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun showEmptyView(isShow: Boolean) {
-        binding.llEmptyView.isVisible = isShow
-        binding.flAddAddress.isVisible = !isShow
     }
 }
 
