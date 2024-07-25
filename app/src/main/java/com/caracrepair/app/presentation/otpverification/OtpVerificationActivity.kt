@@ -50,7 +50,7 @@ class OtpVerificationActivity : AppCompatActivity() {
             btnVerify.setOnClickListener {
                 when (otpType) {
                     is OTPType.SignUp -> viewModel.verifyOtpSignUp(etOtp.getOTP(), otpType.userId)
-                    is OTPType.ForgotPassword -> viewModel.verifyOtpForgotPassword(etOtp.getOTP(), otpType.phoneNumber)
+                    is OTPType.ForgotPassword -> viewModel.verifyOtpForgotPassword(etOtp.getOTP(), otpType.userId)
                 }
             }
             tvResendOtp.setOnClickListener {

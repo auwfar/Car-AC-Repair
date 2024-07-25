@@ -1,6 +1,7 @@
 package com.caracrepair.app.repositories
 
 import com.caracrepair.app.models.body.ChangePasswordBody
+import com.caracrepair.app.models.body.ForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpSignUpBody
 import com.caracrepair.app.models.body.ResetPasswordBody
@@ -12,6 +13,7 @@ import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.CarResponse
 import com.caracrepair.app.network.ApiService
 import com.caracrepair.app.models.response.DataResponse
+import com.caracrepair.app.models.response.ForgotPasswordResponse
 import com.caracrepair.app.models.response.SignInResponse
 import com.caracrepair.app.models.response.SignUpResponse
 import com.caracrepair.app.models.response.StatusResponse
@@ -52,6 +54,16 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.verifyOtpSignUp(verifyOtpSignUpBody)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun forgotPassword(forgotPasswordBody: ForgotPasswordBody): DataResponse<ForgotPasswordResponse>? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.forgotPassword(forgotPasswordBody)
             } catch (e: Exception) {
                 null
             }

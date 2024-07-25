@@ -49,10 +49,10 @@ class OtpVerificationViewModel @Inject constructor(
         }
     }
 
-    fun verifyOtpForgotPassword(otpCode: String, phoneNumber: String) {
+    fun verifyOtpForgotPassword(otpCode: String, userId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = accountRepository.verifyOtpForgotPassword(VerifyOtpForgotPasswordBody(otpCode, phoneNumber))
+            val response = accountRepository.verifyOtpForgotPassword(VerifyOtpForgotPasswordBody(otpCode, userId))
             if (response != null) {
                 if (response.message == null || response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())
@@ -74,7 +74,7 @@ class OtpVerificationViewModel @Inject constructor(
                     ResendOtpSignUpBody(otpType.userId)
                 )
                 is OTPType.ForgotPassword -> accountRepository.resendOtpForgotPassword(
-                    ResendOtpForgotPasswordBody(otpType.phoneNumber)
+                    ResendOtpForgotPasswordBody(otpType.userId)
                 )
             }
             if (response != null) {

@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 sealed class OTPType : Parcelable {
     data class SignUp(val userId: Int) : OTPType()
-    data class ForgotPassword(val phoneNumber: String) : OTPType()
+    data class ForgotPassword(val userId: Int) : OTPType()
 }

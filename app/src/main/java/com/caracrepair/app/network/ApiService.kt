@@ -2,20 +2,22 @@ package com.caracrepair.app.network
 
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.ChangePasswordBody
+import com.caracrepair.app.models.body.ForgotPasswordBody
 import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpSignUpBody
 import com.caracrepair.app.models.body.ResetPasswordBody
 import com.caracrepair.app.models.body.ServiceTimesBody
-import com.caracrepair.app.models.body.VerifyOtpSignUpBody
 import com.caracrepair.app.models.body.SignInBody
 import com.caracrepair.app.models.body.SignUpBody
 import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
+import com.caracrepair.app.models.body.VerifyOtpSignUpBody
 import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.BookingHistoryResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.CarResponse
 import com.caracrepair.app.models.response.DataResponse
+import com.caracrepair.app.models.response.ForgotPasswordResponse
 import com.caracrepair.app.models.response.HomePageResponse
 import com.caracrepair.app.models.response.RepairShopDetailResponse
 import com.caracrepair.app.models.response.RepairShopResponse
@@ -43,6 +45,9 @@ interface ApiService {
     @POST("api/verify-otp-register")
     suspend fun verifyOtpSignUp(@Body request: VerifyOtpSignUpBody): StatusResponse
 
+    @POST("api/forgot-password")
+    suspend fun forgotPassword(@Body request: ForgotPasswordBody): DataResponse<ForgotPasswordResponse>
+
     @POST("api/verify-otp-forgot-password")
     suspend fun verifyOtpForgotPassword(@Body request: VerifyOtpForgotPasswordBody): DataResponse<VerifyOtpForgotPasswordResponse>
 
@@ -65,25 +70,25 @@ interface ApiService {
     suspend fun getRepairShopDetail(@Path("repair_shop_id") repairShopId: Int): DataResponse<RepairShopDetailResponse>
 
     @POST("api/order-service")
-    suspend fun bookingService(@Body request: BookingServiceBody): DataResponse<BookingServiceResponse>?
+    suspend fun bookingService(@Body request: BookingServiceBody): DataResponse<BookingServiceResponse>
 
     @POST("api/order-times")
-    suspend fun getServiceTimes(@Body serviceTimesBody: ServiceTimesBody): DataResponse<List<ServiceTimeResponse>>?
+    suspend fun getServiceTimes(@Body serviceTimesBody: ServiceTimesBody): DataResponse<List<ServiceTimeResponse>>
 
     @GET("api/order-history")
-    suspend fun getBookingHistory(): DataResponse<List<BookingHistoryResponse>>?
+    suspend fun getBookingHistory(): DataResponse<List<BookingHistoryResponse>>
 
     @GET("api/order/{order_id}")
-    suspend fun getServiceDetail(@Path("order_id") serviceId: Int, @Query("user_id") userId: Int): DataResponse<ServiceDetailResponse>?
+    suspend fun getServiceDetail(@Path("order_id") serviceId: Int, @Query("user_id") userId: Int): DataResponse<ServiceDetailResponse>
 
     @POST("api/reschedule-service")
-    suspend fun rescheduleService(@Body request: RescheduleServiceBody): DataResponse<RescheduleServiceResponse>?
+    suspend fun rescheduleService(@Body request: RescheduleServiceBody): DataResponse<RescheduleServiceResponse>
 
     @GET("api/order-payment/{order_id}")
-    suspend fun getServicePayment(@Path("order_id") serviceId: Int, @Query("user_id") userId: Int): DataResponse<ServicePaymentResponse>?
+    suspend fun getServicePayment(@Path("order_id") serviceId: Int, @Query("user_id") userId: Int): DataResponse<ServicePaymentResponse>
 
     @POST("api/change-password")
-    suspend fun changePassword(@Body request: ChangePasswordBody): StatusResponse?
+    suspend fun changePassword(@Body request: ChangePasswordBody): StatusResponse
 
     @GET("api/cars")
     suspend fun getCars(): DataResponse<List<CarResponse>>
