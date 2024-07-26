@@ -2,12 +2,12 @@ package com.caracrepair.app.presentation.onboarding
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.databinding.ActivityOnboardingBinding
-import com.caracrepair.app.presentation.choosemapslocation.ChooseMapsLocationActivity
 import com.caracrepair.app.presentation.main.MainActivity
-import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity
 import com.caracrepair.app.presentation.signup.SignUpActivity
 import com.caracrepair.app.presentation.signin.SignInActivity
 import com.caracrepair.app.utils.preferences.GeneralPreference
@@ -29,11 +29,17 @@ class OnboardingActivity : AppCompatActivity() {
     @Inject
     lateinit var generalPreference: GeneralPreference
 
+    private val requestNotificationPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ -> }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestNotificationPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
         if (generalPreference.getUser() != null) {
             startActivity(MainActivity.createIntent(this))
             return
@@ -44,8 +50,7 @@ class OnboardingActivity : AppCompatActivity() {
                 startActivity(SignUpActivity.createIntent(this@OnboardingActivity))
             }
             btnSignIn.setOnClickListener {
-                startActivity(ServicePaymentActivity.createIntent(this@OnboardingActivity, 1))
-//                startActivity(SignInActivity.createIntent(this@OnboardingActivity))
+                startActivity(SignInActivity.createIntent(this@OnboardingActivity))
             }
         }
     }

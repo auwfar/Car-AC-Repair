@@ -2,6 +2,7 @@ package com.caracrepair.app.modules
 
 import android.content.Context
 import com.caracrepair.app.network.ApiService
+import com.caracrepair.app.utils.ApiResponseUtil
 import com.caracrepair.app.utils.FirebaseUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import com.caracrepair.app.utils.GsonUtil
@@ -20,6 +21,12 @@ class GeneralModule {
     @Singleton
     fun provideGsonUtil(): GsonUtil {
         return GsonUtil()
+    }
+
+    @Provides
+    @Singleton
+    fun provideApiResponseUtil(gsonUtil: GsonUtil): ApiResponseUtil {
+        return ApiResponseUtil(gsonUtil)
     }
 
     @Provides

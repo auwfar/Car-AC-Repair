@@ -14,7 +14,7 @@ import com.caracrepair.app.models.response.ServicePaymentResponse
 import com.caracrepair.app.models.response.ServiceTimeResponse
 import com.caracrepair.app.models.response.StatusResponse
 import com.caracrepair.app.network.ApiService
-import com.caracrepair.app.utils.GsonUtil
+import com.caracrepair.app.utils.ApiResponseUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -28,7 +28,7 @@ import kotlin.coroutines.CoroutineContext
 
 class ServiceRepository @Inject constructor(
     private val apiService: ApiService,
-    private val gsonUtil: GsonUtil
+    private val apiResponseUtil: ApiResponseUtil
 ) : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO
@@ -38,9 +38,7 @@ class ServiceRepository @Inject constructor(
             try {
                 apiService.bookingService(request)
             } catch (error: HttpException) {
-                gsonUtil.fromJson(error.response()?.errorBody()?.string())
-            } catch (e: Exception) {
-                null
+                apiResponseUtil.getErrorResponse(error)
             }
         }
     }
@@ -50,9 +48,7 @@ class ServiceRepository @Inject constructor(
             try {
                 apiService.getServiceTimes(serviceTimesBody)
             } catch (error: HttpException) {
-                gsonUtil.fromJson(error.response()?.errorBody()?.string())
-            } catch (e: Exception) {
-                null
+                apiResponseUtil.getErrorResponse(error)
             }
         }
     }
@@ -62,9 +58,7 @@ class ServiceRepository @Inject constructor(
             try {
                 apiService.getBookingHistory()
             } catch (error: HttpException) {
-                gsonUtil.fromJson(error.response()?.errorBody()?.string())
-            } catch (e: Exception) {
-                null
+                apiResponseUtil.getErrorResponse(error)
             }
         }
     }
@@ -74,9 +68,7 @@ class ServiceRepository @Inject constructor(
             try {
                 apiService.getServiceDetail(serviceId, userId)
             } catch (error: HttpException) {
-                gsonUtil.fromJson(error.response()?.errorBody()?.string())
-            } catch (e: Exception) {
-                null
+                apiResponseUtil.getErrorResponse(error)
             }
         }
     }
@@ -86,9 +78,7 @@ class ServiceRepository @Inject constructor(
             try {
                 apiService.rescheduleService(request)
             } catch (error: HttpException) {
-                gsonUtil.fromJson(error.response()?.errorBody()?.string())
-            } catch (e: Exception) {
-                null
+                apiResponseUtil.getErrorResponse(error)
             }
         }
     }
@@ -98,9 +88,7 @@ class ServiceRepository @Inject constructor(
             try {
                 apiService.getServicePayment(serviceId, userId)
             } catch (error: HttpException) {
-                gsonUtil.fromJson(error.response()?.errorBody()?.string())
-            } catch (e: Exception) {
-                null
+                apiResponseUtil.getErrorResponse(error)
             }
         }
     }
@@ -114,9 +102,7 @@ class ServiceRepository @Inject constructor(
                 val fileUpload = MultipartBody.Part.createFormData("image", file.name,  file.asRequestBody("image/jpeg".toMediaTypeOrNull()))
                 apiService.uploadPaymentProofImage(map, fileUpload)
             } catch (error: HttpException) {
-                gsonUtil.fromJson(error.response()?.errorBody()?.string())
-            } catch (e: Exception) {
-                null
+                apiResponseUtil.getErrorResponse(error)
             }
         }
     }
