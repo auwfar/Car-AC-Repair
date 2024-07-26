@@ -21,8 +21,10 @@ import com.caracrepair.app.utils.FormUtil
 import com.caracrepair.app.utils.SimpleDateUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import com.google.android.material.datepicker.MaterialDatePicker
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class RescheduleServiceActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_SERVICE_ID = "extra_service_id"

@@ -35,14 +35,19 @@ import com.caracrepair.app.models.response.SignInResponse
 import com.caracrepair.app.models.response.SignUpResponse
 import com.caracrepair.app.models.response.StatusResponse
 import com.caracrepair.app.models.response.VerifyOtpForgotPasswordResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
+import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.PartMap
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-    @POST("api/login")
+    @POST("api/auth/login")
     suspend fun signIn(@Body request: SignInBody): DataResponse<SignInResponse>
 
     @POST("api/auth/register")
@@ -85,13 +90,19 @@ interface ApiService {
     suspend fun getBookingHistory(): DataResponse<List<BookingHistoryResponse>>
 
     @GET("api/order/{order_id}")
-    suspend fun getServiceDetail(@Path("order_id") serviceId: Int, @Query("user_id") userId: Int): DataResponse<ServiceDetailResponse>
+    suspend fun getServiceDetail(
+        @Path("order_id") serviceId: Int,
+        @Query("user_id") userId: Int
+    ): DataResponse<ServiceDetailResponse>
 
     @POST("api/reschedule-service")
     suspend fun rescheduleService(@Body request: RescheduleServiceBody): DataResponse<RescheduleServiceResponse>
 
     @GET("api/order-payment/{order_id}")
-    suspend fun getServicePayment(@Path("order_id") serviceId: Int, @Query("user_id") userId: Int): DataResponse<ServicePaymentResponse>
+    suspend fun getServicePayment(
+        @Path("order_id") serviceId: Int,
+        @Query("user_id") userId: Int
+    ): DataResponse<ServicePaymentResponse>
 
     @POST("api/change-password")
     suspend fun changePassword(@Body request: ChangePasswordBody): StatusResponse
@@ -119,4 +130,10 @@ interface ApiService {
 
     @POST("api/address-delete")
     suspend fun removeAddress(@Body request: RemoveAddressBody): StatusResponse
+
+    @POST("api/upload-payment-proof-image")
+    suspend fun uploadPaymentProofImage(
+        @PartMap reqBody: MutableMap<String, RequestBody>,
+        @Part file: MultipartBody.Part
+    ): StatusResponse
 }

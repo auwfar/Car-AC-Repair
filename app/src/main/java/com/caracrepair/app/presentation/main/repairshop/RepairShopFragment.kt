@@ -12,7 +12,9 @@ import com.caracrepair.app.databinding.FragmentRepairShopBinding
 import com.caracrepair.app.presentation.main.repairshop.adapter.RepairShopAdapter
 import com.caracrepair.app.presentation.main.repairshop.viewmodel.RepairShopViewModel
 import com.caracrepair.app.presentation.repairshopdetail.RepairShopDetailActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RepairShopFragment : Fragment() {
     private lateinit var binding: FragmentRepairShopBinding
 

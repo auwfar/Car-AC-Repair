@@ -145,4 +145,6 @@
     <string name="title_remove_data">Hapus Data?</string>
     <string name="title_dont_remove">Tidak, Jangan Hapus</string>
     <string name="title_yes_remove_now">Ya, Hapus Sekarang</string>
+    <string name="title_camera">Kamera</string>
+    <string name="title_gallery">Galeri</string>
 </resources>

@@ -12,9 +12,10 @@ import com.caracrepair.app.R
 import com.caracrepair.app.databinding.FragmentHistoryBinding
 import com.caracrepair.app.presentation.main.history.adapter.HistoryAdapter
 import com.caracrepair.app.presentation.main.history.viewmodel.HistoryViewModel
-import com.caracrepair.app.presentation.main.history.viewparam.HistoryItem
 import com.caracrepair.app.presentation.servicedetail.ServiceDetailActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HistoryFragment : Fragment() {
     private lateinit var binding: FragmentHistoryBinding
     private val viewModel by viewModels<HistoryViewModel>()

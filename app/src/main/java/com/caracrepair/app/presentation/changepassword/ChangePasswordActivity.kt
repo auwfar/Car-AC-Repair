@@ -13,7 +13,9 @@ import com.caracrepair.app.presentation.changepassword.viewmodel.ChangePasswordV
 import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 import com.caracrepair.app.utils.FormUtil
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChangePasswordActivity : AppCompatActivity() {
     companion object {
         fun createIntent(context: Context): Intent {

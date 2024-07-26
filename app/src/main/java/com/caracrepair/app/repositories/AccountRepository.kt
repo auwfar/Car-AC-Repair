@@ -24,14 +24,17 @@ import com.caracrepair.app.models.response.SignInResponse
 import com.caracrepair.app.models.response.SignUpResponse
 import com.caracrepair.app.models.response.StatusResponse
 import com.caracrepair.app.models.response.VerifyOtpForgotPasswordResponse
+import com.caracrepair.app.utils.GsonUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class AccountRepository @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val gsonUtil: GsonUtil
 ) : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO
@@ -40,6 +43,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.signIn(body)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -50,6 +55,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.signUp(body)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -60,6 +67,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.verifyOtpSignUp(verifyOtpSignUpBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -70,6 +79,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.forgotPassword(forgotPasswordBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -80,6 +91,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.verifyOtpForgotPassword(verifyOtpForgotPasswordBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -90,6 +103,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.resendOtpSignUp(resendOtpSignUpBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -100,6 +115,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.resendOtpForgotPassword(resendOtpForgotPasswordBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -110,6 +127,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.resetPassword(resetPasswordBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -120,6 +139,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.changePassword(changePasswordBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -130,6 +151,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.getCars()
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -140,6 +163,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.getAddresses()
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -150,6 +175,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.addCar(addCarBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -160,6 +187,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.updateCar(updateCarBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -170,6 +199,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.removeCar(removeCarBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -180,6 +211,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.addAddress(addAddressBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -190,6 +223,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.updateAddress(updateAddressBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }
@@ -200,6 +235,8 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.removeAddress(removeAddressBody)
+            } catch (error: HttpException) {
+                gsonUtil.fromJson(error.response()?.errorBody()?.string())
             } catch (e: Exception) {
                 null
             }

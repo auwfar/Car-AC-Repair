@@ -20,7 +20,9 @@ import com.caracrepair.app.presentation.servicedetail.viewmodel.ServiceDetailVie
 import com.caracrepair.app.presentation.servicedetail.viewparam.ServiceDetail
 import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity
 import com.caracrepair.app.utils.WhatsAppUtil
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ServiceDetailActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_SERVICE_ID = "extra_service_id"

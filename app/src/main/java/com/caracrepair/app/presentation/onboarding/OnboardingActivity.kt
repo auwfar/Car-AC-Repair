@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.caracrepair.app.databinding.ActivityOnboardingBinding
+import com.caracrepair.app.presentation.choosemapslocation.ChooseMapsLocationActivity
 import com.caracrepair.app.presentation.main.MainActivity
+import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity
 import com.caracrepair.app.presentation.signup.SignUpActivity
 import com.caracrepair.app.presentation.signin.SignInActivity
 import com.caracrepair.app.utils.preferences.GeneralPreference
@@ -42,7 +44,8 @@ class OnboardingActivity : AppCompatActivity() {
                 startActivity(SignUpActivity.createIntent(this@OnboardingActivity))
             }
             btnSignIn.setOnClickListener {
-                startActivity(SignInActivity.createIntent(this@OnboardingActivity))
+                startActivity(ServicePaymentActivity.createIntent(this@OnboardingActivity, 1))
+//                startActivity(SignInActivity.createIntent(this@OnboardingActivity))
             }
         }
     }

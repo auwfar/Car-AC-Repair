@@ -10,7 +10,9 @@ import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityMainBinding
 import com.caracrepair.app.presentation.bookingservice.BookingServiceActivity
 import com.caracrepair.app.presentation.main.adapter.MainAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     companion object {
         fun createIntent(context: Context): Intent {

@@ -17,7 +17,9 @@ import com.caracrepair.app.presentation.repairshopdetail.viewmodel.RepairShopDet
 import com.caracrepair.app.presentation.repairshopdetail.viewparam.RepairShopDetail
 import com.caracrepair.app.utils.GMapsUtil
 import com.caracrepair.app.utils.WhatsAppUtil
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RepairShopDetailActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_REPAIR_SHOP_ID = "extra_repair_shop_id"

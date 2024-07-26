@@ -13,7 +13,9 @@ import com.caracrepair.app.presentation.chooserepairshop.adapter.RepairShopOptio
 import com.caracrepair.app.presentation.chooserepairshop.viewmodel.ChooseRepairShopViewModel
 import com.caracrepair.app.presentation.chooserepairshop.viewparam.RepairShopOptionItem
 import com.caracrepair.app.utils.GMapsUtil
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChooseRepairShopActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_REPAIR_SHOP_OPTION_ITEM = "extra_repair_shop_option_item"

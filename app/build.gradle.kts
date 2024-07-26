@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity.ktx)
     implementation(libs.fragment.ktx)
+    implementation(libs.media)
 
     // Lifecycle
     implementation(libs.lifecycle.viewmodel.ktx)

@@ -349,6 +349,7 @@
                             tools:src="@drawable/img_placeholder" />
 
                         <FrameLayout
+                            android:id="@+id/fl_change_payment_proof_image"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
                             android:background="@color/black_65"
@@ -399,7 +400,7 @@
             </FrameLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_pay"
+                android:id="@+id/btn_upload"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
                 android:layout_marginHorizontal="16dp"
