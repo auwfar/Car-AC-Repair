@@ -38,6 +38,7 @@ import com.caracrepair.app.models.response.VerifyOtpForgotPasswordResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -109,7 +110,7 @@ interface ApiService {
     suspend fun changePassword(@Body request: ChangePasswordBody): StatusResponse
 
     @GET("api/cars")
-    suspend fun getCars(): DataResponse<List<CarResponse>>
+    suspend fun getCars(@Query("user_id") userId: String): DataResponse<List<CarResponse>>
 
     @GET("api/addresses")
     suspend fun getAddresses(@Query("user_id") userId: String): DataResponse<List<AddressResponse>>
@@ -120,8 +121,8 @@ interface ApiService {
     @PUT("api/cars/{car_id}")
     suspend fun updateCar(@Path("car_id") carId: String, @Body request: UpdateCarBody): StatusResponse
 
-    @POST("api/car-delete")
-    suspend fun removeCar(@Field("car_id") carId: String): StatusResponse
+    @DELETE("api/cars/{car_id}")
+    suspend fun removeCar(@Path("car_id") carId: String): StatusResponse
 
     @POST("api/addresses")
     suspend fun addAddress(@Body request: AddAddressBody): StatusResponse
@@ -129,8 +130,8 @@ interface ApiService {
     @PUT("api/addresses/{address_id}")
     suspend fun updateAddress(@Path("address_id") addressId: String, @Body request: UpdateAddressBody): StatusResponse
 
-    @POST("api/address-delete")
-    suspend fun removeAddress(@Field("id") addressId: String): StatusResponse
+    @DELETE("api/addresses/{address_id}")
+    suspend fun removeAddress(@Path("address_id") addressId: String): StatusResponse
 
     @POST("api/upload-payment-proof-image")
     suspend fun uploadPaymentProofImage(

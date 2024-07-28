@@ -152,7 +152,7 @@ class AccountRepository @Inject constructor(
     suspend fun getCars(): DataResponse<List<CarResponse>>? {
         return withContext(coroutineContext) {
             try {
-                apiService.getCars()
+                apiService.getCars(generalPreference.getUser()?.userId.orEmpty())
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

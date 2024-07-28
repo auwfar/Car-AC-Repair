@@ -46,7 +46,7 @@ class RepairShopAdapter : RecyclerView.Adapter<RepairShopAdapter.ViewHolder>() {
 
                 tvName.text = item?.name
                 tvAddress.text = item?.address
-                tvPhone.text = item?.phone
+                tvPhone.text = item?.phone?.ifBlank { "-" }
 
                 root.setOnClickListener {
                     onItemClickListener?.invoke(item)
