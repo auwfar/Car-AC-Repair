@@ -39,6 +39,8 @@ class ServiceRepository @Inject constructor(
                 apiService.bookingService(request)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -49,6 +51,8 @@ class ServiceRepository @Inject constructor(
                 apiService.getServiceTimes(serviceTimesBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -59,16 +63,20 @@ class ServiceRepository @Inject constructor(
                 apiService.getBookingHistory()
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
 
-    suspend fun getServiceDetail(serviceId: Int, userId: Int): DataResponse<ServiceDetailResponse>? {
+    suspend fun getServiceDetail(serviceId: Int, userId: String): DataResponse<ServiceDetailResponse>? {
         return withContext(coroutineContext) {
             try {
                 apiService.getServiceDetail(serviceId, userId)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -79,16 +87,20 @@ class ServiceRepository @Inject constructor(
                 apiService.rescheduleService(request)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
 
-    suspend fun getServicePayment(serviceId: Int, userId: Int): DataResponse<ServicePaymentResponse>? {
+    suspend fun getServicePayment(serviceId: Int, userId: String): DataResponse<ServicePaymentResponse>? {
         return withContext(coroutineContext) {
             try {
                 apiService.getServicePayment(serviceId, userId)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -103,6 +115,8 @@ class ServiceRepository @Inject constructor(
                 apiService.uploadPaymentProofImage(map, fileUpload)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }

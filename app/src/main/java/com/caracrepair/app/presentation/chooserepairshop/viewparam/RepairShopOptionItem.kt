@@ -7,15 +7,15 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class RepairShopOptionItem(
-    val id: Int,
+    val id: String,
     val name: String,
     val address: String,
     val location: Location
 ) : Parcelable {
     constructor(response: RepairShopResponse?) : this(
-        id = response?.id ?: 0,
+        id = response?.id.orEmpty(),
         name = response?.name.orEmpty(),
         address = response?.address.orEmpty(),
-        location = Location(response?.location?.lat ?: 0.0, response?.location?.long ?: 0.0)
+        location = Location(response?.lat ?: 0.0, response?.long ?: 0.0)
     )
 }

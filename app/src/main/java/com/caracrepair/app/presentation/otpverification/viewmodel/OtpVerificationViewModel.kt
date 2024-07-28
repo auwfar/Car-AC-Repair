@@ -23,8 +23,8 @@ class OtpVerificationViewModel @Inject constructor(
 
     private val _otpSignUpVerificationResult = MutableLiveData<Unit>()
     val otpSignUpVerificationResult: LiveData<Unit> = _otpSignUpVerificationResult
-    private val _otpForgotPasswordVerificationResult = MutableLiveData<Int>()
-    val otpForgotPasswordVerificationResult: LiveData<Int> = _otpForgotPasswordVerificationResult
+    private val _otpForgotPasswordVerificationResult = MutableLiveData<String>()
+    val otpForgotPasswordVerificationResult: LiveData<String> = _otpForgotPasswordVerificationResult
     private val _resendOtpResult = MutableLiveData<String>()
     val resendOtpResult: LiveData<String> = _resendOtpResult
     private val _loadingState = MutableLiveData<Boolean>()
@@ -32,7 +32,7 @@ class OtpVerificationViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun verifyOtpSignUp(otpCode: String, userId: Int) {
+    fun verifyOtpSignUp(otpCode: String, userId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.verifyOtpSignUp(VerifyOtpSignUpBody(otpCode, userId))
@@ -49,7 +49,7 @@ class OtpVerificationViewModel @Inject constructor(
         }
     }
 
-    fun verifyOtpForgotPassword(otpCode: String, userId: Int) {
+    fun verifyOtpForgotPassword(otpCode: String, userId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.verifyOtpForgotPassword(VerifyOtpForgotPasswordBody(otpCode, userId))
@@ -58,7 +58,7 @@ class OtpVerificationViewModel @Inject constructor(
                     _errorMessage.postValue(response.message.orEmpty())
                     return@launch
                 }
-                _otpForgotPasswordVerificationResult.postValue(response.data?.userId ?: 0)
+                _otpForgotPasswordVerificationResult.postValue(response.data?.userId.orEmpty())
             } else {
                 _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
             }

@@ -30,7 +30,7 @@ class RescheduleServiceViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    var selectedRepairShopId = 0
+    var selectedRepairShopId = ""
 
     fun rescheduleService(body: RescheduleServiceBody) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -54,7 +54,7 @@ class RescheduleServiceViewModel @Inject constructor(
             _loadingState.postValue(true)
             val response = serviceRepository.getServiceTimes(
                 ServiceTimesBody(
-                generalPreference.getUser()?.userId ?: 0,
+                generalPreference.getUser()?.userId.orEmpty(),
                 selectedRepairShopId,
                 date
             )

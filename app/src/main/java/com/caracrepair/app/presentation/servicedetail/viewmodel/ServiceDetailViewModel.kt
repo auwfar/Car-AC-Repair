@@ -29,7 +29,7 @@ class ServiceDetailViewModel @Inject constructor(
     fun getServiceDetail(serviceId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = serviceRepository.getServiceDetail(serviceId, generalPreference.getUser()?.userId ?: 0)
+            val response = serviceRepository.getServiceDetail(serviceId, generalPreference.getUser()?.userId.orEmpty())
             if (response != null) {
                 if (response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())

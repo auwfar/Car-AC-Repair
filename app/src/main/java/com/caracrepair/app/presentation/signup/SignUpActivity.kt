@@ -48,7 +48,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.signUpResult.observe(this) { userId ->
-            if (userId == 0) return@observe
+            if (userId.isNullOrBlank()) return@observe
             startActivity(OtpVerificationActivity.createIntent(this, OTPType.SignUp(userId)))
         }
         viewModel.loadingState.observe(this) { isLoading ->

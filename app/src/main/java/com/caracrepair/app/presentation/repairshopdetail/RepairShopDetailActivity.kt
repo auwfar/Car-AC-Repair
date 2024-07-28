@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class RepairShopDetailActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_REPAIR_SHOP_ID = "extra_repair_shop_id"
-        fun createIntent(context: Context, repairShopId: Int): Intent {
+        fun createIntent(context: Context, repairShopId: String): Intent {
             return Intent(context, RepairShopDetailActivity::class.java).apply {
                 putExtra(EXTRA_REPAIR_SHOP_ID, repairShopId)
             }
@@ -38,7 +38,7 @@ class RepairShopDetailActivity : AppCompatActivity() {
         binding = ActivityRepairShopDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val repairShopId = intent.getIntExtra(EXTRA_REPAIR_SHOP_ID, 0)
+        val repairShopId = intent.getStringExtra(EXTRA_REPAIR_SHOP_ID).orEmpty()
 
         observeViewModel()
 

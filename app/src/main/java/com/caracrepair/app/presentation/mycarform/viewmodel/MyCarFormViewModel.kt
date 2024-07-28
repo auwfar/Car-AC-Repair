@@ -39,7 +39,7 @@ class MyCarFormViewModel @Inject constructor(
                 ))
             } else {
                 accountRepository.addCar(AddCarBody(
-                    generalPreference.getUser()?.userId ?: 0,
+                    generalPreference.getUser()?.userId.orEmpty(),
                     name,
                     licenseNumber,
                     year

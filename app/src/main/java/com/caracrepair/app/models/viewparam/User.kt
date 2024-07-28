@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 data class User(
     @SerializedName("user_id")
-    val userId: Int,
+    val userId: String,
     @SerializedName("phone_number")
     val phoneNumber: String,
     @SerializedName("name")
@@ -17,7 +17,7 @@ data class User(
     val token: String
 ) {
     constructor(response: SignInResponse?) : this(
-        userId = response?.userId ?: 0,
+        userId = response?.userId.orEmpty(),
         phoneNumber = response?.phoneNumber.orEmpty(),
         name = response?.name.orEmpty(),
         profileImage = response?.profileImage.orEmpty(),
@@ -25,7 +25,7 @@ data class User(
     )
 
     constructor(response: ChangeProfileResponse?) : this(
-        userId = response?.userId ?: 0,
+        userId = response?.userId.orEmpty(),
         phoneNumber = response?.phoneNumber.orEmpty(),
         name = response?.name.orEmpty(),
         profileImage = response?.profileImage.orEmpty(),

@@ -41,7 +41,7 @@ class RescheduleServiceActivity : AppCompatActivity() {
 
     private val chooseRepairShopLauncher = registerForActivityResult(ChooseRepairShopActivityContract()) { selectedRepairShop ->
         binding.etRepairShop.setText(selectedRepairShop?.name)
-        viewModel.selectedRepairShopId = selectedRepairShop?.id ?: 0
+        viewModel.selectedRepairShopId = selectedRepairShop?.id.orEmpty()
     }
 
     @Inject
@@ -129,7 +129,7 @@ class RescheduleServiceActivity : AppCompatActivity() {
         if (isValidBookingService(repairShopId, serviceDate, serviceTime?.time.orEmpty())) {
             viewModel.rescheduleService(
                 RescheduleServiceBody(
-                    generalPreference.getUser()?.userId ?: 0,
+                    generalPreference.getUser()?.userId.orEmpty(),
                     viewModel.selectedRepairShopId,
                     SimpleDateUtil.serverFormat.format(serviceDate),
                     serviceTime?.time.orEmpty()

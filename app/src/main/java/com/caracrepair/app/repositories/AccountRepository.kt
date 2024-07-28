@@ -27,6 +27,7 @@ import com.caracrepair.app.models.response.StatusResponse
 import com.caracrepair.app.models.response.VerifyOtpForgotPasswordResponse
 import com.caracrepair.app.utils.ApiResponseUtil
 import com.caracrepair.app.utils.GsonUtil
+import com.caracrepair.app.utils.preferences.GeneralPreference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -36,6 +37,7 @@ import kotlin.coroutines.CoroutineContext
 
 class AccountRepository @Inject constructor(
     private val apiService: ApiService,
+    private val generalPreference: GeneralPreference,
     private val apiResponseUtil: ApiResponseUtil
 ) : CoroutineScope {
     override val coroutineContext: CoroutineContext
@@ -47,6 +49,8 @@ class AccountRepository @Inject constructor(
                 apiService.signIn(body)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -57,6 +61,8 @@ class AccountRepository @Inject constructor(
                 apiService.signUp(body)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -67,6 +73,8 @@ class AccountRepository @Inject constructor(
                 apiService.verifyOtpSignUp(verifyOtpSignUpBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -77,6 +85,8 @@ class AccountRepository @Inject constructor(
                 apiService.forgotPassword(forgotPasswordBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -87,6 +97,8 @@ class AccountRepository @Inject constructor(
                 apiService.verifyOtpForgotPassword(verifyOtpForgotPasswordBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -97,6 +109,8 @@ class AccountRepository @Inject constructor(
                 apiService.resendOtpSignUp(resendOtpSignUpBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -107,6 +121,8 @@ class AccountRepository @Inject constructor(
                 apiService.resendOtpForgotPassword(resendOtpForgotPasswordBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -117,6 +133,8 @@ class AccountRepository @Inject constructor(
                 apiService.resetPassword(resetPasswordBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -127,6 +145,8 @@ class AccountRepository @Inject constructor(
                 apiService.changePassword(changePasswordBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -137,6 +157,8 @@ class AccountRepository @Inject constructor(
                 apiService.getCars()
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -144,9 +166,11 @@ class AccountRepository @Inject constructor(
     suspend fun getAddresses(): DataResponse<List<AddressResponse>>? {
         return withContext(coroutineContext) {
             try {
-                apiService.getAddresses()
+                apiService.getAddresses(generalPreference.getUser()?.userId.orEmpty())
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -157,6 +181,8 @@ class AccountRepository @Inject constructor(
                 apiService.addCar(addCarBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -167,6 +193,8 @@ class AccountRepository @Inject constructor(
                 apiService.updateCar(updateCarBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -177,6 +205,8 @@ class AccountRepository @Inject constructor(
                 apiService.removeCar(removeCarBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -187,6 +217,8 @@ class AccountRepository @Inject constructor(
                 apiService.addAddress(addAddressBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -197,6 +229,8 @@ class AccountRepository @Inject constructor(
                 apiService.updateAddress(updateAddressBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -207,6 +241,8 @@ class AccountRepository @Inject constructor(
                 apiService.removeAddress(removeAddressBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
@@ -217,6 +253,8 @@ class AccountRepository @Inject constructor(
                 apiService.changeProfile(name)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }

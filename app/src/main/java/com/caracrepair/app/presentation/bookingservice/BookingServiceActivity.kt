@@ -55,7 +55,7 @@ class BookingServiceActivity : AppCompatActivity() {
             etServiceDate.setText("")
             rvServiceTime.isVisible = false
         }
-        viewModel.selectedRepairShopId = selectedRepairShop?.id ?: 0
+        viewModel.selectedRepairShopId = selectedRepairShop?.id.orEmpty()
     }
 
     @Inject
@@ -182,7 +182,7 @@ class BookingServiceActivity : AppCompatActivity() {
         if (isValidBookingService(carId, carDistance, addressId, complaint, repairShopId, serviceDate, serviceTime?.time.orEmpty())) {
             viewModel.bookingService(
                 BookingServiceBody(
-                    generalPreference.getUser()?.userId ?: 0,
+                    generalPreference.getUser()?.userId.orEmpty(),
                     serviceType,
                     viewModel.selectedCarId,
                     viewModel.selectedAddressId,

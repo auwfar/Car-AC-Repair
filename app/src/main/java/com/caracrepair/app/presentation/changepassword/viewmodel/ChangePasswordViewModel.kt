@@ -30,7 +30,7 @@ class ChangePasswordViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.changePassword(ChangePasswordBody(
-                generalPreference.getUser()?.userId ?: 0,
+                generalPreference.getUser()?.userId.orEmpty(),
                 password,
                 newPassword
             ))

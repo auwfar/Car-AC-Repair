@@ -80,7 +80,7 @@ interface ApiService {
     suspend fun getRepairShops(): DataResponse<List<RepairShopResponse>>
 
     @GET("api/carshops/{repair_shop_id}")
-    suspend fun getRepairShopDetail(@Path("repair_shop_id") repairShopId: Int): DataResponse<RepairShopDetailResponse>
+    suspend fun getRepairShopDetail(@Path("repair_shop_id") repairShopId: String): DataResponse<RepairShopDetailResponse>
 
     @POST("api/order-service")
     suspend fun bookingService(@Body request: BookingServiceBody): DataResponse<BookingServiceResponse>
@@ -94,7 +94,7 @@ interface ApiService {
     @GET("api/order/{order_id}")
     suspend fun getServiceDetail(
         @Path("order_id") serviceId: Int,
-        @Query("user_id") userId: Int
+        @Query("user_id") userId: String
     ): DataResponse<ServiceDetailResponse>
 
     @POST("api/reschedule-service")
@@ -103,7 +103,7 @@ interface ApiService {
     @GET("api/order-payment/{order_id}")
     suspend fun getServicePayment(
         @Path("order_id") serviceId: Int,
-        @Query("user_id") userId: Int
+        @Query("user_id") userId: String
     ): DataResponse<ServicePaymentResponse>
 
     @POST("api/change-password")
@@ -113,7 +113,7 @@ interface ApiService {
     suspend fun getCars(): DataResponse<List<CarResponse>>
 
     @GET("api/addresses")
-    suspend fun getAddresses(): DataResponse<List<AddressResponse>>
+    suspend fun getAddresses(@Field("userId") userId: String): DataResponse<List<AddressResponse>>
 
     @POST("api/car-add")
     suspend fun addCar(@Body request: AddCarBody): StatusResponse

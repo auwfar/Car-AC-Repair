@@ -24,7 +24,7 @@ class RepairShopDetailViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun getRepairShopDetail(repairShopId: Int) {
+    fun getRepairShopDetail(repairShopId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = repairShopRepository.getRepairShopDetail(repairShopId)

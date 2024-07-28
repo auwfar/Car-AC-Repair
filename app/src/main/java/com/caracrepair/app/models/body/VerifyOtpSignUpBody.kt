@@ -6,5 +6,5 @@ data class VerifyOtpSignUpBody(
     @SerializedName("otp")
     val otp: String,
     @SerializedName("user_id")
-    val userId: Int
+    val userId: String
 )

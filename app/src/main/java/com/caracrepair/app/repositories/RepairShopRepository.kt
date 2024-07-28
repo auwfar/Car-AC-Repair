@@ -25,16 +25,20 @@ class RepairShopRepository @Inject constructor(
                 apiService.getRepairShops()
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }
 
-    suspend fun getRepairShopDetail(repairShopId: Int): DataResponse<RepairShopDetailResponse>? {
+    suspend fun getRepairShopDetail(repairShopId: String): DataResponse<RepairShopDetailResponse>? {
         return withContext(coroutineContext) {
             try {
                 apiService.getRepairShopDetail(repairShopId)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }

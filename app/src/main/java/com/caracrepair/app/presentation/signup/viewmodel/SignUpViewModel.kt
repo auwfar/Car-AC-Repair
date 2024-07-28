@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.models.body.SignUpBody
 import com.caracrepair.app.repositories.AccountRepository
-import com.caracrepair.app.utils.FirebaseUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,8 +17,8 @@ class SignUpViewModel @Inject constructor(
     private val accountRepository: AccountRepository
 ) : ViewModel() {
 
-    private val _signUpResult = MutableLiveData<Int>()
-    val signUpResult: LiveData<Int> = _signUpResult
+    private val _signUpResult = MutableLiveData<String>()
+    val signUpResult: LiveData<String> = _signUpResult
     private val _loadingState = MutableLiveData<Boolean>()
     val loadingState: LiveData<Boolean> = _loadingState
     private val _errorMessage = MutableLiveData<String>()
@@ -34,7 +33,7 @@ class SignUpViewModel @Inject constructor(
                     _errorMessage.postValue(response.message.orEmpty())
                     return@launch
                 }
-                _signUpResult.postValue(response.data?.userId ?: 0)
+                _signUpResult.postValue(response.data?.userId.orEmpty())
             } else {
                 _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
             }

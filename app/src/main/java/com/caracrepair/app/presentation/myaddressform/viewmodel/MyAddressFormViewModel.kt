@@ -47,7 +47,7 @@ class MyAddressFormViewModel @Inject constructor(
                 ))
             } else {
                 accountRepository.addAddress(AddAddressBody(
-                    generalPreference.getUser()?.userId ?: 0,
+                    generalPreference.getUser()?.userId.orEmpty(),
                     label,
                     address,
                     addressNote,

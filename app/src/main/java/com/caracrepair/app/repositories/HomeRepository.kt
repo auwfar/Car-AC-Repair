@@ -24,6 +24,8 @@ class HomeRepository @Inject constructor(
                 apiService.getHomePage()
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
             }
         }
     }

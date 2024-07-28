@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class ServiceTimesBody(
     @SerializedName("user_id")
-    val user_id: Int,
+    val userId: String,
     @SerializedName("carshop_id")
-    val carshop_id: Int,
+    val repairShopId: String,
     @SerializedName("service_date")
     val fcmToken: String
 )

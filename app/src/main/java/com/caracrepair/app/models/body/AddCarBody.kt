@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class AddCarBody(
     @SerializedName("user_id")
-    val userId: Int,
+    val userId: String,
     @SerializedName("name")
     val name: String,
     @SerializedName("license_number")

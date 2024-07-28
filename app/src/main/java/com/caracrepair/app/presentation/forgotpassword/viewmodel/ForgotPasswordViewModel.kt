@@ -6,11 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.models.body.ForgotPasswordBody
-import com.caracrepair.app.models.body.SignInBody
-import com.caracrepair.app.models.viewparam.User
 import com.caracrepair.app.repositories.AccountRepository
-import com.caracrepair.app.utils.FirebaseUtil
-import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,8 +17,8 @@ class ForgotPasswordViewModel @Inject constructor(
     private val accountRepository: AccountRepository
 ) : ViewModel() {
 
-    private val _forgotPasswordResult = MutableLiveData<Int>()
-    val forgotPasswordResult: LiveData<Int> = _forgotPasswordResult
+    private val _forgotPasswordResult = MutableLiveData<String>()
+    val forgotPasswordResult: LiveData<String> = _forgotPasswordResult
     private val _loadingState = MutableLiveData<Boolean>()
     val loadingState: LiveData<Boolean> = _loadingState
     private val _errorMessage = MutableLiveData<String>()
@@ -37,7 +33,7 @@ class ForgotPasswordViewModel @Inject constructor(
                     _errorMessage.postValue(response.message.orEmpty())
                     return@launch
                 }
-                _forgotPasswordResult.postValue(response.data?.userId ?: 0)
+                _forgotPasswordResult.postValue(response.data?.userId.orEmpty())
             } else {
                 _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
             }

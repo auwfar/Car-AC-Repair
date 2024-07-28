@@ -36,7 +36,7 @@ class BookingServiceViewModel @Inject constructor(
 
     var selectedCarId = 0
     var selectedAddressId = 0
-    var selectedRepairShopId = 0
+    var selectedRepairShopId = ""
 
     fun bookingService(body: BookingServiceBody) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -59,7 +59,7 @@ class BookingServiceViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = serviceRepository.getServiceTimes(ServiceTimesBody(
-                generalPreference.getUser()?.userId ?: 0,
+                generalPreference.getUser()?.userId.orEmpty(),
                 selectedRepairShopId,
                 date
             ))

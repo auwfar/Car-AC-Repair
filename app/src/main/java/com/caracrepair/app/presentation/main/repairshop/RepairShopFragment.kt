@@ -61,7 +61,7 @@ class RepairShopFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = repairShopAdapter.apply {
                 setOnItemClickListener { item ->
-                    startActivity(RepairShopDetailActivity.createIntent(requireContext(), item?.id ?: 0))
+                    startActivity(RepairShopDetailActivity.createIntent(requireContext(), item?.id.orEmpty()))
                 }
             }
         }

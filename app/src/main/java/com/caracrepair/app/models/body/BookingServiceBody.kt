@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class BookingServiceBody(
     @SerializedName("user_id")
-    val userId: Int,
+    val userId: String,
     @SerializedName("service_type")
     val serviceType: String,
     @SerializedName("car_id")
@@ -16,7 +16,7 @@ data class BookingServiceBody(
     @SerializedName("complaint")
     val complaint: String,
     @SerializedName("carshop_id")
-    val repairShopId: Int,
+    val repairShopId: String,
     @SerializedName("service_date")
     val serviceDate: String,
     @SerializedName("service_time")

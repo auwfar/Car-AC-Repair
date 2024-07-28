@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ChangeProfileResponse(
     @SerializedName("user_id")
-    val userId: Int?,
+    val userId: String?,
     @SerializedName("phone_number")
     val phoneNumber: String?,
     @SerializedName("name")
