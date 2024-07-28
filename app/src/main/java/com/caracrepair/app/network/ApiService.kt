@@ -35,6 +35,7 @@ import com.caracrepair.app.models.response.ServiceTimeResponse
 import com.caracrepair.app.models.response.SignInResponse
 import com.caracrepair.app.models.response.SignUpResponse
 import com.caracrepair.app.models.response.StatusResponse
+import com.caracrepair.app.models.response.UploadImageResponse
 import com.caracrepair.app.models.response.VerifyOtpForgotPasswordResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -140,4 +141,7 @@ interface ApiService {
 
     @POST("api/update-profile")
     suspend fun changeProfile(@Field("name") name: String): DataResponse<ChangeProfileResponse>
+
+    @POST("api/utils/upload/image")
+    suspend fun uploadImage(@Part file: MultipartBody.Part): DataResponse<UploadImageResponse>
 }

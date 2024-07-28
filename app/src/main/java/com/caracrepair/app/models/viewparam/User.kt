@@ -12,7 +12,7 @@ data class User(
     @SerializedName("name")
     val name: String,
     @SerializedName("profile_image")
-    val profileImage: String,
+    var profileImage: String,
     @SerializedName("token")
     val token: String
 ) {

@@ -2,26 +2,28 @@ package com.caracrepair.app.presentation.changeprofile
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.load.resource.bitmap.FitCenter
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.caracrepair.app.R
 import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.databinding.ActivityChangeProfileBinding
 import com.caracrepair.app.presentation.changeprofile.viewmodel.ChangeProfileViewModel
-import com.caracrepair.app.presentation.otpverification.OtpVerificationActivity
-import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
+import com.caracrepair.app.utils.FileUtil
 import com.caracrepair.app.utils.FormUtil
+import com.caracrepair.app.utils.dialog.ImagePickerDialog
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -38,6 +40,51 @@ class ChangeProfileActivity : AppCompatActivity() {
     private val viewModel by viewModels<ChangeProfileViewModel>()
     @Inject
     lateinit var generalPreference: GeneralPreference
+    private val fileUtil by lazy { FileUtil(this) }
+
+    private var profileImageUri: Uri? = null
+
+    private val imagePickerDialog by lazy {
+        ImagePickerDialog.newInstance().apply {
+            setOnOptionClickListener(object : ImagePickerDialog.OnOptionClickListener {
+                override fun onCameraOptionClicked() {
+                    requestCameraPermission.launch(fileUtil.storagePermissions)
+                }
+
+                override fun onGalleryOptionClicked() {
+                    pickImageFromGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                }
+            })
+        }
+    }
+    private val requestCameraPermission =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            var isGranted = false
+            permissions.forEach {
+                if (!it.value) {
+                    isGranted = false
+                    return@forEach
+                }
+                isGranted = true
+            }
+            if (isGranted) {
+                try {
+                    profileImageUri = fileUtil.createTemporaryImageUri()
+                    val uri = profileImageUri
+                    lifecycleScope.launchWhenStarted {
+                        if (uri != null) takePicturePreview.launch(uri)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    private val pickImageFromGallery = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        loadProfileImage(uri)
+    }
+    private val takePicturePreview = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess: Boolean? ->
+        if (isSuccess == true) loadProfileImage(profileImageUri)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,11 +108,14 @@ class ChangeProfileActivity : AppCompatActivity() {
                 .load(user?.profileImage)
                 .apply(requestOptions)
                 .thumbnail(requestBuilder)
-                .into(ivUserImage)
+                .into(binding.ivUserImage)
 
             etPhoneNumber.setText(user?.phoneNumber)
             etName.setText(user?.name)
 
+            ivUserImage.setOnClickListener {
+                imagePickerDialog.show(supportFragmentManager, null)
+            }
             btnSave.setOnClickListener {
                 changeProfile()
             }
@@ -88,7 +138,17 @@ class ChangeProfileActivity : AppCompatActivity() {
     private fun changeProfile() {
         val name = binding.etName.text.toString()
         if (FormUtil.validateRequired(StringConst.FieldName.NAME, binding.tilName, name)) {
-            viewModel.changeProfile(name)
+            viewModel.changeProfile(name, profileImageUri)
         }
+    }
+
+    private fun loadProfileImage(uri: Uri?) {
+        val requestOptions = RequestOptions().transform(CenterCrop(), CircleCrop())
+        val requestBuilder = Glide.with(this).load(R.drawable.ic_user_circle).apply(requestOptions)
+        Glide.with(this)
+            .load(uri)
+            .apply(requestOptions)
+            .thumbnail(requestBuilder)
+            .into(binding.ivUserImage)
     }
 }
