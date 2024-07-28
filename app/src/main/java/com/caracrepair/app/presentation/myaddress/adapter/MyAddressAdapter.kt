@@ -14,7 +14,7 @@ class MyAddressAdapter : RecyclerView.Adapter<MyAddressAdapter.ViewHolder>() {
 
     fun setItems(items: List<MyAddressItem>) {
         this.items = items
-        notifyItemRangeInserted(0, items.size)
+        notifyItemRangeChanged(0, items.size)
     }
 
     fun setOnClickItemListener(listener: (MyAddressItem?) -> Unit) {

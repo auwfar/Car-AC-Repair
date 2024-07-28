@@ -77,7 +77,7 @@ class MyAddressActivity : AppCompatActivity() {
         viewModel.loadingState.observe(this) {
             binding.flLoading.isVisible = it
         }
-        viewModel.errorMessage.observe(this) { message ->
+        viewModel.errorPageMessage.observe(this) { message ->
             binding.llErrorView.isVisible = true
             binding.tvErrorTitle.text = getString(R.string.title_oops_there_is_problem)
             binding.tvErrorDescription.text = message
@@ -85,6 +85,9 @@ class MyAddressActivity : AppCompatActivity() {
             binding.btnErrorAction.setOnClickListener {
                 viewModel.getAddresses()
             }
+        }
+        viewModel.errorMessage.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
 

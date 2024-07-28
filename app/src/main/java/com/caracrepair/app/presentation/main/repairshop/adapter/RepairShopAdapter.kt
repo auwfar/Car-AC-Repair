@@ -18,7 +18,7 @@ class RepairShopAdapter : RecyclerView.Adapter<RepairShopAdapter.ViewHolder>() {
 
     fun setItems(items: List<RepairShopItem>) {
         this.items = items
-        notifyItemRangeInserted(0, items.size)
+        notifyItemRangeChanged(0, items.size)
     }
 
     fun setOnItemClickListener(listener: (RepairShopItem?) -> Unit) {

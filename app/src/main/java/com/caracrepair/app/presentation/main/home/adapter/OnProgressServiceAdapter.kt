@@ -12,7 +12,7 @@ class OnProgressServiceAdapter: RecyclerView.Adapter<OnProgressServiceAdapter.Vi
 
     fun setItems(items: List<OnProgressServiceItem>) {
         this.items = items
-        notifyItemRangeInserted(0, items.size)
+        notifyItemRangeChanged(0, items.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(

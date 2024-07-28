@@ -3,14 +3,14 @@ package com.caracrepair.app.models.body
 import com.google.gson.annotations.SerializedName
 
 data class UpdateAddressBody(
-    @SerializedName("id")
-    val id: String,
-    @SerializedName("label")
+    @SerializedName("title")
     val label: String,
     @SerializedName("address")
     val address: String,
-    @SerializedName("address_note")
+    @SerializedName("description")
     val addressNote: String,
-    @SerializedName("location")
-    val location: LocationBody?
+    @SerializedName("lat")
+    val lat: String?,
+    @SerializedName("long")
+    val long: String?
 )

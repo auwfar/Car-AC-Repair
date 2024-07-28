@@ -14,7 +14,7 @@ class RepairShopOptionAdapter : RecyclerView.Adapter<RepairShopOptionAdapter.Vie
 
     fun setItems(items: List<RepairShopOptionItem>) {
         this.items = items
-        notifyItemRangeInserted(0, items.size)
+        notifyItemRangeChanged(0, items.size)
     }
 
     fun setOnCheckLocationClickListener(listener: (RepairShopOptionItem?) -> Unit) {

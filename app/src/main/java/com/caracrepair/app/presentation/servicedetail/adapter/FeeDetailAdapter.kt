@@ -11,7 +11,7 @@ class FeeDetailAdapter : RecyclerView.Adapter<FeeDetailAdapter.ViewHolder>() {
 
     fun setItems(items: List<FeeDetailItem>) {
         this.items = items
-        notifyItemRangeInserted(0, items.size)
+        notifyItemRangeChanged(0, items.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(

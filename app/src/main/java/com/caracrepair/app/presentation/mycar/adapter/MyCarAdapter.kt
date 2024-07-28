@@ -14,7 +14,7 @@ class MyCarAdapter : RecyclerView.Adapter<MyCarAdapter.ViewHolder>() {
 
     fun setItems(items: List<MyCarItem>) {
         this.items = items
-        notifyItemRangeInserted(0, items.size)
+        notifyItemRangeChanged(0, items.size)
     }
 
     fun setOnClickItemListener(listener: (MyCarItem?) -> Unit) {

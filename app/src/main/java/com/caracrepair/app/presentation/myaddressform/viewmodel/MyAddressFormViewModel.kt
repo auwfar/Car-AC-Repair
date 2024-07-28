@@ -38,12 +38,12 @@ class MyAddressFormViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = if (!addressId.isNullOrBlank()) {
-                accountRepository.updateAddress(UpdateAddressBody(
-                    addressId,
+                accountRepository.updateAddress(addressId, UpdateAddressBody(
                     label,
                     address,
                     addressNote,
-                    location
+                    location?.lat.toString(),
+                    location?.long.toString()
                 ))
             } else {
                 accountRepository.addAddress(AddAddressBody(

@@ -12,7 +12,7 @@ class LastServiceAdapter: RecyclerView.Adapter<LastServiceAdapter.ViewHolder>() 
 
     fun setItems(items: List<LastServiceItem>) {
         this.items = items
-        notifyItemRangeInserted(0, items.size)
+        notifyItemRangeChanged(0, items.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(

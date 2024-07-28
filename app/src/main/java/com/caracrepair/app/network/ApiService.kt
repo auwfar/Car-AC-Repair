@@ -42,6 +42,7 @@ import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.PartMap
 import retrofit2.http.Path
@@ -126,8 +127,8 @@ interface ApiService {
     @POST("api/addresses")
     suspend fun addAddress(@Body request: AddAddressBody): StatusResponse
 
-    @POST("api/address-update")
-    suspend fun updateAddress(@Body request: UpdateAddressBody): StatusResponse
+    @PUT("api/addresses/{address_id}")
+    suspend fun updateAddress(@Path("address_id") addressId: String, @Body request: UpdateAddressBody): StatusResponse
 
     @POST("api/address-delete")
     suspend fun removeAddress(@Field("id") addressId: String): StatusResponse

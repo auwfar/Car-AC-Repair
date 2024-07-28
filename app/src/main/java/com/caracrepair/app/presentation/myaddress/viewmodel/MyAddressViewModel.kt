@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
-import com.caracrepair.app.models.viewparam.User
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
 import com.caracrepair.app.repositories.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +23,8 @@ class MyAddressViewModel @Inject constructor(
     val removeAddressResult: LiveData<String> = _removeAddressResult
     private val _loadingState = MutableLiveData<Boolean>()
     val loadingState: LiveData<Boolean> = _loadingState
+    private val _errorPageMessage = MutableLiveData<String>()
+    val errorPageMessage: LiveData<String> = _errorPageMessage
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
@@ -36,10 +37,10 @@ class MyAddressViewModel @Inject constructor(
                     _addressesResult.postValue(response.data?.map { MyAddressItem(it) }.orEmpty())
                 }
                 response != null && response.status != true -> {
-                    _errorMessage.postValue(response.message.orEmpty())
+                    _errorPageMessage.postValue(response.message.orEmpty())
                 }
                 else -> {
-                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                    _errorPageMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
                 }
             }
             _loadingState.postValue(false)
@@ -50,14 +51,16 @@ class MyAddressViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.removeAddress(addressId)
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            when {
+                response != null && response.status == true -> {
+                    _removeAddressResult.postValue(response.message.orEmpty())
                 }
-                _removeAddressResult.postValue(response.message.orEmpty())
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                response != null && response.status != true -> {
+                    _errorMessage.postValue(response.message.orEmpty())
+                }
+                else -> {
+                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                }
             }
             _loadingState.postValue(false)
         }

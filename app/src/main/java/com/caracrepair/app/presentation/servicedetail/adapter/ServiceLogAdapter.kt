@@ -15,7 +15,7 @@ class ServiceLogAdapter : RecyclerView.Adapter<ServiceLogAdapter.ViewHolder>() {
 
     fun setItems(items: List<ServiceLogItem>) {
         this.items = items
-        notifyItemRangeInserted(0, items.size)
+        notifyItemRangeChanged(0, items.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(

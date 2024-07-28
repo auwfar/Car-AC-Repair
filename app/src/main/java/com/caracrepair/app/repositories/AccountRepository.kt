@@ -222,10 +222,10 @@ class AccountRepository @Inject constructor(
         }
     }
 
-    suspend fun updateAddress(updateAddressBody: UpdateAddressBody): StatusResponse? {
+    suspend fun updateAddress(addressId: String, updateAddressBody: UpdateAddressBody): StatusResponse? {
         return withContext(coroutineContext) {
             try {
-                apiService.updateAddress(updateAddressBody)
+                apiService.updateAddress(addressId, updateAddressBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

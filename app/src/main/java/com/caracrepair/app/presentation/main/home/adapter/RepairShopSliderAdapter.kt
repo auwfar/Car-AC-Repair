@@ -17,7 +17,7 @@ class RepairShopSliderAdapter : RecyclerView.Adapter<RepairShopSliderAdapter.Vie
 
     fun setItems(items: List<RepairShopSliderItem>) {
         this.items = items
-        notifyItemRangeInserted(0, items.size)
+        notifyItemRangeChanged(0, items.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(

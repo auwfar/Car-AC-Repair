@@ -18,7 +18,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     fun setItems(items: List<HistoryItem>) {
         this.items = items
-        notifyItemRangeInserted(0, items.size)
+        notifyItemRangeChanged(0, items.size)
     }
 
     fun setOnItemClickListener(listener: (HistoryItem?) -> Unit) {

@@ -15,7 +15,7 @@ class ServiceTimeAdapter : RecyclerView.Adapter<ServiceTimeAdapter.ViewHolder>()
     fun setItems(items: List<ServiceTimeItem>) {
         this.items = items
         selectedPosition = -1
-        notifyItemRangeInserted(0, items.size)
+        notifyItemRangeChanged(0, items.size)
     }
 
     fun getSelectedServiceTime() = items.getOrNull(selectedPosition)
