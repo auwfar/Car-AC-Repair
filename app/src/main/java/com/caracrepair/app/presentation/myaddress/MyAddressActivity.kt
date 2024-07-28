@@ -15,7 +15,7 @@ import com.caracrepair.app.models.viewparam.ButtonParam
 import com.caracrepair.app.models.viewparam.ConfirmationDialogParam
 import com.caracrepair.app.presentation.myaddress.adapter.MyAddressAdapter
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
-import com.caracrepair.app.presentation.myaddresses.viewmodel.MyAddressViewModel
+import com.caracrepair.app.presentation.myaddress.viewmodel.MyAddressViewModel
 import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivityContract
 import com.caracrepair.app.utils.dialog.ConfirmationDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -110,7 +110,7 @@ class MyAddressActivity : AppCompatActivity() {
         }
     }
 
-    private fun showRemoveAddressDialog(addressId: Int) {
+    private fun showRemoveAddressDialog(addressId: String) {
         val dialog = ConfirmationDialog.newInstance(ConfirmationDialogParam(
             title = getString(R.string.title_remove_data),
             message = getString(R.string.desc_remove_data),

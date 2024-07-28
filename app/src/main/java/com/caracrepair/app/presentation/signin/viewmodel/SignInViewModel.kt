@@ -32,14 +32,18 @@ class SignInViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.signIn(SignInBody(phoneNumber, password, FirebaseUtil().getInstanceId()))
-            if (response != null && response.status == true) {
-                val user = User(response.data)
-                generalPreference.setUser(user)
-                _signInResult.postValue(user)
-            } else if (response != null && response.status != true) {
-                _errorMessage.postValue(response.message.orEmpty())
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+            when {
+                response != null && response.status == true -> {
+                    val user = User(response.data)
+                    generalPreference.setUser(user)
+                    _signInResult.postValue(user)
+                }
+                response != null && response.status != true -> {
+                    _errorMessage.postValue(response.message.orEmpty())
+                }
+                else -> {
+                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                }
             }
             _loadingState.postValue(false)
         }

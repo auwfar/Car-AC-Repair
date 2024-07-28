@@ -55,6 +55,7 @@ class ChooseMapsLocationActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, Intent().apply {
                 putExtra(EXTRA_LOCATION, location)
             })
+            finish()
         }
         binding.ivCurrentLocation.setOnClickListener {
             getCurrentLocation()

@@ -3,7 +3,6 @@ package com.caracrepair.app.repositories
 import com.caracrepair.app.models.body.AddAddressBody
 import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.ChangePasswordBody
-import com.caracrepair.app.models.body.RemoveAddressBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
 import com.caracrepair.app.models.body.RemoveCarBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
@@ -235,10 +234,10 @@ class AccountRepository @Inject constructor(
         }
     }
 
-    suspend fun removeAddress(removeAddressBody: RemoveAddressBody): StatusResponse? {
+    suspend fun removeAddress(addressId: String): StatusResponse? {
         return withContext(coroutineContext) {
             try {
-                apiService.removeAddress(removeAddressBody)
+                apiService.removeAddress(addressId)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

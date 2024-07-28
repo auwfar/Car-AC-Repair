@@ -1,11 +1,11 @@
-package com.caracrepair.app.presentation.myaddresses.viewmodel
+package com.caracrepair.app.presentation.myaddress.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
-import com.caracrepair.app.models.body.RemoveAddressBody
+import com.caracrepair.app.models.viewparam.User
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
 import com.caracrepair.app.repositories.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,23 +31,25 @@ class MyAddressViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.getAddresses()
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            when {
+                response != null && response.status == true -> {
+                    _addressesResult.postValue(response.data?.map { MyAddressItem(it) }.orEmpty())
                 }
-                _addressesResult.postValue(response.data?.map { MyAddressItem(it) }.orEmpty())
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                response != null && response.status != true -> {
+                    _errorMessage.postValue(response.message.orEmpty())
+                }
+                else -> {
+                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                }
             }
             _loadingState.postValue(false)
         }
     }
 
-    fun removeAddress(addressId: Int) {
+    fun removeAddress(addressId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = accountRepository.removeAddress(RemoveAddressBody(addressId))
+            val response = accountRepository.removeAddress(addressId)
             if (response != null) {
                 if (response.status != true) {
                     _errorMessage.postValue(response.message.orEmpty())

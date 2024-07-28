@@ -29,7 +29,7 @@ class MyAddressFormViewModel @Inject constructor(
     val errorMessage: LiveData<String> = _errorMessage
 
     fun updateAddress(
-        addressId: Int?,
+        addressId: String?,
         label: String,
         address: String,
         addressNote: String,
@@ -37,7 +37,7 @@ class MyAddressFormViewModel @Inject constructor(
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = if (addressId != null) {
+            val response = if (!addressId.isNullOrBlank()) {
                 accountRepository.updateAddress(UpdateAddressBody(
                     addressId,
                     label,
@@ -51,7 +51,8 @@ class MyAddressFormViewModel @Inject constructor(
                     label,
                     address,
                     addressNote,
-                    location
+                    location?.lat.toString(),
+                    location?.long.toString()
                 ))
             }
             if (response != null) {

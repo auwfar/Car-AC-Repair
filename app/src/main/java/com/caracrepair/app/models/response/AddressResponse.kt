@@ -4,13 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class AddressResponse(
     @SerializedName("id")
-    val id: Int?,
-    @SerializedName("label")
+    val id: String?,
+    @SerializedName("title")
     val label: String?,
     @SerializedName("address")
     val address: String?,
-    @SerializedName("address_note")
+    @SerializedName("description")
     val addressNote: String?,
-    @SerializedName("location")
-    val location: LocationResponse?
+    @SerializedName("lat")
+    val lat: Double?,
+    @SerializedName("long")
+    val long: Double?
 )

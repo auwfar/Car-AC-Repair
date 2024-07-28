@@ -35,7 +35,7 @@ class BookingServiceViewModel @Inject constructor(
     val errorMessage: LiveData<String> = _errorMessage
 
     var selectedCarId = 0
-    var selectedAddressId = 0
+    var selectedAddressId = ""
     var selectedRepairShopId = ""
 
     fun bookingService(body: BookingServiceBody) {

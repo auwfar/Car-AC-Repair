@@ -25,7 +25,9 @@ import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.plugin.attribution.attribution
 import com.mapbox.maps.plugin.logo.logo
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyAddressFormActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_MY_ADDRESS_ITEM = "extra_my_address_item"
@@ -133,7 +135,7 @@ class MyAddressFormActivity : AppCompatActivity() {
     }
 
     private fun updateAddress() {
-        val addressId = intent.getParcelableExtra<MyAddressItem>(EXTRA_MY_ADDRESS_ITEM)?.id ?: 0
+        val addressId = intent.getParcelableExtra<MyAddressItem>(EXTRA_MY_ADDRESS_ITEM)?.id.orEmpty()
         val label = binding.etInputAddressName.text.toString()
         val address = binding.etInputLocationAddress.text.toString()
         val addressNote = binding.etInputAddressNotes.text.toString()

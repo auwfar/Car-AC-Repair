@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class UpdateAddressBody(
     @SerializedName("id")
-    val id: Int,
+    val id: String,
     @SerializedName("label")
     val label: String,
     @SerializedName("address")

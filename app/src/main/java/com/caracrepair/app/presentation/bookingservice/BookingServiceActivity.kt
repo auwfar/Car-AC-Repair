@@ -47,7 +47,7 @@ class BookingServiceActivity : AppCompatActivity() {
     }
     private val myAddressLauncher = registerForActivityResult(MyAddressActivityContract()) { selectedAddress ->
         binding.etAddress.setText(selectedAddress?.address)
-        viewModel.selectedAddressId = selectedAddress?.id ?: 0
+        viewModel.selectedAddressId = selectedAddress?.id.orEmpty()
     }
     private val chooseRepairShopLauncher = registerForActivityResult(ChooseRepairShopActivityContract()) { selectedRepairShop ->
         with(binding) {

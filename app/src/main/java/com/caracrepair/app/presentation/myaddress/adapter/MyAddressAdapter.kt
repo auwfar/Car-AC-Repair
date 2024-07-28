@@ -10,7 +10,7 @@ class MyAddressAdapter : RecyclerView.Adapter<MyAddressAdapter.ViewHolder>() {
     private var items = listOf<MyAddressItem>()
     private var onClickItemListener: ((MyAddressItem?) -> Unit)? = null
     private var onClickChangeDataListener: ((MyAddressItem?) -> Unit)? = null
-    private var onClickRemoveDataListener: ((Int) -> Unit)? = null
+    private var onClickRemoveDataListener: ((String) -> Unit)? = null
 
     fun setItems(items: List<MyAddressItem>) {
         this.items = items
@@ -25,7 +25,7 @@ class MyAddressAdapter : RecyclerView.Adapter<MyAddressAdapter.ViewHolder>() {
         onClickChangeDataListener = listener
     }
 
-    fun setOnClickRemoveDataListener(listener: (Int) -> Unit) {
+    fun setOnClickRemoveDataListener(listener: (String) -> Unit) {
         onClickRemoveDataListener = listener
     }
 
@@ -47,7 +47,7 @@ class MyAddressAdapter : RecyclerView.Adapter<MyAddressAdapter.ViewHolder>() {
                 tvAddress.text = item?.address
 
                 ivRemove.setOnClickListener {
-                    onClickRemoveDataListener?.invoke(item?.id ?: 0)
+                    onClickRemoveDataListener?.invoke(item?.id.orEmpty())
                 }
                 btnChangeData.setOnClickListener {
                     onClickChangeDataListener?.invoke(item)
