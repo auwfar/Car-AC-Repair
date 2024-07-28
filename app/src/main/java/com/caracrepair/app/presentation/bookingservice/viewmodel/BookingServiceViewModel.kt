@@ -34,7 +34,7 @@ class BookingServiceViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    var selectedCarId = 0
+    var selectedCarId = ""
     var selectedAddressId = ""
     var selectedRepairShopId = ""
 

@@ -148,7 +148,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/title_input_car_year"
-                    android:inputType="text"
+                    android:inputType="number"
+                    android:maxLength="4"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>

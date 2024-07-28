@@ -7,8 +7,8 @@ data class AddCarBody(
     val userId: String,
     @SerializedName("name")
     val name: String,
-    @SerializedName("license_number")
+    @SerializedName("plat_number")
     val licenseNumber: String,
-    @SerializedName("year")
+    @SerializedName("car_date")
     val year: String
 )

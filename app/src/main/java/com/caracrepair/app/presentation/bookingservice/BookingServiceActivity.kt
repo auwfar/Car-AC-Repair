@@ -43,7 +43,7 @@ class BookingServiceActivity : AppCompatActivity() {
 
     private val myCarLauncher = registerForActivityResult(MyCarActivityContract()) { selectedCar ->
         binding.etCar.setText(selectedCar?.carName)
-        viewModel.selectedCarId = selectedCar?.id ?: 0
+        viewModel.selectedCarId = selectedCar?.id.orEmpty()
     }
     private val myAddressLauncher = registerForActivityResult(MyAddressActivityContract()) { selectedAddress ->
         binding.etAddress.setText(selectedAddress?.address)

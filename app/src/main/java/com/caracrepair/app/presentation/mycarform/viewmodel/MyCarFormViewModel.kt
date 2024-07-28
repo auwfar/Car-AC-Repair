@@ -24,15 +24,16 @@ class MyCarFormViewModel @Inject constructor(
     val updateCarResult: LiveData<String> = _updateCarResult
     private val _loadingState = MutableLiveData<Boolean>()
     val loadingState: LiveData<Boolean> = _loadingState
+    private val _errorPageMessage = MutableLiveData<String>()
+    val errorPageMessage: LiveData<String> = _errorPageMessage
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun updateCar(carId: Int?, name: String, licenseNumber: String, year: String) {
+    fun updateCar(carId: String?, name: String, licenseNumber: String, year: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = if (carId != null) {
-                accountRepository.updateCar(UpdateCarBody(
-                    carId,
+            val response = if (!carId.isNullOrBlank()) {
+                accountRepository.updateCar(carId, UpdateCarBody(
                     name,
                     licenseNumber,
                     year
@@ -48,7 +49,7 @@ class MyCarFormViewModel @Inject constructor(
             if (response != null) {
                 _updateCarResult.postValue(response.message.orEmpty())
             } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                _errorPageMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
             }
             _loadingState.postValue(false)
         }

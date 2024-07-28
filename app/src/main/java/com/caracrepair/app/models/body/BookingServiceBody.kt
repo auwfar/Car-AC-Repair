@@ -8,7 +8,7 @@ data class BookingServiceBody(
     @SerializedName("service_type")
     val serviceType: String,
     @SerializedName("car_id")
-    val carId: Int,
+    val carId: String,
     @SerializedName("address_id")
     val addressId: String,
     @SerializedName("car_distance")

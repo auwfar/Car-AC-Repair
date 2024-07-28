@@ -10,7 +10,7 @@ class MyCarAdapter : RecyclerView.Adapter<MyCarAdapter.ViewHolder>() {
     private var items = listOf<MyCarItem>()
     private var onClickItemListener: ((MyCarItem?) -> Unit)? = null
     private var onClickChangeDataListener: ((MyCarItem?) -> Unit)? = null
-    private var onClickRemoveDataListener: ((Int) -> Unit)? = null
+    private var onClickRemoveDataListener: ((String) -> Unit)? = null
 
     fun setItems(items: List<MyCarItem>) {
         this.items = items
@@ -25,7 +25,7 @@ class MyCarAdapter : RecyclerView.Adapter<MyCarAdapter.ViewHolder>() {
         onClickChangeDataListener = listener
     }
 
-    fun setOnClickRemoveDataListener(listener: (Int) -> Unit) {
+    fun setOnClickRemoveDataListener(listener: (String) -> Unit) {
         onClickRemoveDataListener = listener
     }
 
@@ -46,7 +46,7 @@ class MyCarAdapter : RecyclerView.Adapter<MyCarAdapter.ViewHolder>() {
                 tvCarName.text = item?.carName
                 tvCarLicenseNumber.text = item?.carLicenseNumber
                 ivRemove.setOnClickListener {
-                    onClickRemoveDataListener?.invoke(item?.id ?: 0)
+                    onClickRemoveDataListener?.invoke(item?.id.orEmpty())
                 }
                 btnChangeData.setOnClickListener {
                     onClickChangeDataListener?.invoke(item)

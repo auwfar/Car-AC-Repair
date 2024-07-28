@@ -7,6 +7,7 @@ object StringConst {
     fun notValidMessage(field: String): String = "$field tidak valid!"
     fun minimumCharacterMessage(field: String, minimumCharacter: Int): String = "$field minimal $minimumCharacter karakter!"
     fun minimumAndMaximumDigitMessage(field: String, minimumDigit: Int, maximumDigit: Int): String = "$field harus valid, min. $minimumDigit digit dan maks. $maximumDigit digit"
+    fun minimumDigitMessage(field: String, minimumDigit: Int): String = "$field minimal $minimumDigit digit!"
 
     object FieldName {
         const val PHONE_NUMBER = "Nomor HP"

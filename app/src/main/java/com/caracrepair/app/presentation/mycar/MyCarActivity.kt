@@ -78,7 +78,7 @@ class MyCarActivity : AppCompatActivity() {
         viewModel.loadingState.observe(this) {
             binding.flLoading.isVisible = it
         }
-        viewModel.errorMessage.observe(this) { message ->
+        viewModel.errorPageMessage.observe(this) { message ->
             binding.llErrorView.isVisible = true
             binding.tvErrorTitle.text = getString(R.string.title_oops_there_is_problem)
             binding.tvErrorDescription.text = message
@@ -111,7 +111,7 @@ class MyCarActivity : AppCompatActivity() {
         }
     }
 
-    private fun showRemoveCarDialog(carId: Int) {
+    private fun showRemoveCarDialog(carId: String) {
         val dialog = ConfirmationDialog.newInstance(ConfirmationDialogParam(
             title = getString(R.string.title_remove_data),
             message = getString(R.string.desc_remove_data),

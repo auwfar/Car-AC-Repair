@@ -38,7 +38,7 @@ object FormUtil {
                 false
             }
             password.length < minimumPasswordCharacter -> {
-                textInputLayout.error =StringConst.minimumCharacterMessage(fieldName, minimumPasswordCharacter)
+                textInputLayout.error = StringConst.minimumCharacterMessage(fieldName, minimumPasswordCharacter)
                 false
             }
             else -> {
@@ -78,6 +78,27 @@ object FormUtil {
             }
             confirmationPassword != password -> {
                 textInputLayout.error = StringConst.CONFIRMATION_PASSWORD_NOT_SAME_MESSAGE
+                false
+            }
+            else -> {
+                textInputLayout.error = ""
+                true
+            }
+        }
+        textInputLayout.isErrorEnabled = !isValid
+        return isValid
+    }
+
+    fun validateYear(textInputLayout: TextInputLayout, value: String): Boolean {
+        val fieldName = StringConst.FieldName.YEAR
+        val minimumDigit = 4
+        val isValid = when {
+            value.isBlank() -> {
+                textInputLayout.error = StringConst.requiredMessage(fieldName)
+                false
+            }
+            value.length < minimumDigit -> {
+                textInputLayout.error = StringConst.minimumDigitMessage(fieldName, minimumDigit)
                 false
             }
             else -> {

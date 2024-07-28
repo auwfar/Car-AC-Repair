@@ -15,7 +15,9 @@ import com.caracrepair.app.presentation.mycar.viewparam.MyCarItem
 import com.caracrepair.app.presentation.mycarform.MyCarFormActivity.Companion.EXTRA_MY_CAR_ITEM
 import com.caracrepair.app.presentation.mycarform.viewmodel.MyCarFormViewModel
 import com.caracrepair.app.utils.FormUtil
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyCarFormActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_MY_CAR_ITEM = "extra_my_car_item"
@@ -42,7 +44,7 @@ class MyCarFormActivity : AppCompatActivity() {
         viewModel.loadingState.observe(this) { isLoading ->
             binding.flLoading.isVisible = isLoading
         }
-        viewModel.errorMessage.observe(this) { message ->
+        viewModel.errorPageMessage.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -66,12 +68,12 @@ class MyCarFormActivity : AppCompatActivity() {
     private fun isValidMyCarForm(name: String, licenseNumber: String, year: String): Boolean {
         val isValidName = FormUtil.validateRequired(StringConst.FieldName.NAME, binding.tilCarName, name)
         val isValidLicenseNumber = FormUtil.validateRequired(StringConst.FieldName.LICENSE_NUMBER, binding.tilCarLicenseNumber, licenseNumber)
-        val isValidYear = FormUtil.validateRequired(StringConst.FieldName.YEAR, binding.tilCarYear, year)
+        val isValidYear = FormUtil.validateYear(binding.tilCarYear, year)
         return isValidName && isValidLicenseNumber && isValidYear
     }
 
     private fun updateCar() {
-        val carId = intent.getParcelableExtra<MyCarItem>(EXTRA_MY_CAR_ITEM)?.id ?: 0
+        val carId = intent.getParcelableExtra<MyCarItem>(EXTRA_MY_CAR_ITEM)?.id.orEmpty()
         val name = binding.etInputCarName.text.toString()
         val licenseNumber = binding.etInputCarLicenseNumber.text.toString()
         val year = binding.etInputCarYear.text.toString()

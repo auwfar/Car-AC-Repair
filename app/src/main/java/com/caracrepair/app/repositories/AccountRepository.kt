@@ -4,7 +4,6 @@ import com.caracrepair.app.models.body.AddAddressBody
 import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.ChangePasswordBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
-import com.caracrepair.app.models.body.RemoveCarBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpSignUpBody
 import com.caracrepair.app.models.body.ResetPasswordBody
@@ -186,10 +185,10 @@ class AccountRepository @Inject constructor(
         }
     }
 
-    suspend fun updateCar(updateCarBody: UpdateCarBody): StatusResponse? {
+    suspend fun updateCar(carId: String, updateCarBody: UpdateCarBody): StatusResponse? {
         return withContext(coroutineContext) {
             try {
-                apiService.updateCar(updateCarBody)
+                apiService.updateCar(carId, updateCarBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {
@@ -198,10 +197,10 @@ class AccountRepository @Inject constructor(
         }
     }
 
-    suspend fun removeCar(removeCarBody: RemoveCarBody): StatusResponse? {
+    suspend fun removeCar(carId: String): StatusResponse? {
         return withContext(coroutineContext) {
             try {
-                apiService.removeCar(removeCarBody)
+                apiService.removeCar(carId)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

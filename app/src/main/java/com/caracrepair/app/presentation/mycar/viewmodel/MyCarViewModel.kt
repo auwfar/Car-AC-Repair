@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
-import com.caracrepair.app.models.body.RemoveCarBody
 import com.caracrepair.app.presentation.mycar.viewparam.MyCarItem
 import com.caracrepair.app.repositories.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +23,8 @@ class MyCarViewModel @Inject constructor(
     val removeCarResult: LiveData<String> = _removeCarResult
     private val _loadingState = MutableLiveData<Boolean>()
     val loadingState: LiveData<Boolean> = _loadingState
+    private val _errorPageMessage = MutableLiveData<String>()
+    val errorPageMessage: LiveData<String> = _errorPageMessage
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
@@ -31,31 +32,35 @@ class MyCarViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.getCars()
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            when {
+                response != null && response.status == true -> {
+                    _carsResult.postValue(response.data?.map { MyCarItem(it) }.orEmpty())
                 }
-                _carsResult.postValue(response.data?.map { MyCarItem(it) }.orEmpty())
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                response != null && response.status != true -> {
+                    _errorPageMessage.postValue(response.message.orEmpty())
+                }
+                else -> {
+                    _errorPageMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                }
             }
             _loadingState.postValue(false)
         }
     }
 
-    fun removeCar(carId: Int) {
+    fun removeCar(carId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = accountRepository.removeCar(RemoveCarBody(carId))
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            val response = accountRepository.removeCar(carId)
+            when {
+                response != null && response.status == true -> {
+                    _removeCarResult.postValue(response.message.orEmpty())
                 }
-                _removeCarResult.postValue(response.message.orEmpty())
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                response != null && response.status != true -> {
+                    _errorMessage.postValue(response.message.orEmpty())
+                }
+                else -> {
+                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                }
             }
             _loadingState.postValue(false)
         }

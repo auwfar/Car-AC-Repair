@@ -5,7 +5,6 @@ import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.ChangePasswordBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
-import com.caracrepair.app.models.body.RemoveCarBody
 import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpSignUpBody
@@ -115,14 +114,14 @@ interface ApiService {
     @GET("api/addresses")
     suspend fun getAddresses(@Query("user_id") userId: String): DataResponse<List<AddressResponse>>
 
-    @POST("api/car-add")
+    @POST("api/cars")
     suspend fun addCar(@Body request: AddCarBody): StatusResponse
 
-    @POST("api/car-update")
-    suspend fun updateCar(@Body request: UpdateCarBody): StatusResponse
+    @PUT("api/cars/{car_id}")
+    suspend fun updateCar(@Path("car_id") carId: String, @Body request: UpdateCarBody): StatusResponse
 
     @POST("api/car-delete")
-    suspend fun removeCar(@Body request: RemoveCarBody): StatusResponse
+    suspend fun removeCar(@Field("car_id") carId: String): StatusResponse
 
     @POST("api/addresses")
     suspend fun addAddress(@Body request: AddAddressBody): StatusResponse
