@@ -22,6 +22,7 @@ import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.BookingHistoryResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.CarResponse
+import com.caracrepair.app.models.response.ChangeProfileResponse
 import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.ForgotPasswordResponse
 import com.caracrepair.app.models.response.HomePageResponse
@@ -136,4 +137,7 @@ interface ApiService {
         @PartMap reqBody: MutableMap<String, RequestBody>,
         @Part file: MultipartBody.Part
     ): StatusResponse
+
+    @POST("api/update-profile")
+    suspend fun changeProfile(@Field("name") name: String): DataResponse<ChangeProfileResponse>
 }

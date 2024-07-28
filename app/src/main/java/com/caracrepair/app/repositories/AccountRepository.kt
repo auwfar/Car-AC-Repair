@@ -17,6 +17,7 @@ import com.caracrepair.app.models.body.UpdateAddressBody
 import com.caracrepair.app.models.body.UpdateCarBody
 import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.CarResponse
+import com.caracrepair.app.models.response.ChangeProfileResponse
 import com.caracrepair.app.network.ApiService
 import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.ForgotPasswordResponse
@@ -204,6 +205,16 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.removeAddress(removeAddressBody)
+            } catch (error: HttpException) {
+                apiResponseUtil.getErrorResponse(error)
+            }
+        }
+    }
+
+    suspend fun changeProfile(name: String): DataResponse<ChangeProfileResponse>? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.changeProfile(name)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             }
