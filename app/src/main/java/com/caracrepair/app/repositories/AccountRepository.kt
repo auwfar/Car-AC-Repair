@@ -3,6 +3,7 @@ package com.caracrepair.app.repositories
 import com.caracrepair.app.models.body.AddAddressBody
 import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.ChangePasswordBody
+import com.caracrepair.app.models.body.ChangeProfileBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpSignUpBody
@@ -245,10 +246,10 @@ class AccountRepository @Inject constructor(
         }
     }
 
-    suspend fun changeProfile(name: String): DataResponse<ChangeProfileResponse>? {
+    suspend fun changeProfile(changeProfileBody: ChangeProfileBody): DataResponse<ChangeProfileResponse>? {
         return withContext(coroutineContext) {
             try {
-                apiService.changeProfile(name)
+                apiService.changeProfile(generalPreference.getUser()?.userId.orEmpty(), changeProfileBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

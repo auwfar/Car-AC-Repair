@@ -6,16 +6,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
+import com.caracrepair.app.models.body.ChangeProfileBody
 import com.caracrepair.app.models.viewparam.User
 import com.caracrepair.app.repositories.AccountRepository
 import com.caracrepair.app.repositories.GeneralRepository
 import com.caracrepair.app.utils.preferences.GeneralPreference
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@ViewModelScoped
+@HiltViewModel
 class ChangeProfileViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
     private val generalRepository: GeneralRepository,
@@ -39,17 +40,21 @@ class ChangeProfileViewModel @Inject constructor(
                 currentImageProfile
             }
 
-            val response = accountRepository.changeProfile(name)
-            if (response != null && response.status == true) {
-                val user = User(response.data).apply {
-                    this.profileImage = profileImageUrl
+            val response = accountRepository.changeProfile(ChangeProfileBody(name, profileImageUrl))
+            when {
+                response != null && response.status == true -> {
+                    val user = User(response.data).apply {
+                        this.profileImage = profileImageUrl
+                    }
+                    generalPreference.setUser(user)
+                    _changeProfileResult.postValue(user)
                 }
-                generalPreference.setUser(user)
-                _changeProfileResult.postValue(user)
-            } else if (response != null && response.status != true) {
-                _errorMessage.postValue(response.message.orEmpty())
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                response != null && response.status != true -> {
+                    _errorMessage.postValue(response.message.orEmpty())
+                }
+                else -> {
+                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                }
             }
             _loadingState.postValue(false)
         }

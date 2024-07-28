@@ -147,4 +147,7 @@
     <string name="title_yes_remove_now">Ya, Hapus Sekarang</string>
     <string name="title_camera">Kamera</string>
     <string name="title_gallery">Galeri</string>
+    <string name="desc_sign_out">Apakah Anda yakin ingin logout? Anda perlu login kembali untuk mengakses akun Anda.</string>
+    <string name="title_yes_sign_out">Ya, Keluar</string>
+    <string name="title_no_cancel">Tidak, Batalkan</string>
 </resources>

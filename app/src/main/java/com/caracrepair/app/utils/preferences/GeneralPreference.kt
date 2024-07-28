@@ -19,4 +19,8 @@ class GeneralPreference(
         val value = readString(KEY_USER)
         return gsonUtil.fromJson(value)
     }
+
+    fun clearAllPreferences() {
+        clearAll()
+    }
 }

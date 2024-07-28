@@ -38,9 +38,9 @@ class ChangeProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChangeProfileBinding
     private val viewModel by viewModels<ChangeProfileViewModel>()
+    private val fileUtil by lazy { FileUtil(this) }
     @Inject
     lateinit var generalPreference: GeneralPreference
-    private val fileUtil by lazy { FileUtil(this) }
 
     private var profileImageUri: Uri? = null
 

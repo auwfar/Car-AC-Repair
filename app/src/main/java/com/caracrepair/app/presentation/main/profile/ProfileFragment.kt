@@ -5,11 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.caracrepair.app.R
 import com.caracrepair.app.databinding.FragmentProfileBinding
+import com.caracrepair.app.models.viewparam.ButtonParam
+import com.caracrepair.app.models.viewparam.ConfirmationDialogParam
 import com.caracrepair.app.presentation.changepassword.ChangePasswordActivity
 import com.caracrepair.app.presentation.changeprofile.ChangeProfileActivity
 import com.caracrepair.app.presentation.myaddress.MyAddressActivity
 import com.caracrepair.app.presentation.mycar.MyCarActivity
+import com.caracrepair.app.presentation.onboarding.OnboardingActivity
+import com.caracrepair.app.utils.dialog.ConfirmationDialog
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,6 +25,24 @@ class ProfileFragment : Fragment() {
 
     @Inject
     lateinit var generalPreference: GeneralPreference
+
+    private val signOutConfirmationDialog by lazy {
+        ConfirmationDialog.newInstance(ConfirmationDialogParam(
+            title = getString(R.string.sign_out),
+            message = getString(R.string.desc_sign_out),
+            positiveButton = ButtonParam(
+                text = getString(R.string.title_no_cancel),
+                action = {}
+            ),
+            negativeButton = ButtonParam(
+                text = getString(R.string.title_yes_sign_out),
+                action = {
+                    generalPreference.clearAllPreferences()
+                    startActivity(OnboardingActivity.createIntent(requireContext()))
+                }
+            )
+        ))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +71,14 @@ class ProfileFragment : Fragment() {
             btnMyCar.setOnClickListener {
                 startActivity(MyCarActivity.createIntent(requireContext()))
             }
+            tvSignOut.setOnClickListener {
+                showSignOutDialog()
+            }
         }
+    }
+
+    private fun showSignOutDialog() {
+        signOutConfirmationDialog.show(childFragmentManager, null)
     }
 
     companion object {

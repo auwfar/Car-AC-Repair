@@ -9,47 +9,51 @@ private const val KEY_PREFERENCE = "KEY_PREFERENCE"
 abstract class BasePreference(context: Context) {
     private val preference: SharedPreferences = context.getSharedPreferences(KEY_PREFERENCE, Context.MODE_PRIVATE)
 
+    protected fun clearAll() {
+        preference.edit { clear() }
+    }
+
     fun writeString(key: String, value: String) {
         preference.edit {
             putString(key, value)
         }
     }
 
-    fun writeBoolean(key: String, value: Boolean) {
+    protected fun writeBoolean(key: String, value: Boolean) {
         preference.edit {
             putBoolean(key, value)
         }
     }
 
-    fun writeInt(key: String, value: Int) {
+    protected fun writeInt(key: String, value: Int) {
         preference.edit {
             putInt(key, value)
         }
     }
 
-    fun writeLong(key: String, value: Long) {
+    protected fun writeLong(key: String, value: Long) {
         preference.edit {
             putLong(key, value)
         }
     }
 
-    fun readString(key: String, defValue: String): String {
+    protected fun readString(key: String, defValue: String): String {
         return preference.getString(key, defValue)!!
     }
 
-    fun readString(key: String): String? {
+    protected fun readString(key: String): String? {
         return preference.getString(key, null)
     }
 
-    fun readBoolean(key: String, defValue: Boolean): Boolean {
+    protected fun readBoolean(key: String, defValue: Boolean): Boolean {
         return preference.getBoolean(key, defValue)
     }
 
-    fun readInt(key: String, defValue: Int): Int {
+    protected fun readInt(key: String, defValue: Int): Int {
         return preference.getInt(key, defValue)
     }
 
-    fun readLong(key: String, defValue: Long): Long {
+    protected fun readLong(key: String, defValue: Long): Long {
         return preference.getLong(key, defValue)
     }
 }

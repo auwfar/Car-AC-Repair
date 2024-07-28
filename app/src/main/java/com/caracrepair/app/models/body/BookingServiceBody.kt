@@ -3,19 +3,19 @@ package com.caracrepair.app.models.body
 import com.google.gson.annotations.SerializedName
 
 data class BookingServiceBody(
-    @SerializedName("user_id")
+    @SerializedName("customer_id")
     val userId: String,
     @SerializedName("service_type")
     val serviceType: String,
-    @SerializedName("car_id")
+    @SerializedName("customer_car_id")
     val carId: String,
     @SerializedName("address_id")
     val addressId: String,
-    @SerializedName("car_distance")
+    @SerializedName("distance")
     val carDistance: Int,
-    @SerializedName("complaint")
+    @SerializedName("description")
     val complaint: String,
-    @SerializedName("carshop_id")
+    @SerializedName("company_branch_id")
     val repairShopId: String,
     @SerializedName("service_date")
     val serviceDate: String,

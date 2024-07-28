@@ -4,6 +4,7 @@ import com.caracrepair.app.models.body.AddAddressBody
 import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.ChangePasswordBody
+import com.caracrepair.app.models.body.ChangeProfileBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
 import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
@@ -139,8 +140,8 @@ interface ApiService {
         @Part file: MultipartBody.Part
     ): StatusResponse
 
-    @POST("api/update-profile")
-    suspend fun changeProfile(@Field("name") name: String): DataResponse<ChangeProfileResponse>
+    @PUT("api/users/{user_id}")
+    suspend fun changeProfile(@Path("user_id") userId: String, @Body request: ChangeProfileBody): DataResponse<ChangeProfileResponse>
 
     @POST("api/utils/upload/image")
     suspend fun uploadImage(@Part file: MultipartBody.Part): DataResponse<UploadImageResponse>
