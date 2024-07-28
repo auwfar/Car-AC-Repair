@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.models.body.ServiceTimesBody
 import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
 import com.caracrepair.app.repositories.ServiceRepository
+import com.caracrepair.app.utils.ApiResponseUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RescheduleServiceViewModel @Inject constructor(
     private val serviceRepository: ServiceRepository,
+    private val apiResponseUtil: ApiResponseUtil,
     private val generalPreference: GeneralPreference
 ) : ViewModel() {
 
@@ -36,15 +37,11 @@ class RescheduleServiceViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = serviceRepository.rescheduleService(body)
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _rescheduleServiceResult.postValue(response?.data?.orderId ?: 0)
                 }
-                _rescheduleServiceResult.postValue(response.data?.orderId ?: 0)
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-            }
+            })
             _loadingState.postValue(false)
         }
     }
@@ -57,17 +54,12 @@ class RescheduleServiceViewModel @Inject constructor(
                 generalPreference.getUser()?.userId.orEmpty(),
                 selectedRepairShopId,
                 date
-            )
-            )
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            ))
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _serviceTimeResult.postValue(response?.data?.map { ServiceTimeItem(it) }.orEmpty())
                 }
-                _serviceTimeResult.postValue(response.data?.map { ServiceTimeItem(it) })
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-            }
+            })
             _loadingState.postValue(false)
         }
     }

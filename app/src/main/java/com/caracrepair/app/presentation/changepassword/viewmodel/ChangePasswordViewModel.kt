@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.models.body.ChangePasswordBody
 import com.caracrepair.app.repositories.AccountRepository
+import com.caracrepair.app.utils.ApiResponseUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ChangePasswordViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
+    private val apiResponseUtil: ApiResponseUtil,
     private val generalPreference: GeneralPreference
 ) : ViewModel() {
 
@@ -34,15 +35,11 @@ class ChangePasswordViewModel @Inject constructor(
                 password,
                 newPassword
             ))
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _changePasswordResult.postValue(Unit)
                 }
-                _changePasswordResult.postValue(Unit)
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-            }
+            })
             _loadingState.postValue(false)
         }
     }

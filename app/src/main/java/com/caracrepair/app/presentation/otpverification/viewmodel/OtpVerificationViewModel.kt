@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpSignUpBody
 import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
 import com.caracrepair.app.models.body.VerifyOtpSignUpBody
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.repositories.AccountRepository
+import com.caracrepair.app.utils.ApiResponseUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OtpVerificationViewModel @Inject constructor(
-    private val accountRepository: AccountRepository
+    private val accountRepository: AccountRepository,
+    private val apiResponseUtil: ApiResponseUtil
 ) : ViewModel() {
 
     private val _otpSignUpVerificationResult = MutableLiveData<Unit>()
@@ -36,15 +37,11 @@ class OtpVerificationViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.verifyOtpSignUp(VerifyOtpSignUpBody(otpCode, userId))
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _otpSignUpVerificationResult.postValue(Unit)
                 }
-                _otpSignUpVerificationResult.postValue(Unit)
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-            }
+            })
             _loadingState.postValue(false)
         }
     }
@@ -53,15 +50,11 @@ class OtpVerificationViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.verifyOtpForgotPassword(VerifyOtpForgotPasswordBody(otpCode, userId))
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _otpForgotPasswordVerificationResult.postValue(response?.data?.userId.orEmpty())
                 }
-                _otpForgotPasswordVerificationResult.postValue(response.data?.userId.orEmpty())
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-            }
+            })
             _loadingState.postValue(false)
         }
     }
@@ -77,11 +70,11 @@ class OtpVerificationViewModel @Inject constructor(
                     ResendOtpForgotPasswordBody(otpType.userId)
                 )
             }
-            if (response != null) {
-                _resendOtpResult.postValue(response.message.orEmpty())
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-            }
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _resendOtpResult.postValue(response?.message.orEmpty())
+                }
+            })
             _loadingState.postValue(false)
         }
     }

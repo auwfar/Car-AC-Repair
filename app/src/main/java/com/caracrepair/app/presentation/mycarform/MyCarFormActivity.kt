@@ -15,6 +15,7 @@ import com.caracrepair.app.presentation.mycar.viewparam.MyCarItem
 import com.caracrepair.app.presentation.mycarform.MyCarFormActivity.Companion.EXTRA_MY_CAR_ITEM
 import com.caracrepair.app.presentation.mycarform.viewmodel.MyCarFormViewModel
 import com.caracrepair.app.utils.FormUtil
+import com.caracrepair.app.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -73,6 +74,7 @@ class MyCarFormActivity : AppCompatActivity() {
     }
 
     private fun updateCar() {
+        hideKeyboard()
         val carId = intent.getParcelableExtra<MyCarItem>(EXTRA_MY_CAR_ITEM)?.id.orEmpty()
         val name = binding.etInputCarName.text.toString()
         val licenseNumber = binding.etInputCarLicenseNumber.text.toString()

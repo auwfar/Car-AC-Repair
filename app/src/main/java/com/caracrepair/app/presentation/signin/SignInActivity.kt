@@ -14,6 +14,7 @@ import com.caracrepair.app.presentation.forgotpassword.ForgotPasswordActivity
 import com.caracrepair.app.presentation.main.MainActivity
 import com.caracrepair.app.presentation.signin.viewmodel.SignInViewModel
 import com.caracrepair.app.utils.FormUtil
+import com.caracrepair.app.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -68,6 +69,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun signIn() {
+        hideKeyboard()
         val phoneNumber = binding.etPhoneNumber.text.toString()
         val password = binding.etPassword.text.toString()
         if (isValidPhoneNumberAndPassword(phoneNumber, password)) {

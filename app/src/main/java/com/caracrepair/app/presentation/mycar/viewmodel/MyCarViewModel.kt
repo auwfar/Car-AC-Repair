@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.presentation.mycar.viewparam.MyCarItem
 import com.caracrepair.app.repositories.AccountRepository
+import com.caracrepair.app.utils.ApiResponseUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyCarViewModel @Inject constructor(
-    private val accountRepository: AccountRepository
+    private val accountRepository: AccountRepository,
+    private val apiResponseUtil: ApiResponseUtil
 ) : ViewModel() {
 
     private val _carsResult = MutableLiveData<List<MyCarItem>>()
@@ -32,17 +33,11 @@ class MyCarViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.getCars()
-            when {
-                response != null && response.status == true -> {
-                    _carsResult.postValue(response.data?.map { MyCarItem(it) }.orEmpty())
+            apiResponseUtil.setResponseListener(response, _errorPageMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _carsResult.postValue(response?.data?.map { MyCarItem(it) }.orEmpty())
                 }
-                response != null && response.status != true -> {
-                    _errorPageMessage.postValue(response.message.orEmpty())
-                }
-                else -> {
-                    _errorPageMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-                }
-            }
+            })
             _loadingState.postValue(false)
         }
     }
@@ -51,17 +46,11 @@ class MyCarViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.removeCar(carId)
-            when {
-                response != null && response.status == true -> {
-                    _removeCarResult.postValue(response.message.orEmpty())
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _removeCarResult.postValue(response?.message.orEmpty())
                 }
-                response != null && response.status != true -> {
-                    _errorMessage.postValue(response.message.orEmpty())
-                }
-                else -> {
-                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-                }
-            }
+            })
             _loadingState.postValue(false)
         }
     }

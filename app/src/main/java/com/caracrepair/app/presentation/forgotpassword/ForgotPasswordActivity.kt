@@ -13,6 +13,7 @@ import com.caracrepair.app.presentation.otpverification.OtpVerificationActivity
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.presentation.signin.SignInActivity
 import com.caracrepair.app.utils.FormUtil
+import com.caracrepair.app.utils.hideKeyboard
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -72,6 +73,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun forgotPassword() {
+        hideKeyboard()
         val phoneNumber = binding.etPhoneNumber.text.toString()
         if (isValidPhoneNumber(phoneNumber)) {
             viewModel.forgotPassword(phoneNumber)

@@ -21,6 +21,7 @@ import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivity.Comp
 import com.caracrepair.app.presentation.myaddressform.viewmodel.MyAddressFormViewModel
 import com.caracrepair.app.presentation.mycarform.MyCarFormActivityContract
 import com.caracrepair.app.utils.FormUtil
+import com.caracrepair.app.utils.hideKeyboard
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.plugin.attribution.attribution
@@ -135,6 +136,7 @@ class MyAddressFormActivity : AppCompatActivity() {
     }
 
     private fun updateAddress() {
+        hideKeyboard()
         val addressId = intent.getParcelableExtra<MyAddressItem>(EXTRA_MY_ADDRESS_ITEM)?.id.orEmpty()
         val label = binding.etInputAddressName.text.toString()
         val address = binding.etInputLocationAddress.text.toString()

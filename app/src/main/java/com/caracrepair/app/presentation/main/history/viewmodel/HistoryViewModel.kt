@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.presentation.main.history.viewparam.HistoryItem
 import com.caracrepair.app.repositories.ServiceRepository
+import com.caracrepair.app.utils.ApiResponseUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    private val serviceRepository: ServiceRepository
+    private val serviceRepository: ServiceRepository,
+    private val apiResponseUtil: ApiResponseUtil
 ) : ViewModel() {
 
     private val _serviceHistoryResult = MutableLiveData<List<HistoryItem>>()
@@ -28,15 +29,11 @@ class HistoryViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = serviceRepository.getBookingHistory()
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _serviceHistoryResult.postValue(response?.data?.map { HistoryItem(it) }.orEmpty())
                 }
-                _serviceHistoryResult.postValue(response.data?.map { HistoryItem(it) }.orEmpty())
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-            }
+            })
             _loadingState.postValue(false)
         }
     }

@@ -24,6 +24,7 @@ import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 import com.caracrepair.app.utils.FormUtil
 import com.caracrepair.app.utils.SimpleDateUtil
+import com.caracrepair.app.utils.hideKeyboard
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -166,6 +167,7 @@ class BookingServiceActivity : AppCompatActivity() {
     }
 
     private fun bookingService() {
+        hideKeyboard()
         val serviceType = if (binding.toggleOrderType.checkedButtonId == R.id.btn_pickup) {
             ServiceTypeConst.TYPE_PICKUP
         } else {

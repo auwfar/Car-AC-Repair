@@ -87,6 +87,9 @@ class MyCarActivity : AppCompatActivity() {
                 viewModel.getCars()
             }
         }
+        viewModel.errorMessage.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupRecyclerView() {

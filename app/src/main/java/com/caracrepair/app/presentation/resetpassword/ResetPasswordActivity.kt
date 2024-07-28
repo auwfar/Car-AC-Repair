@@ -14,6 +14,7 @@ import com.caracrepair.app.presentation.signin.SignInActivity
 import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 import com.caracrepair.app.utils.FormUtil
+import com.caracrepair.app.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -68,6 +69,7 @@ class ResetPasswordActivity : AppCompatActivity() {
     }
 
     private fun resetPassword() {
+        hideKeyboard()
         val userId = intent.getStringExtra(EXTRA_USER_ID).orEmpty()
         val newPassword = binding.etNewPassword.text.toString()
         val confirmPassword = binding.etConfirmationNewPassword.text.toString()

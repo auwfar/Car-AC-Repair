@@ -14,6 +14,7 @@ import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.presentation.signin.SignInActivity
 import com.caracrepair.app.presentation.signup.viewmodel.SignUpViewModel
 import com.caracrepair.app.utils.FormUtil
+import com.caracrepair.app.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -68,6 +69,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun createAccount() {
+        hideKeyboard()
         val name = binding.etName.text.toString()
         val phoneNumber = binding.etPhoneNumber.text.toString()
         val password = binding.etPassword.text.toString()

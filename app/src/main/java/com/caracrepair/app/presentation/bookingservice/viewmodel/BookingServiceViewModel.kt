@@ -7,12 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.ServiceTimesBody
-import com.caracrepair.app.models.body.SignInBody
-import com.caracrepair.app.models.viewparam.User
 import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
-import com.caracrepair.app.repositories.AccountRepository
 import com.caracrepair.app.repositories.ServiceRepository
-import com.caracrepair.app.utils.FirebaseUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -42,14 +38,16 @@ class BookingServiceViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = serviceRepository.bookingService(body)
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            when {
+                response != null && response.status == true -> {
+                    _bookingServiceResult.postValue(response.data?.orderId ?: 0)
                 }
-                _bookingServiceResult.postValue(response.data?.orderId ?: 0)
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                response != null && response.status != true -> {
+                    _errorMessage.postValue(response.message.orEmpty())
+                }
+                else -> {
+                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                }
             }
             _loadingState.postValue(false)
         }
@@ -63,14 +61,16 @@ class BookingServiceViewModel @Inject constructor(
                 selectedRepairShopId,
                 date
             ))
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            when {
+                response != null && response.status == true -> {
+                    _serviceTimeResult.postValue(response.data?.map { ServiceTimeItem(it) })
                 }
-                _serviceTimeResult.postValue(response.data?.map { ServiceTimeItem(it) })
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                response != null && response.status != true -> {
+                    _errorMessage.postValue(response.message.orEmpty())
+                }
+                else -> {
+                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                }
             }
             _loadingState.postValue(false)
         }

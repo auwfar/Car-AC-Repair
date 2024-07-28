@@ -9,6 +9,7 @@ import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.models.body.UploadPaymentProofImageBody
 import com.caracrepair.app.presentation.servicepayment.viewparam.ServicePayment
 import com.caracrepair.app.repositories.ServiceRepository
+import com.caracrepair.app.utils.ApiResponseUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ServicePaymentViewModel @Inject constructor(
     private val serviceRepository: ServiceRepository,
+    private val apiResponseUtil: ApiResponseUtil,
     private val generalPreference: GeneralPreference
 ) : ViewModel() {
 
@@ -36,15 +38,11 @@ class ServicePaymentViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = serviceRepository.getServicePayment(serviceId, generalPreference.getUser()?.userId.orEmpty())
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _servicePaymentResult.postValue(ServicePayment(response?.data))
                 }
-                _servicePaymentResult.postValue(ServicePayment(response.data))
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-            }
+            })
             _loadingState.postValue(false)
         }
     }
@@ -56,15 +54,11 @@ class ServicePaymentViewModel @Inject constructor(
                 serviceId = serviceId,
                 imageUri = imageUri
             ))
-            if (response != null) {
-                if (response.status != true) {
-                    _errorUploadMessage.postValue(response.message.orEmpty())
-                    return@launch
+            apiResponseUtil.setResponseListener(response, _errorUploadMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _uploadPaymentProofImageResult.postValue(response?.message.orEmpty())
                 }
-                _uploadPaymentProofImageResult.postValue(response.message.orEmpty())
-            } else {
-                _errorUploadMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-            }
+            })
             _loadingState.postValue(false)
         }
     }

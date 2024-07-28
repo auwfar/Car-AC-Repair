@@ -19,6 +19,7 @@ import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 import com.caracrepair.app.utils.FormUtil
 import com.caracrepair.app.utils.SimpleDateUtil
+import com.caracrepair.app.utils.hideKeyboard
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -122,6 +123,7 @@ class RescheduleServiceActivity : AppCompatActivity() {
     }
 
     private fun rescheduleService() {
+        hideKeyboard()
         val repairShopId = binding.etRepairShop.text.toString()
         val serviceDate = binding.etServiceDate.text.toString()
         val serviceTime = serviceTimeAdapter.getSelectedServiceTime()

@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.models.viewparam.User
 import com.caracrepair.app.presentation.main.home.viewparam.LastServiceItem
 import com.caracrepair.app.presentation.main.home.viewparam.OnProgressServiceItem
 import com.caracrepair.app.presentation.main.home.viewparam.RepairShopSliderItem
 import com.caracrepair.app.repositories.HomeRepository
+import com.caracrepair.app.utils.ApiResponseUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository,
+    private val apiResponseUtil: ApiResponseUtil,
     private val generalPreference: GeneralPreference
 ) : ViewModel() {
 
@@ -37,17 +38,13 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = homeRepository.getHomePage()
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _onProgressServicesResult.postValue(response?.data?.onProgressServices?.map { OnProgressServiceItem(it) }.orEmpty())
+                    _lastServicesResult.postValue(response?.data?.lastServices?.map { LastServiceItem(it) }.orEmpty())
+                    _repairShopsResult.postValue(response?.data?.carShops?.map { RepairShopSliderItem(it) }.orEmpty())
                 }
-                _onProgressServicesResult.postValue(response.data?.onProgressServices?.map { OnProgressServiceItem(it) }.orEmpty())
-                _lastServicesResult.postValue(response.data?.lastServices?.map { LastServiceItem(it) }.orEmpty())
-                _repairShopsResult.postValue(response.data?.carShops?.map { RepairShopSliderItem(it) }.orEmpty())
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-            }
+            })
             _loadingState.postValue(false)
         }
     }

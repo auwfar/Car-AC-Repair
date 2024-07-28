@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.presentation.chooserepairshop.viewparam.RepairShopOptionItem
-import com.caracrepair.app.presentation.main.repairshop.viewparam.RepairShopItem
 import com.caracrepair.app.repositories.RepairShopRepository
+import com.caracrepair.app.utils.ApiResponseUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChooseRepairShopViewModel @Inject constructor(
-    private val repairShopRepository: RepairShopRepository
+    private val repairShopRepository: RepairShopRepository,
+    private val apiResponseUtil: ApiResponseUtil
 ) : ViewModel() {
 
     private val _repairShopsResult = MutableLiveData<List<RepairShopOptionItem>>()
@@ -29,15 +29,11 @@ class ChooseRepairShopViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = repairShopRepository.getRepairShops()
-            if (response != null) {
-                if (response.status != true) {
-                    _errorMessage.postValue(response.message.orEmpty())
-                    return@launch
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _repairShopsResult.postValue(response?.data?.map { RepairShopOptionItem(it) }.orEmpty())
                 }
-                _repairShopsResult.postValue(response.data?.map { RepairShopOptionItem(it) }.orEmpty())
-            } else {
-                _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-            }
+            })
             _loadingState.postValue(false)
         }
     }
