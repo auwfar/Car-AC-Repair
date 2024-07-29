@@ -30,11 +30,6 @@ class SuccessResponseActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupViews()
-        with(binding) {
-            ivBack.setOnClickListener {
-                startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
-            }
-        }
     }
 
     private fun setupViews() {
@@ -49,6 +44,9 @@ class SuccessResponseActivity : AppCompatActivity() {
                     tvAction.setOnClickListener {
                         startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
                     }
+                    ivBack.setOnClickListener {
+                        startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
+                    }
                 }
                 SuccessResponseType.ResetPassword -> {
                     ivSuccess.setImageResource(R.drawable.img_fingerprint)
@@ -56,6 +54,9 @@ class SuccessResponseActivity : AppCompatActivity() {
                     tvSuccessDescription.text = getString(R.string.desc_password_successfully_edited)
                     tvAction.text = getString(R.string.sign_in_here)
                     tvAction.setOnClickListener {
+                        startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
+                    }
+                    ivBack.setOnClickListener {
                         startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
                     }
                 }
@@ -67,6 +68,9 @@ class SuccessResponseActivity : AppCompatActivity() {
                     tvAction.setOnClickListener {
                         finish()
                     }
+                    ivBack.setOnClickListener {
+                        finish()
+                    }
                 }
                 SuccessResponseType.ChangeProfile -> {
                     ivSuccess.setImageResource(R.drawable.img_profile_interface)
@@ -74,7 +78,10 @@ class SuccessResponseActivity : AppCompatActivity() {
                     tvSuccessDescription.text = getString(R.string.desc_profile_successfully_updated)
                     tvAction.text = getString(R.string.back)
                     tvAction.setOnClickListener {
-                        finish()
+                        startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
+                    }
+                    ivBack.setOnClickListener {
+                        startActivity(OnboardingActivity.createIntent(this@SuccessResponseActivity))
                     }
                 }
                 SuccessResponseType.BookingService -> {
@@ -86,6 +93,10 @@ class SuccessResponseActivity : AppCompatActivity() {
                         startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getIntExtra(EXTRA_ID, 0)))
                         finishAffinity()
                     }
+                    ivBack.setOnClickListener {
+                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getIntExtra(EXTRA_ID, 0)))
+                        finishAffinity()
+                    }
                 }
                 SuccessResponseType.RescheduleService -> {
                     ivSuccess.setImageResource(R.drawable.img_reschedule)
@@ -93,6 +104,10 @@ class SuccessResponseActivity : AppCompatActivity() {
                     tvSuccessDescription.text = getString(R.string.desc_service_successfully_rescheduled)
                     tvAction.text = getString(R.string.title_see_detail)
                     tvAction.setOnClickListener {
+                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getIntExtra(EXTRA_ID, 0)))
+                        finishAffinity()
+                    }
+                    ivBack.setOnClickListener {
                         startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getIntExtra(EXTRA_ID, 0)))
                         finishAffinity()
                     }

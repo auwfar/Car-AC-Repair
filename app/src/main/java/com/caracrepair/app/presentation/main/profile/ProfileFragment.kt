@@ -5,6 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.FragmentProfileBinding
 import com.caracrepair.app.models.viewparam.ButtonParam
@@ -56,6 +60,13 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
+            val requestOptions = RequestOptions().transform(CenterCrop(), CircleCrop())
+            val requestBuilder = Glide.with(root).load(R.drawable.ic_user_circle).apply(requestOptions)
+            Glide.with(root)
+                .load(generalPreference.getUser()?.profileImage)
+                .apply(requestOptions)
+                .thumbnail(requestBuilder)
+                .into(binding.ivUserImage)
             tvUserName.text = generalPreference.getUser()?.name
             tvUserPhoneNumber.text = generalPreference.getUser()?.phoneNumber
 

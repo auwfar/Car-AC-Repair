@@ -8,6 +8,8 @@ import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.ServiceTimesBody
 import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
+import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
+import com.caracrepair.app.presentation.mycar.viewparam.MyCarItem
 import com.caracrepair.app.repositories.ServiceRepository
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,9 +32,10 @@ class BookingServiceViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    var selectedCarId = ""
-    var selectedAddressId = ""
+    var selectedCar: MyCarItem? = null
+    var selectedAddress: MyAddressItem? = null
     var selectedRepairShopId = ""
+    var selectedServiceDate: Long? = null
 
     fun bookingService(body: BookingServiceBody) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -56,22 +59,36 @@ class BookingServiceViewModel @Inject constructor(
     fun getServiceTimes(date: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = serviceRepository.getServiceTimes(ServiceTimesBody(
-                generalPreference.getUser()?.userId.orEmpty(),
-                selectedRepairShopId,
-                date
-            ))
-            when {
-                response != null && response.status == true -> {
-                    _serviceTimeResult.postValue(response.data?.map { ServiceTimeItem(it) })
-                }
-                response != null && response.status != true -> {
-                    _errorMessage.postValue(response.message.orEmpty())
-                }
-                else -> {
-                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-                }
-            }
+            _serviceTimeResult.postValue(
+                listOf(
+                    ServiceTimeItem("08:00", false),
+                    ServiceTimeItem("09:00", true),
+                    ServiceTimeItem("10:00", false),
+                    ServiceTimeItem("11:00", true),
+                    ServiceTimeItem("12:00", false),
+                    ServiceTimeItem("13:00", true),
+                    ServiceTimeItem("14:00", false),
+                    ServiceTimeItem("15:00", true),
+                    ServiceTimeItem("16:00", false),
+                )
+            )
+
+//            val response = serviceRepository.getServiceTimes(ServiceTimesBody(
+//                generalPreference.getUser()?.userId.orEmpty(),
+//                selectedRepairShopId,
+//                date
+//            ))
+//            when {
+//                response != null && response.status == true -> {
+//                    _serviceTimeResult.postValue(response.data?.map { ServiceTimeItem(it) })
+//                }
+//                response != null && response.status != true -> {
+//                    _errorMessage.postValue(response.message.orEmpty())
+//                }
+//                else -> {
+//                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+//                }
+//            }
             _loadingState.postValue(false)
         }
     }

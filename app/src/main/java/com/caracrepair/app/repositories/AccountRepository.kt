@@ -16,7 +16,6 @@ import com.caracrepair.app.models.body.UpdateAddressBody
 import com.caracrepair.app.models.body.UpdateCarBody
 import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.CarResponse
-import com.caracrepair.app.models.response.ChangeProfileResponse
 import com.caracrepair.app.network.ApiService
 import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.ForgotPasswordResponse
@@ -246,7 +245,7 @@ class AccountRepository @Inject constructor(
         }
     }
 
-    suspend fun changeProfile(changeProfileBody: ChangeProfileBody): DataResponse<ChangeProfileResponse>? {
+    suspend fun changeProfile(changeProfileBody: ChangeProfileBody): StatusResponse? {
         return withContext(coroutineContext) {
             try {
                 apiService.changeProfile(generalPreference.getUser()?.userId.orEmpty(), changeProfileBody)

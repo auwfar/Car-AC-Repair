@@ -29,7 +29,7 @@ class FcmNotificationService : FirebaseMessagingService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 getString(R.string.notification_channel_id),
-                "Simanis Notification",
+                "Car AC Repair Notification",
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             notificationManager?.createNotificationChannel(channel)

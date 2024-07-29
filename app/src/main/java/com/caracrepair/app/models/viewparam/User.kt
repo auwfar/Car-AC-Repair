@@ -1,6 +1,5 @@
 package com.caracrepair.app.models.viewparam
 
-import com.caracrepair.app.models.response.ChangeProfileResponse
 import com.caracrepair.app.models.response.SignInResponse
 import com.google.gson.annotations.SerializedName
 
@@ -17,14 +16,6 @@ data class User(
     val token: String
 ) {
     constructor(response: SignInResponse?) : this(
-        userId = response?.userId.orEmpty(),
-        phoneNumber = response?.phoneNumber.orEmpty(),
-        name = response?.name.orEmpty(),
-        profileImage = response?.profileImage.orEmpty(),
-        token = response?.token.orEmpty(),
-    )
-
-    constructor(response: ChangeProfileResponse?) : this(
         userId = response?.userId.orEmpty(),
         phoneNumber = response?.phoneNumber.orEmpty(),
         name = response?.name.orEmpty(),

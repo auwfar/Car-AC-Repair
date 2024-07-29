@@ -36,16 +36,19 @@
             android:exported="false" />
         <activity
             android:name=".presentation.rescheduleservice.RescheduleServiceActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.chooserepairshop.ChooseRepairShopActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.bookingservice.BookingServiceActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.changeprofile.ChangeProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.servicedetail.ServiceDetailActivity"
             android:exported="false" />

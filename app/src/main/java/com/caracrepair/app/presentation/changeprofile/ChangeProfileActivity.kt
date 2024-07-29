@@ -24,6 +24,7 @@ import com.caracrepair.app.presentation.successresponse.constants.SuccessRespons
 import com.caracrepair.app.utils.FileUtil
 import com.caracrepair.app.utils.FormUtil
 import com.caracrepair.app.utils.dialog.ImagePickerDialog
+import com.caracrepair.app.utils.hideKeyboard
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -80,6 +81,7 @@ class ChangeProfileActivity : AppCompatActivity() {
             }
         }
     private val pickImageFromGallery = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        profileImageUri = uri
         loadProfileImage(uri)
     }
     private val takePicturePreview = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess: Boolean? ->
@@ -136,9 +138,11 @@ class ChangeProfileActivity : AppCompatActivity() {
     }
 
     private fun changeProfile() {
+        hideKeyboard()
         val name = binding.etName.text.toString()
         if (FormUtil.validateRequired(StringConst.FieldName.NAME, binding.tilName, name)) {
-            viewModel.changeProfile(name, profileImageUri)
+            val profileImageFile = profileImageUri?.let { fileUtil.createImageFile(it) }
+            viewModel.changeProfile(name, profileImageFile)
         }
     }
 

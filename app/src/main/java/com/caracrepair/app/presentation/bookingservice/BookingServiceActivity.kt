@@ -15,8 +15,6 @@ import com.caracrepair.app.databinding.ActivityBookingServiceBinding
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.presentation.bookingservice.adapter.ServiceTimeAdapter
 import com.caracrepair.app.presentation.bookingservice.viewmodel.BookingServiceViewModel
-import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
-import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivity
 import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivityContract
 import com.caracrepair.app.presentation.myaddress.MyAddressActivityContract
 import com.caracrepair.app.presentation.mycar.MyCarActivityContract
@@ -44,11 +42,11 @@ class BookingServiceActivity : AppCompatActivity() {
 
     private val myCarLauncher = registerForActivityResult(MyCarActivityContract()) { selectedCar ->
         binding.etCar.setText(selectedCar?.carName)
-        viewModel.selectedCarId = selectedCar?.id.orEmpty()
+        viewModel.selectedCar = selectedCar
     }
     private val myAddressLauncher = registerForActivityResult(MyAddressActivityContract()) { selectedAddress ->
         binding.etAddress.setText(selectedAddress?.address)
-        viewModel.selectedAddressId = selectedAddress?.id.orEmpty()
+        viewModel.selectedAddress = selectedAddress
     }
     private val chooseRepairShopLauncher = registerForActivityResult(ChooseRepairShopActivityContract()) { selectedRepairShop ->
         with(binding) {
@@ -119,6 +117,7 @@ class BookingServiceActivity : AppCompatActivity() {
                     .setTheme(R.style.App_MaterialCalendarTheme).build()
                     .apply {
                         addOnPositiveButtonClickListener { time ->
+                            viewModel.selectedServiceDate = time
                             etServiceDate.setText(SimpleDateUtil.dayFullMonthYearFormat.format(time))
                             viewModel.getServiceTimes(SimpleDateUtil.serverFormat.format(time))
                         }
@@ -185,14 +184,18 @@ class BookingServiceActivity : AppCompatActivity() {
             viewModel.bookingService(
                 BookingServiceBody(
                     generalPreference.getUser()?.userId.orEmpty(),
-                    serviceType,
-                    viewModel.selectedCarId,
-                    viewModel.selectedAddressId,
+                    generalPreference.getUser()?.name.orEmpty(),
+                    viewModel.selectedCar?.id.orEmpty(),
+                    viewModel.selectedCar?.carLicenseNumber.orEmpty(),
+                    viewModel.selectedCar?.carName.orEmpty(),
+                    viewModel.selectedCar?.carYear.orEmpty(),
+                    viewModel.selectedAddress?.id.orEmpty(),
+                    viewModel.selectedAddress?.address.orEmpty(),
                     carDistance.toIntOrNull() ?: 0,
                     complaint,
                     viewModel.selectedRepairShopId,
-                    SimpleDateUtil.serverFormat.format(serviceDate),
-                    serviceTime?.time.orEmpty()
+                    serviceType,
+                    SimpleDateUtil.serverFormat.format(viewModel.selectedServiceDate) +" " +serviceTime?.time.orEmpty()
                 )
             )
         }

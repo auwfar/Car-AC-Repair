@@ -21,12 +21,12 @@ class ApiResponseUtil @Inject constructor(val gsonUtil: GsonUtil) {
         errorMessageLiveData: MutableLiveData<String>,
         responseListener: ResponseListener
     ) {
-        when {
-            response?.status == true -> {
+        when (response?.status) {
+            true -> {
                 responseListener.onSuccess()
             }
-            response?.status != true -> {
-                errorMessageLiveData.postValue(response?.message.orEmpty())
+            false -> {
+                errorMessageLiveData.postValue(response.message.orEmpty())
                 responseListener.onFailure()
             }
             else -> {
@@ -41,12 +41,12 @@ class ApiResponseUtil @Inject constructor(val gsonUtil: GsonUtil) {
         errorMessageLiveData: MutableLiveData<String>,
         responseListener: ResponseListener
     ) {
-        when {
-            response?.status == true -> {
+        when (response?.status) {
+            true -> {
                 responseListener.onSuccess()
             }
-            response?.status != true -> {
-                errorMessageLiveData.postValue(response?.message.orEmpty())
+            false -> {
+                errorMessageLiveData.postValue(response.message.orEmpty())
                 responseListener.onFailure()
             }
             else -> {

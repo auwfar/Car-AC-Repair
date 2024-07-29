@@ -35,10 +35,12 @@ class ImagePickerDialog : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewGallery.setOnClickListener {
             onOptionClickListener?.onGalleryOptionClicked()
+            dismissAllowingStateLoss()
         }
 
         binding.viewCamera.setOnClickListener {
             onOptionClickListener?.onCameraOptionClicked()
+            dismissAllowingStateLoss()
         }
     }
 

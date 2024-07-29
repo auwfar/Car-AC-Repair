@@ -6,5 +6,7 @@ data class ChangeProfileBody(
     @SerializedName("name")
     val name: String,
     @SerializedName("image")
-    val image: String
+    val image: String,
+    @SerializedName("phone")
+    val phone: String
 )

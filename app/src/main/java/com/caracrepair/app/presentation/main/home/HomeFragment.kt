@@ -9,6 +9,11 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
+import com.caracrepair.app.R
 import com.caracrepair.app.databinding.FragmentHomeBinding
 import com.caracrepair.app.presentation.main.home.adapter.LastServiceAdapter
 import com.caracrepair.app.presentation.main.home.adapter.OnProgressServiceAdapter
@@ -41,6 +46,13 @@ class HomeFragment : Fragment() {
         setupSliderViews()
 
         with(binding) {
+            val requestOptions = RequestOptions().transform(CenterCrop(), CircleCrop())
+            val requestBuilder = Glide.with(root).load(R.drawable.ic_user_circle).apply(requestOptions)
+            Glide.with(root)
+                .load(viewModel.getUser()?.profileImage)
+                .apply(requestOptions)
+                .thumbnail(requestBuilder)
+                .into(binding.ivUserImage)
             tvUserName.text = viewModel.getUser()?.name
             tvUserPhoneNumber.text = viewModel.getUser()?.phoneNumber
         }

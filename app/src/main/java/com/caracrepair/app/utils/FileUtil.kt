@@ -2,11 +2,14 @@ package com.caracrepair.app.utils
 
 import android.Manifest
 import android.app.Activity
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import androidx.core.content.FileProvider
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,26 +30,41 @@ class FileUtil(private val activity: Activity) {
         )
     }
 
-    @Throws(IOException::class)
-    fun createImageFile(): File {
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val imageFileName = "JPEG_" + timeStamp + "_"
-        val storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val image = File.createTempFile(
-            imageFileName,
-            ".jpg",
-            storageDir
-        )
-        val mCurrentPhotoPath = image.absolutePath
-        return File(mCurrentPhotoPath)
+    private fun getBitmap(uri: Uri): Bitmap? {
+        return try {
+            val inputStream = activity.contentResolver?.openInputStream(uri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            bitmap
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun createImageFile(uri: Uri): File? {
+        return try {
+            val bitmap = getBitmap(uri)
+            val file = File.createTempFile(
+                "image_" + Date().time,
+                ".png",
+                activity.cacheDir
+            )
+            val outputStream = FileOutputStream(file)
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            outputStream.flush()
+            outputStream.close()
+
+            file
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 
     fun createTemporaryImageUri(): Uri? {
-        val tmpFile = File.createTempFile("simanis_image_" + Date().time, ".png", activity.cacheDir).apply {
+        val tmpFile = File.createTempFile("image_" + Date().time, ".png", activity.cacheDir).apply {
             createNewFile()
             deleteOnExit()
         }
-
         return FileProvider.getUriForFile(activity, "com.caracrepair.app.fileprovider", tmpFile)
     }
 }

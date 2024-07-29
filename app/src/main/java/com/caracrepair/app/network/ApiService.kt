@@ -21,7 +21,6 @@ import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.BookingHistoryResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.CarResponse
-import com.caracrepair.app.models.response.ChangeProfileResponse
 import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.ForgotPasswordResponse
 import com.caracrepair.app.models.response.HomePageResponse
@@ -42,6 +41,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
@@ -83,7 +83,7 @@ interface ApiService {
     @GET("api/carshops/{repair_shop_id}")
     suspend fun getRepairShopDetail(@Path("repair_shop_id") repairShopId: String): DataResponse<RepairShopDetailResponse>
 
-    @POST("api/order-service")
+    @POST("api/orders")
     suspend fun bookingService(@Body request: BookingServiceBody): DataResponse<BookingServiceResponse>
 
     @POST("api/order-times")
@@ -140,9 +140,10 @@ interface ApiService {
         @Part file: MultipartBody.Part
     ): StatusResponse
 
-    @PUT("api/users/{user_id}")
-    suspend fun changeProfile(@Path("user_id") userId: String, @Body request: ChangeProfileBody): DataResponse<ChangeProfileResponse>
+    @PUT("api/users/customer/{user_id}")
+    suspend fun changeProfile(@Path("user_id") userId: String, @Body request: ChangeProfileBody): StatusResponse
 
+    @Multipart
     @POST("api/utils/upload/image")
     suspend fun uploadImage(@Part file: MultipartBody.Part): DataResponse<UploadImageResponse>
 }
