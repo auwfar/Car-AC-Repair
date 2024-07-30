@@ -46,9 +46,13 @@ class ServiceRepository @Inject constructor(
     }
 
     suspend fun getServiceTimes(serviceTimesBody: ServiceTimesBody): DataResponse<List<ServiceTimeResponse>>? {
+        val queryMap = mapOf(
+            "company_branch_id" to serviceTimesBody.repairShopId,
+            "service_date" to serviceTimesBody.serviceDate
+        )
         return withContext(coroutineContext) {
             try {
-                apiService.getServiceTimes(serviceTimesBody)
+                apiService.getServiceTimes(queryMap)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

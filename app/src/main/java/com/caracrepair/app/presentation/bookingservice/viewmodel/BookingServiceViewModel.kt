@@ -59,36 +59,22 @@ class BookingServiceViewModel @Inject constructor(
     fun getServiceTimes(date: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            _serviceTimeResult.postValue(
-                listOf(
-                    ServiceTimeItem("08:00", false),
-                    ServiceTimeItem("09:00", true),
-                    ServiceTimeItem("10:00", false),
-                    ServiceTimeItem("11:00", true),
-                    ServiceTimeItem("12:00", false),
-                    ServiceTimeItem("13:00", true),
-                    ServiceTimeItem("14:00", false),
-                    ServiceTimeItem("15:00", true),
-                    ServiceTimeItem("16:00", false),
-                )
-            )
-
-//            val response = serviceRepository.getServiceTimes(ServiceTimesBody(
-//                generalPreference.getUser()?.userId.orEmpty(),
-//                selectedRepairShopId,
-//                date
-//            ))
-//            when {
-//                response != null && response.status == true -> {
-//                    _serviceTimeResult.postValue(response.data?.map { ServiceTimeItem(it) })
-//                }
-//                response != null && response.status != true -> {
-//                    _errorMessage.postValue(response.message.orEmpty())
-//                }
-//                else -> {
-//                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-//                }
-//            }
+            val response = serviceRepository.getServiceTimes(ServiceTimesBody(
+                generalPreference.getUser()?.userId.orEmpty(),
+                selectedRepairShopId,
+                date
+            ))
+            when {
+                response != null && response.status == true -> {
+                    _serviceTimeResult.postValue(response.data?.map { ServiceTimeItem(it) })
+                }
+                response != null && response.status != true -> {
+                    _errorMessage.postValue(response.message.orEmpty())
+                }
+                else -> {
+                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
+                }
+            }
             _loadingState.postValue(false)
         }
     }

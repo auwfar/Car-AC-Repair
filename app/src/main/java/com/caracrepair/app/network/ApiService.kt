@@ -10,7 +10,6 @@ import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
 import com.caracrepair.app.models.body.ResendOtpSignUpBody
 import com.caracrepair.app.models.body.ResetPasswordBody
-import com.caracrepair.app.models.body.ServiceTimesBody
 import com.caracrepair.app.models.body.SignInBody
 import com.caracrepair.app.models.body.SignUpBody
 import com.caracrepair.app.models.body.UpdateAddressBody
@@ -48,6 +47,7 @@ import retrofit2.http.Part
 import retrofit2.http.PartMap
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface ApiService {
     @POST("api/auth/login")
@@ -86,8 +86,8 @@ interface ApiService {
     @POST("api/orders")
     suspend fun bookingService(@Body request: BookingServiceBody): DataResponse<BookingServiceResponse>
 
-    @POST("api/order-times")
-    suspend fun getServiceTimes(@Body serviceTimesBody: ServiceTimesBody): DataResponse<List<ServiceTimeResponse>>
+    @GET("api/orders/check-availability")
+    suspend fun getServiceTimes(@QueryMap queryMap: Map<String, String>): DataResponse<List<ServiceTimeResponse>>
 
     @GET("api/order-history")
     suspend fun getBookingHistory(): DataResponse<List<BookingHistoryResponse>>
