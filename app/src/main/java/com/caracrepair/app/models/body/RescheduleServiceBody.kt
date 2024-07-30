@@ -7,8 +7,6 @@ data class RescheduleServiceBody(
     val userId: String,
     @SerializedName("carshop_id")
     val repairShopId: String,
-    @SerializedName("service_date")
-    val serviceDate: String,
-    @SerializedName("service_time")
-    val serviceTime: String
+    @SerializedName("service_at")
+    val serviceAt: String
 )

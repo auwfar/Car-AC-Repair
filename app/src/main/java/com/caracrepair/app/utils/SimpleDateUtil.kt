@@ -11,7 +11,10 @@ enum class DateUtil(val simpleDateFormat: SimpleDateFormat) {
     HOURS_DAY_FULL_MONTH_YEAR(SimpleDateFormat("dd MMMM yyyy, HH:mm", Locale("id")).apply {
         timeZone = TimeZone.getTimeZone("GMT+07:00")
     }),
-    SERVER(SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale("id")).apply {
+    FROM_SERVER(SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale("id")).apply {
+        timeZone = TimeZone.getTimeZone("GMT+07:00")
+    }),
+    DATE_FOR_SERVER(SimpleDateFormat("yyyy-MM-dd", Locale("id")).apply {
         timeZone = TimeZone.getTimeZone("GMT+07:00")
     })
 }

@@ -3,7 +3,6 @@ package com.caracrepair.app.repositories
 import androidx.core.net.toFile
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.RescheduleServiceBody
-import com.caracrepair.app.models.body.ServiceTimesBody
 import com.caracrepair.app.models.body.UploadPaymentProofImageBody
 import com.caracrepair.app.models.response.BookingHistoryResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
@@ -11,7 +10,6 @@ import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.RescheduleServiceResponse
 import com.caracrepair.app.models.response.ServiceDetailResponse
 import com.caracrepair.app.models.response.ServicePaymentResponse
-import com.caracrepair.app.models.response.ServiceTimeResponse
 import com.caracrepair.app.models.response.StatusResponse
 import com.caracrepair.app.network.ApiService
 import com.caracrepair.app.utils.ApiResponseUtil
@@ -37,22 +35,6 @@ class ServiceRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.bookingService(request)
-            } catch (error: HttpException) {
-                apiResponseUtil.getErrorResponse(error)
-            } catch (error: Exception) {
-                null
-            }
-        }
-    }
-
-    suspend fun getServiceTimes(serviceTimesBody: ServiceTimesBody): DataResponse<List<ServiceTimeResponse>>? {
-        val queryMap = mapOf(
-            "company_branch_id" to serviceTimesBody.repairShopId,
-            "service_date" to serviceTimesBody.serviceDate
-        )
-        return withContext(coroutineContext) {
-            try {
-                apiService.getServiceTimes(queryMap)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

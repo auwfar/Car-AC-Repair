@@ -15,6 +15,7 @@ import com.caracrepair.app.databinding.ActivityBookingServiceBinding
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.presentation.bookingservice.adapter.ServiceTimeAdapter
 import com.caracrepair.app.presentation.bookingservice.viewmodel.BookingServiceViewModel
+import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
 import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivityContract
 import com.caracrepair.app.presentation.myaddress.MyAddressActivityContract
 import com.caracrepair.app.presentation.mycar.MyCarActivityContract
@@ -22,10 +23,14 @@ import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 import com.caracrepair.app.utils.DateUtil
 import com.caracrepair.app.utils.FormUtil
+import com.caracrepair.app.utils.ServiceDateValidator
 import com.caracrepair.app.utils.hideKeyboard
 import com.caracrepair.app.utils.preferences.GeneralPreference
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
+import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -49,11 +54,7 @@ class BookingServiceActivity : AppCompatActivity() {
         viewModel.selectedAddress = selectedAddress
     }
     private val chooseRepairShopLauncher = registerForActivityResult(ChooseRepairShopActivityContract()) { selectedRepairShop ->
-        with(binding) {
-            etRepairShop.setText(selectedRepairShop?.name)
-            etServiceDate.setText("")
-            rvServiceTime.isVisible = false
-        }
+        binding.etRepairShop.setText(selectedRepairShop?.name)
         viewModel.selectedRepairShopId = selectedRepairShop?.id.orEmpty()
     }
 
@@ -73,10 +74,6 @@ class BookingServiceActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.bookingServiceResult.observe(this) {
             startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.BookingService, it))
-        }
-        viewModel.serviceTimeResult.observe(this) { serviceTimeItems ->
-            binding.rvServiceTime.isVisible = true
-            serviceTimeAdapter.setItems(serviceTimeItems)
         }
         viewModel.loadingState.observe(this) { isLoading ->
             binding.flLoading.isVisible = isLoading
@@ -113,16 +110,7 @@ class BookingServiceActivity : AppCompatActivity() {
                 chooseRepairShopLauncher.launch(null)
             }
             etServiceDate.setOnClickListener {
-                MaterialDatePicker.Builder.datePicker()
-                    .setTheme(R.style.App_MaterialCalendarTheme).build()
-                    .apply {
-                        addOnPositiveButtonClickListener { time ->
-                            viewModel.selectedServiceDate = time
-                            etServiceDate.setText(DateUtil.DAY_FULL_MONTH_YEAR.simpleDateFormat.format(time))
-                            viewModel.getServiceTimes(DateUtil.SERVER.simpleDateFormat.format(time))
-                        }
-                    }
-                    .show(supportFragmentManager, null)
+                showDatePicker()
             }
             btnOrderService.setOnClickListener {
                 bookingService()
@@ -133,7 +121,9 @@ class BookingServiceActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         with(binding.rvServiceTime) {
             layoutManager = GridLayoutManager(this@BookingServiceActivity, 3)
-            adapter = serviceTimeAdapter
+            adapter = serviceTimeAdapter.apply {
+                setItems(ServiceTimeItem.TIMES_DEFAULT)
+            }
         }
     }
 
@@ -195,9 +185,35 @@ class BookingServiceActivity : AppCompatActivity() {
                     complaint,
                     viewModel.selectedRepairShopId,
                     serviceType,
-                    DateUtil.SERVER.simpleDateFormat.format(viewModel.selectedServiceDate) +" " +serviceTime?.time.orEmpty()
+                    DateUtil.DATE_FOR_SERVER.simpleDateFormat.format(viewModel.selectedServiceDate) +" " +serviceTime?.time.orEmpty()
                 )
             )
         }
+    }
+
+    private fun showDatePicker() {
+        val open = Calendar.getInstance().apply {
+            time = viewModel.selectedServiceDate?.let { Date(it) } ?: Date()
+        }
+        val start = Calendar.getInstance()
+        val end = Calendar.getInstance().apply { add(Calendar.MONTH, 1) }
+        val constraints = CalendarConstraints.Builder()
+            .setStart(start.timeInMillis)
+            .setEnd(end.timeInMillis)
+            .setOpenAt(open.timeInMillis)
+            .setValidator(ServiceDateValidator())
+            .build()
+
+        MaterialDatePicker.Builder.datePicker()
+            .setSelection(open.timeInMillis)
+            .setCalendarConstraints(constraints)
+            .setTheme(R.style.App_MaterialCalendarTheme).build()
+            .apply {
+                addOnPositiveButtonClickListener { time ->
+                    viewModel.selectedServiceDate = time
+                    binding.etServiceDate.setText(DateUtil.DAY_FULL_MONTH_YEAR.simpleDateFormat.format(time))
+                }
+            }
+            .show(supportFragmentManager, null)
     }
 }

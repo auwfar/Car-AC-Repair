@@ -13,17 +13,21 @@ import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.databinding.ActivityRescheduleServiceBinding
 import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.presentation.bookingservice.adapter.ServiceTimeAdapter
+import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
 import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivityContract
 import com.caracrepair.app.presentation.rescheduleservice.viewmodel.RescheduleServiceViewModel
 import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 import com.caracrepair.app.utils.DateUtil
 import com.caracrepair.app.utils.FormUtil
-import com.caracrepair.app.utils.SimpleDateUtil
+import com.caracrepair.app.utils.ServiceDateValidator
 import com.caracrepair.app.utils.hideKeyboard
 import com.caracrepair.app.utils.preferences.GeneralPreference
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
+import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -63,10 +67,6 @@ class RescheduleServiceActivity : AppCompatActivity() {
         viewModel.rescheduleServiceResult.observe(this) {
             startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.RescheduleService, it))
         }
-        viewModel.serviceTimeResult.observe(this) { serviceTimeItems ->
-            binding.rvServiceTime.isVisible = true
-            serviceTimeAdapter.setItems(serviceTimeItems)
-        }
         viewModel.loadingState.observe(this) { isLoading ->
             binding.flLoading.isVisible = isLoading
         }
@@ -84,15 +84,7 @@ class RescheduleServiceActivity : AppCompatActivity() {
                 chooseRepairShopLauncher.launch(null)
             }
             etServiceDate.setOnClickListener {
-                MaterialDatePicker.Builder.datePicker()
-                    .setTheme(R.style.App_MaterialCalendarTheme).build()
-                    .apply {
-                        addOnPositiveButtonClickListener { time ->
-                            etServiceDate.setText(DateUtil.DAY_FULL_MONTH_YEAR.simpleDateFormat.format(time))
-                            viewModel.getServiceTimes(DateUtil.SERVER.simpleDateFormat.format(time))
-                        }
-                    }
-                    .show(supportFragmentManager, null)
+                showDatePicker()
             }
             btnRescheduleService.setOnClickListener {
                 rescheduleService()
@@ -103,7 +95,9 @@ class RescheduleServiceActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         with(binding.rvServiceTime) {
             layoutManager = GridLayoutManager(this@RescheduleServiceActivity, 3)
-            adapter = serviceTimeAdapter
+            adapter = serviceTimeAdapter.apply {
+                setItems(ServiceTimeItem.TIMES_DEFAULT)
+            }
         }
     }
 
@@ -134,10 +128,35 @@ class RescheduleServiceActivity : AppCompatActivity() {
                 RescheduleServiceBody(
                     generalPreference.getUser()?.userId.orEmpty(),
                     viewModel.selectedRepairShopId,
-                    DateUtil.SERVER.simpleDateFormat.format(serviceDate),
-                    serviceTime?.time.orEmpty()
+                    DateUtil.DATE_FOR_SERVER.simpleDateFormat.format(viewModel.selectedServiceDate) +" " +serviceTime?.time.orEmpty()
                 )
             )
         }
+    }
+
+    private fun showDatePicker() {
+        val open = Calendar.getInstance().apply {
+            time = viewModel.selectedServiceDate?.let { Date(it) } ?: Date()
+        }
+        val start = Calendar.getInstance()
+        val end = Calendar.getInstance().apply { add(Calendar.MONTH, 1) }
+        val constraints = CalendarConstraints.Builder()
+            .setStart(start.timeInMillis)
+            .setEnd(end.timeInMillis)
+            .setOpenAt(open.timeInMillis)
+            .setValidator(ServiceDateValidator())
+            .build()
+
+        MaterialDatePicker.Builder.datePicker()
+            .setSelection(open.timeInMillis)
+            .setCalendarConstraints(constraints)
+            .setTheme(R.style.App_MaterialCalendarTheme).build()
+            .apply {
+                addOnPositiveButtonClickListener { time ->
+                    viewModel.selectedServiceDate = time
+                    binding.etServiceDate.setText(DateUtil.DAY_FULL_MONTH_YEAR.simpleDateFormat.format(time))
+                }
+            }
+            .show(supportFragmentManager, null)
     }
 }

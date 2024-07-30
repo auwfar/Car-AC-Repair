@@ -28,7 +28,6 @@ import com.caracrepair.app.models.response.RepairShopResponse
 import com.caracrepair.app.models.response.RescheduleServiceResponse
 import com.caracrepair.app.models.response.ServiceDetailResponse
 import com.caracrepair.app.models.response.ServicePaymentResponse
-import com.caracrepair.app.models.response.ServiceTimeResponse
 import com.caracrepair.app.models.response.SignInResponse
 import com.caracrepair.app.models.response.SignUpResponse
 import com.caracrepair.app.models.response.StatusResponse
@@ -84,9 +83,6 @@ interface ApiService {
 
     @POST("api/orders")
     suspend fun bookingService(@Body request: BookingServiceBody): DataResponse<BookingServiceResponse>
-
-    @GET("api/orders/check-availability")
-    suspend fun getServiceTimes(@QueryMap queryMap: Map<String, String>): DataResponse<List<ServiceTimeResponse>>
 
     @GET("api/orders/customer/{user_id}")
     suspend fun getBookingHistory(@Path("user_id") userId: String): DataResponse<List<BookingHistoryResponse>>

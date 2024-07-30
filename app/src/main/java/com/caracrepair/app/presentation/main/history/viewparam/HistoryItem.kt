@@ -22,10 +22,10 @@ data class HistoryItem(
     )
 
     fun getOrderDate(): String {
-        return SimpleDateUtil.parseDate(orderDate, DateUtil.SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty()
+        return SimpleDateUtil.parseDate(orderDate, DateUtil.FROM_SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty()
     }
 
     fun getServiceDate(): String {
-        return SimpleDateUtil.parseDate(serviceDate, DateUtil.SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty()
+        return SimpleDateUtil.parseDate(serviceDate, DateUtil.FROM_SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty()
     }
 }
