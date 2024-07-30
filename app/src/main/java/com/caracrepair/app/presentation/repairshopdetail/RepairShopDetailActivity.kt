@@ -2,10 +2,10 @@ package com.caracrepair.app.presentation.repairshopdetail
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.FitCenter
@@ -90,9 +90,9 @@ class RepairShopDetailActivity : AppCompatActivity() {
                 .into(ivRepairShop)
 
             tvTitle.text = detail.name
-            tvDescription.text = detail.description
+            tvDescription.text = HtmlCompat.fromHtml(detail.description, HtmlCompat.FROM_HTML_MODE_LEGACY)
             tvAddress.text = detail.address
-            tvPhone.text = detail.adminPhoneNumber
+            tvPhone.text = detail.adminPhoneNumber.ifBlank { "-" }
         }
     }
 }

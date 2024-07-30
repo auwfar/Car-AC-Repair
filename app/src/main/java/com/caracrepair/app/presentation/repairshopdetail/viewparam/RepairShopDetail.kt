@@ -4,7 +4,7 @@ import com.caracrepair.app.models.response.RepairShopDetailResponse
 import com.caracrepair.app.models.viewparam.Location
 
 data class RepairShopDetail(
-    val id: Int,
+    val id: String,
     val imageUrl: String,
     val name: String,
     val description: String,
@@ -13,12 +13,12 @@ data class RepairShopDetail(
     val location: Location
 ) {
     constructor(response: RepairShopDetailResponse?) : this(
-        response?.id ?: 0,
+        response?.id.orEmpty(),
         response?.imageUrl.orEmpty(),
         response?.name.orEmpty(),
         response?.description.orEmpty(),
         response?.address.orEmpty(),
         response?.adminPhoneNumber.orEmpty(),
-        Location(response?.location)
+        Location(response)
     )
 }

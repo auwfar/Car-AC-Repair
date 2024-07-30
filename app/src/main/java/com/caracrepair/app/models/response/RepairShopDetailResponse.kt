@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class RepairShopDetailResponse(
     @SerializedName("id")
-    val id: Int?,
-    @SerializedName("image_url")
+    val id: String?,
+    @SerializedName("image")
     val imageUrl: String?,
     @SerializedName("name")
     val name: String?,
@@ -13,8 +13,10 @@ data class RepairShopDetailResponse(
     val description: String?,
     @SerializedName("address")
     val address: String?,
-    @SerializedName("admin_phone_number")
+    @SerializedName("phone")
     val adminPhoneNumber: String?,
-    @SerializedName("location")
-    val location: LocationResponse?
+    @SerializedName("lat")
+    val lat: Double?,
+    @SerializedName("long")
+    val long: Double?
 )
