@@ -2,9 +2,9 @@ package com.caracrepair.app.models.response
 
 import com.google.gson.annotations.SerializedName
 
-data class BookingResponse(
+data class ServiceResponse(
     @SerializedName("id")
-    val id: String?,
+    val orderId: String?,
     @SerializedName("createdAt")
     val orderTime: String?,
     @SerializedName("carshop_image_url")

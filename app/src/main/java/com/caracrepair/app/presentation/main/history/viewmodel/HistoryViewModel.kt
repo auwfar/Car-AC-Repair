@@ -27,13 +27,13 @@ class HistoryViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun getBookingHistory() {
+    fun getServiceHistory() {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = serviceRepository.getBookingHistory(generalPreference.getUser()?.userId.orEmpty())
+            val response = serviceRepository.getServiceHistory(generalPreference.getUser()?.userId.orEmpty())
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
-                    _serviceHistoryResult.postValue(response?.data?.map { HistoryItem(it.booking) }.orEmpty())
+                    _serviceHistoryResult.postValue(response?.data?.map { HistoryItem(it) }.orEmpty())
                 }
             })
             _loadingState.postValue(false)

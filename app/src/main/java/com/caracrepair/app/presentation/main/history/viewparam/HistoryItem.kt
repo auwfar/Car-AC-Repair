@@ -1,31 +1,23 @@
 package com.caracrepair.app.presentation.main.history.viewparam
 
-import com.caracrepair.app.models.response.BookingResponse
+import com.caracrepair.app.models.response.ServiceResponse
 import com.caracrepair.app.utils.DateUtil
 import com.caracrepair.app.utils.SimpleDateUtil
 
 data class HistoryItem(
     val id: String,
-    private val orderDate: String,
+    val orderAt: String,
     val carName: String,
     val repairShopImage: String,
-    private val serviceDate: String,
+    val serviceAt: String,
     val status: String
 ) {
-    constructor(response: BookingResponse?) : this(
-        response?.id.orEmpty(),
-        response?.orderTime.orEmpty(),
+    constructor(response: ServiceResponse?) : this(
+        response?.orderId.orEmpty(),
+        SimpleDateUtil.parseDate(response?.orderTime.orEmpty(), DateUtil.FROM_SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty(),
         response?.carName.orEmpty(),
         response?.repairShopImage.orEmpty(),
-        response?.serviceTime.orEmpty(),
+        SimpleDateUtil.parseDate(response?.serviceTime.orEmpty(), DateUtil.FROM_SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty(),
         response?.status.orEmpty()
     )
-
-    fun getOrderDate(): String {
-        return SimpleDateUtil.parseDate(orderDate, DateUtil.FROM_SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty()
-    }
-
-    fun getServiceDate(): String {
-        return SimpleDateUtil.parseDate(serviceDate, DateUtil.FROM_SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty()
-    }
 }

@@ -29,7 +29,7 @@ class FeeDetailAdapter : RecyclerView.Adapter<FeeDetailAdapter.ViewHolder>() {
         fun bind(item: FeeDetailItem?) {
             with(binding) {
                 tvFeeName.text = item?.feeName
-                tvFee.text = item?.feeTotal
+                tvFee.text = item?.feeTotal.toString()
             }
         }
     }

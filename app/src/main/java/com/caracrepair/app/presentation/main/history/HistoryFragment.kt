@@ -34,12 +34,12 @@ class HistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnReload.setOnClickListener {
-            viewModel.getBookingHistory()
+            viewModel.getServiceHistory()
         }
 
         observeViewModel()
         setupRecyclerView()
-        viewModel.getBookingHistory()
+        viewModel.getServiceHistory()
     }
 
     private fun observeViewModel() {

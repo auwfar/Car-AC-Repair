@@ -21,8 +21,12 @@ enum class DateUtil(val simpleDateFormat: SimpleDateFormat) {
 
 object SimpleDateUtil {
     fun parseDate(date: String, fromDateUtil: DateUtil, toDateUtil: DateUtil): String? {
-        return fromDateUtil.simpleDateFormat.parse(date)?.let {
-            toDateUtil.simpleDateFormat.format(it)
+        return try {
+            fromDateUtil.simpleDateFormat.parse(date)?.let {
+                toDateUtil.simpleDateFormat.format(it)
+            }
+        } catch (e: Exception) {
+            null
         }
     }
 }

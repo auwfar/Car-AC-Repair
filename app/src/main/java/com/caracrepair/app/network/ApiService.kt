@@ -17,7 +17,6 @@ import com.caracrepair.app.models.body.UpdateCarBody
 import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
 import com.caracrepair.app.models.body.VerifyOtpSignUpBody
 import com.caracrepair.app.models.response.AddressResponse
-import com.caracrepair.app.models.response.BookingHistoryResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.CarResponse
 import com.caracrepair.app.models.response.DataResponse
@@ -28,6 +27,7 @@ import com.caracrepair.app.models.response.RepairShopResponse
 import com.caracrepair.app.models.response.RescheduleServiceResponse
 import com.caracrepair.app.models.response.ServiceDetailResponse
 import com.caracrepair.app.models.response.ServicePaymentResponse
+import com.caracrepair.app.models.response.ServiceResponse
 import com.caracrepair.app.models.response.SignInResponse
 import com.caracrepair.app.models.response.SignUpResponse
 import com.caracrepair.app.models.response.StatusResponse
@@ -45,7 +45,6 @@ import retrofit2.http.Part
 import retrofit2.http.PartMap
 import retrofit2.http.Path
 import retrofit2.http.Query
-import retrofit2.http.QueryMap
 
 interface ApiService {
     @POST("api/auth/login")
@@ -85,12 +84,11 @@ interface ApiService {
     suspend fun bookingService(@Body request: BookingServiceBody): DataResponse<BookingServiceResponse>
 
     @GET("api/orders/customer/{user_id}")
-    suspend fun getBookingHistory(@Path("user_id") userId: String): DataResponse<List<BookingHistoryResponse>>
+    suspend fun getServiceHistory(@Path("user_id") userId: String): DataResponse<List<ServiceResponse>>
 
-    @GET("api/order/{order_id}")
+    @GET("api/orders/detail/{order_id}")
     suspend fun getServiceDetail(
-        @Path("order_id") serviceId: String,
-        @Query("user_id") userId: String
+        @Path("order_id") serviceId: String
     ): DataResponse<ServiceDetailResponse>
 
     @POST("api/reschedule-service")

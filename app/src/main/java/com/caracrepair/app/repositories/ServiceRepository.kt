@@ -4,12 +4,12 @@ import androidx.core.net.toFile
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.models.body.UploadPaymentProofImageBody
-import com.caracrepair.app.models.response.BookingHistoryResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.RescheduleServiceResponse
 import com.caracrepair.app.models.response.ServiceDetailResponse
 import com.caracrepair.app.models.response.ServicePaymentResponse
+import com.caracrepair.app.models.response.ServiceResponse
 import com.caracrepair.app.models.response.StatusResponse
 import com.caracrepair.app.network.ApiService
 import com.caracrepair.app.utils.ApiResponseUtil
@@ -43,10 +43,10 @@ class ServiceRepository @Inject constructor(
         }
     }
 
-    suspend fun getBookingHistory(userId: String): DataResponse<List<BookingHistoryResponse>>? {
+    suspend fun getServiceHistory(userId: String): DataResponse<List<ServiceResponse>>? {
         return withContext(coroutineContext) {
             try {
-                apiService.getBookingHistory(userId)
+                apiService.getServiceHistory(userId)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {
@@ -55,10 +55,10 @@ class ServiceRepository @Inject constructor(
         }
     }
 
-    suspend fun getServiceDetail(serviceId: String, userId: String): DataResponse<ServiceDetailResponse>? {
+    suspend fun getServiceDetail(serviceId: String): DataResponse<ServiceDetailResponse>? {
         return withContext(coroutineContext) {
             try {
-                apiService.getServiceDetail(serviceId, userId)
+                apiService.getServiceDetail(serviceId)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

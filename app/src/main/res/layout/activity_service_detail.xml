@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_support_agent"
+            android:visibility="gone"
             tools:ignore="contentDescription" />
     </LinearLayout>
 
@@ -382,6 +383,7 @@
         android:background="@drawable/bg_shadow_top"
         android:orientation="vertical"
         android:padding="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

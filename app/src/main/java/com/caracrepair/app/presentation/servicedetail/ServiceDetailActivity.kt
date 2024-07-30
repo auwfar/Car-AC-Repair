@@ -77,6 +77,7 @@ class ServiceDetailActivity : AppCompatActivity() {
 
     private fun setupViews(detail: ServiceDetail) {
         with(binding) {
+            ivContactAdmin.isVisible = true
             ivContactAdmin.setOnClickListener {
                 val message = getString(
                     R.string.desc_contact_admin_from_service_detail,
@@ -98,7 +99,7 @@ class ServiceDetailActivity : AppCompatActivity() {
                 .thumbnail(requestBuilder)
                 .into(ivRepairShop)
 
-            tvOrderId.text = detail.orderId.toString()
+            tvOrderId.text = detail.orderId
             tvOrderDate.text = detail.orderTime
             tvServiceTime.text = detail.serviceTime
             tvCarName.text = detail.carName
@@ -112,7 +113,7 @@ class ServiceDetailActivity : AppCompatActivity() {
                 getString(R.string.title_pick_up_from_repair_shop)
             }
             tvServiceAddress.text = detail.pickUpAddress
-            tvServiceMechanic.text = detail.mechanicName
+            tvServiceMechanic.text = detail.mechanicName.ifBlank { "-" }
             tvServiceStatus.text = detail.status
 
             tvRepairShopAddress.isVisible = (detail.serviceType == ServiceTypeConst.TYPE_DELIVER)
@@ -140,7 +141,7 @@ class ServiceDetailActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         with(binding.rvStatus) {
-            layoutManager = LinearLayoutManager(this@ServiceDetailActivity)
+            layoutManager = LinearLayoutManager(this@ServiceDetailActivity, LinearLayoutManager.VERTICAL, false)
             adapter = serviceLogAdapter
         }
     }

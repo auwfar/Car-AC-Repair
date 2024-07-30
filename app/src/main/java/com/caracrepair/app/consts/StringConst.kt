@@ -27,4 +27,16 @@ object StringConst {
         const val YEAR = "Tahun"
         const val ADDRESS_LABEL = "Label Alamat"
     }
+
+    object ServiceStatusDescription {
+        const val DESC_PENDING = "Pesanan Anda telah diterima dan sedang menunggu giliran untuk dilayani oleh mekanik kami. Kami akan segera memproses pesanan Anda."
+        const val DESC_SELF_DELIVER = "Anda telah memilih untuk mengantar mobil sendiri ke bengkel. Silakan datang sesuai waktu yang disepakati. Terima kasih atas kerjasamanya."
+        const val DESC_MECHANIC_PICKUP = "Kami sedang menjemput mobil Anda di lokasi yang telah disepakati. Pastikan mobil siap untuk diambil. Kami akan menghubungi Anda setelah mobil sampai di bengkel."
+        const val DESC_CHECKING = "Kendaraan Anda sedang dalam tahap pengecekan oleh teknisi kami. Kami sedang melakukan pemeriksaan menyeluruh untuk mengidentifikasi semua masalah potensial."
+        const val DESC_IN_PROGRESS = "Mekanik kami sedang melakukan perbaikan sesuai dengan hasil pengecekan dan persetujuan Anda. Kami akan memberikan informasi lebih lanjut setelah perbaikan selesai."
+        const val DESC_MECHANIC_DELIVERY = "Mobil Anda sedang diantar ke lokasi yang disepakati. Kami akan menghubungi Anda setelah mobil tiba. Terima kasih atas kesabaran Anda."
+        const val DESC_READY_TO_PICKUP = "Perbaikan mobil Anda telah selesai. Silakan datang ke bengkel untuk mengambil kendaraan Anda. Terima kasih telah mempercayakan perbaikan mobil Anda kepada kami."
+        const val DESC_WAITING_PAYMENT_CONFIRMATION = "Kami telah menerima pembayaran Anda dan sedang menunggu konfirmasi dari admin. Anda akan segera mendapatkan pemberitahuan setelah pembayaran dikonfirmasi."
+        const val DESC_COMPLETE = "Mobil Anda telah selesai diperbaiki dan sudah diantar atau dijemput sesuai dengan pilihan Anda. Terima kasih atas kepercayaan Anda kepada kami!"
+    }
 }
