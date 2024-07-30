@@ -17,6 +17,7 @@ import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivit
 import com.caracrepair.app.presentation.rescheduleservice.viewmodel.RescheduleServiceViewModel
 import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
+import com.caracrepair.app.utils.DateUtil
 import com.caracrepair.app.utils.FormUtil
 import com.caracrepair.app.utils.SimpleDateUtil
 import com.caracrepair.app.utils.hideKeyboard
@@ -29,7 +30,7 @@ import javax.inject.Inject
 class RescheduleServiceActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_SERVICE_ID = "extra_service_id"
-        fun createIntent(context: Context, serviceId: Int): Intent {
+        fun createIntent(context: Context, serviceId: String): Intent {
             return Intent(context, RescheduleServiceActivity::class.java).apply {
                 putExtra(EXTRA_SERVICE_ID, serviceId)
             }
@@ -87,8 +88,8 @@ class RescheduleServiceActivity : AppCompatActivity() {
                     .setTheme(R.style.App_MaterialCalendarTheme).build()
                     .apply {
                         addOnPositiveButtonClickListener { time ->
-                            etServiceDate.setText(SimpleDateUtil.dayFullMonthYearFormat.format(time))
-                            viewModel.getServiceTimes(SimpleDateUtil.serverFormat.format(time))
+                            etServiceDate.setText(DateUtil.DAY_FULL_MONTH_YEAR.simpleDateFormat.format(time))
+                            viewModel.getServiceTimes(DateUtil.SERVER.simpleDateFormat.format(time))
                         }
                     }
                     .show(supportFragmentManager, null)
@@ -133,7 +134,7 @@ class RescheduleServiceActivity : AppCompatActivity() {
                 RescheduleServiceBody(
                     generalPreference.getUser()?.userId.orEmpty(),
                     viewModel.selectedRepairShopId,
-                    SimpleDateUtil.serverFormat.format(serviceDate),
+                    DateUtil.SERVER.simpleDateFormat.format(serviceDate),
                     serviceTime?.time.orEmpty()
                 )
             )

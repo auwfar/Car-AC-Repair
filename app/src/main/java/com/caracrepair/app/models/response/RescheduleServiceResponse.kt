@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class RescheduleServiceResponse(
     @SerializedName("order_id")
-    val orderId: Int?
+    val orderId: String?
 )

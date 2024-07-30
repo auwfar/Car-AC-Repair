@@ -34,7 +34,7 @@ class ServicePaymentViewModel @Inject constructor(
     private val _errorUploadMessage = MutableLiveData<String>()
     val errorUploadMessage: LiveData<String> = _errorUploadMessage
 
-    fun getServicePayment(serviceId: Int) {
+    fun getServicePayment(serviceId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = serviceRepository.getServicePayment(serviceId, generalPreference.getUser()?.userId.orEmpty())
@@ -47,7 +47,7 @@ class ServicePaymentViewModel @Inject constructor(
         }
     }
 
-    fun uploadPaymentProofImage(serviceId: Int, imageUri: Uri) {
+    fun uploadPaymentProofImage(serviceId: String, imageUri: Uri) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = serviceRepository.uploadPaymentProofImage(UploadPaymentProofImageBody(

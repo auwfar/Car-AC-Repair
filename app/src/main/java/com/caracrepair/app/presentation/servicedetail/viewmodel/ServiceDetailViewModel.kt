@@ -27,7 +27,7 @@ class ServiceDetailViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun getServiceDetail(serviceId: Int) {
+    fun getServiceDetail(serviceId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = serviceRepository.getServiceDetail(serviceId, generalPreference.getUser()?.userId.orEmpty())

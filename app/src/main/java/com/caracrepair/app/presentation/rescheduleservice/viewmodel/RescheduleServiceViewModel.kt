@@ -22,8 +22,8 @@ class RescheduleServiceViewModel @Inject constructor(
     private val generalPreference: GeneralPreference
 ) : ViewModel() {
 
-    private val _rescheduleServiceResult = MutableLiveData<Int>()
-    val rescheduleServiceResult: LiveData<Int> = _rescheduleServiceResult
+    private val _rescheduleServiceResult = MutableLiveData<String>()
+    val rescheduleServiceResult: LiveData<String> = _rescheduleServiceResult
     private val _serviceTimeResult = MutableLiveData<List<ServiceTimeItem>>()
     val serviceTimeResult: LiveData<List<ServiceTimeItem>> = _serviceTimeResult
     private val _loadingState = MutableLiveData<Boolean>()
@@ -39,7 +39,7 @@ class RescheduleServiceViewModel @Inject constructor(
             val response = serviceRepository.rescheduleService(body)
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
-                    _rescheduleServiceResult.postValue(response?.data?.orderId ?: 0)
+                    _rescheduleServiceResult.postValue(response?.data?.orderId.orEmpty())
                 }
             })
             _loadingState.postValue(false)

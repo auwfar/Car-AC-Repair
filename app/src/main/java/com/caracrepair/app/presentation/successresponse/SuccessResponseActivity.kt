@@ -14,7 +14,7 @@ class SuccessResponseActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_SUCCESS_RESPONSE_TYPE = "EXTRA_SUCCESS_RESPONSE_TYPE"
         private const val EXTRA_ID = "EXTRA_ID"
-        fun createIntent(context: Context, successResponseType: SuccessResponseType, id: Int? = null): Intent {
+        fun createIntent(context: Context, successResponseType: SuccessResponseType, id: String? = null): Intent {
             return Intent(context, SuccessResponseActivity::class.java).apply {
                 putExtra(EXTRA_SUCCESS_RESPONSE_TYPE, successResponseType)
                 id?.let { putExtra(EXTRA_ID, it) }
@@ -90,11 +90,11 @@ class SuccessResponseActivity : AppCompatActivity() {
                     tvSuccessDescription.text = getString(R.string.desc_service_successfully_booking)
                     tvAction.text = getString(R.string.title_see_detail)
                     tvAction.setOnClickListener {
-                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getIntExtra(EXTRA_ID, 0)))
+                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getStringExtra(EXTRA_ID).orEmpty()))
                         finishAffinity()
                     }
                     ivBack.setOnClickListener {
-                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getIntExtra(EXTRA_ID, 0)))
+                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getStringExtra(EXTRA_ID).orEmpty()))
                         finishAffinity()
                     }
                 }
@@ -104,11 +104,11 @@ class SuccessResponseActivity : AppCompatActivity() {
                     tvSuccessDescription.text = getString(R.string.desc_service_successfully_rescheduled)
                     tvAction.text = getString(R.string.title_see_detail)
                     tvAction.setOnClickListener {
-                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getIntExtra(EXTRA_ID, 0)))
+                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getStringExtra(EXTRA_ID).orEmpty()))
                         finishAffinity()
                     }
                     ivBack.setOnClickListener {
-                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getIntExtra(EXTRA_ID, 0)))
+                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getStringExtra(EXTRA_ID).orEmpty()))
                         finishAffinity()
                     }
                 }

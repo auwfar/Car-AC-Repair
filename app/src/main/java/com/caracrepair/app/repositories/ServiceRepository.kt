@@ -61,10 +61,10 @@ class ServiceRepository @Inject constructor(
         }
     }
 
-    suspend fun getBookingHistory(): DataResponse<List<BookingHistoryResponse>>? {
+    suspend fun getBookingHistory(userId: String): DataResponse<List<BookingHistoryResponse>>? {
         return withContext(coroutineContext) {
             try {
-                apiService.getBookingHistory()
+                apiService.getBookingHistory(userId)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {
@@ -73,7 +73,7 @@ class ServiceRepository @Inject constructor(
         }
     }
 
-    suspend fun getServiceDetail(serviceId: Int, userId: String): DataResponse<ServiceDetailResponse>? {
+    suspend fun getServiceDetail(serviceId: String, userId: String): DataResponse<ServiceDetailResponse>? {
         return withContext(coroutineContext) {
             try {
                 apiService.getServiceDetail(serviceId, userId)
@@ -97,7 +97,7 @@ class ServiceRepository @Inject constructor(
         }
     }
 
-    suspend fun getServicePayment(serviceId: Int, userId: String): DataResponse<ServicePaymentResponse>? {
+    suspend fun getServicePayment(serviceId: String, userId: String): DataResponse<ServicePaymentResponse>? {
         return withContext(coroutineContext) {
             try {
                 apiService.getServicePayment(serviceId, userId)

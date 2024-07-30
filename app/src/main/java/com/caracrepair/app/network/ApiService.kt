@@ -38,7 +38,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
-import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -89,12 +88,12 @@ interface ApiService {
     @GET("api/orders/check-availability")
     suspend fun getServiceTimes(@QueryMap queryMap: Map<String, String>): DataResponse<List<ServiceTimeResponse>>
 
-    @GET("api/order-history")
-    suspend fun getBookingHistory(): DataResponse<List<BookingHistoryResponse>>
+    @GET("api/orders/customer/{user_id}")
+    suspend fun getBookingHistory(@Path("user_id") userId: String): DataResponse<List<BookingHistoryResponse>>
 
     @GET("api/order/{order_id}")
     suspend fun getServiceDetail(
-        @Path("order_id") serviceId: Int,
+        @Path("order_id") serviceId: String,
         @Query("user_id") userId: String
     ): DataResponse<ServiceDetailResponse>
 
@@ -103,7 +102,7 @@ interface ApiService {
 
     @GET("api/order-payment/{order_id}")
     suspend fun getServicePayment(
-        @Path("order_id") serviceId: Int,
+        @Path("order_id") serviceId: String,
         @Query("user_id") userId: String
     ): DataResponse<ServicePaymentResponse>
 

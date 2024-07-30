@@ -11,6 +11,7 @@ import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
 import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
 import com.caracrepair.app.presentation.mycar.viewparam.MyCarItem
 import com.caracrepair.app.repositories.ServiceRepository
+import com.caracrepair.app.utils.ApiResponseUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,11 +21,12 @@ import javax.inject.Inject
 @HiltViewModel
 class BookingServiceViewModel @Inject constructor(
     private val serviceRepository: ServiceRepository,
+    private val apiResponseUtil: ApiResponseUtil,
     private val generalPreference: GeneralPreference
 ) : ViewModel() {
 
-    private val _bookingServiceResult = MutableLiveData<Int>()
-    val bookingServiceResult: LiveData<Int> = _bookingServiceResult
+    private val _bookingServiceResult = MutableLiveData<String>()
+    val bookingServiceResult: LiveData<String> = _bookingServiceResult
     private val _serviceTimeResult = MutableLiveData<List<ServiceTimeItem>>()
     val serviceTimeResult: LiveData<List<ServiceTimeItem>> = _serviceTimeResult
     private val _loadingState = MutableLiveData<Boolean>()
@@ -41,17 +43,11 @@ class BookingServiceViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = serviceRepository.bookingService(body)
-            when {
-                response != null && response.status == true -> {
-                    _bookingServiceResult.postValue(response.data?.orderId ?: 0)
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _bookingServiceResult.postValue(response?.data?.orderId.orEmpty())
                 }
-                response != null && response.status != true -> {
-                    _errorMessage.postValue(response.message.orEmpty())
-                }
-                else -> {
-                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-                }
-            }
+            })
             _loadingState.postValue(false)
         }
     }
@@ -64,17 +60,11 @@ class BookingServiceViewModel @Inject constructor(
                 selectedRepairShopId,
                 date
             ))
-            when {
-                response != null && response.status == true -> {
-                    _serviceTimeResult.postValue(response.data?.map { ServiceTimeItem(it) })
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _serviceTimeResult.postValue(response?.data?.map { ServiceTimeItem(it) }.orEmpty())
                 }
-                response != null && response.status != true -> {
-                    _errorMessage.postValue(response.message.orEmpty())
-                }
-                else -> {
-                    _errorMessage.postValue(StringConst.GENERAL_ERROR_MESSAGE)
-                }
-            }
+            })
             _loadingState.postValue(false)
         }
     }

@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ServiceDetailActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_SERVICE_ID = "extra_service_id"
-        fun createIntent(context: Context, serviceId: Int): Intent {
+        fun createIntent(context: Context, serviceId: String): Intent {
             return Intent(context, ServiceDetailActivity::class.java).apply {
                 putExtra(EXTRA_SERVICE_ID, serviceId)
             }
@@ -37,14 +37,14 @@ class ServiceDetailActivity : AppCompatActivity() {
     private val viewModel by viewModels<ServiceDetailViewModel>()
     private val serviceLogAdapter by lazy { ServiceLogAdapter() }
 
-    private var serviceId: Int = 0
+    private var serviceId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityServiceDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        serviceId = intent.getIntExtra(EXTRA_SERVICE_ID, 0)
+        serviceId = intent.getStringExtra(EXTRA_SERVICE_ID).orEmpty()
 
         with(binding) {
             ivBack.setOnClickListener {

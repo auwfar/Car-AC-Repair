@@ -47,7 +47,7 @@ class FcmNotificationService : FirebaseMessagingService() {
         if (notificationTitle == null || notificationContent == null) return
 
         if (notificationType == FcmNotificationType.SERVICE_STATUS_CHANGED) {
-            val serviceId = data["order_id"]?.toIntOrNull() ?: return
+            val serviceId = data["order_id"] ?: return
             val intent = ServiceDetailActivity.createIntent(applicationContext, serviceId)
             val pendingIntent: PendingIntent = PendingIntent.getActivity(
                 applicationContext,

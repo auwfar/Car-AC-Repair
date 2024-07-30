@@ -68,7 +68,7 @@ class HistoryFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = historyAdapter.apply {
                 setOnItemClickListener {
-                    startActivity(ServiceDetailActivity.createIntent(requireContext(), it?.id ?: 0))
+                    startActivity(ServiceDetailActivity.createIntent(requireContext(), it?.id.orEmpty()))
                 }
             }
         }

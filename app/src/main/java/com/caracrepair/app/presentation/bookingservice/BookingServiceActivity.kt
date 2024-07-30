@@ -20,8 +20,8 @@ import com.caracrepair.app.presentation.myaddress.MyAddressActivityContract
 import com.caracrepair.app.presentation.mycar.MyCarActivityContract
 import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
+import com.caracrepair.app.utils.DateUtil
 import com.caracrepair.app.utils.FormUtil
-import com.caracrepair.app.utils.SimpleDateUtil
 import com.caracrepair.app.utils.hideKeyboard
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -118,8 +118,8 @@ class BookingServiceActivity : AppCompatActivity() {
                     .apply {
                         addOnPositiveButtonClickListener { time ->
                             viewModel.selectedServiceDate = time
-                            etServiceDate.setText(SimpleDateUtil.dayFullMonthYearFormat.format(time))
-                            viewModel.getServiceTimes(SimpleDateUtil.serverFormat.format(time))
+                            etServiceDate.setText(DateUtil.DAY_FULL_MONTH_YEAR.simpleDateFormat.format(time))
+                            viewModel.getServiceTimes(DateUtil.SERVER.simpleDateFormat.format(time))
                         }
                     }
                     .show(supportFragmentManager, null)
@@ -195,7 +195,7 @@ class BookingServiceActivity : AppCompatActivity() {
                     complaint,
                     viewModel.selectedRepairShopId,
                     serviceType,
-                    SimpleDateUtil.serverFormat.format(viewModel.selectedServiceDate) +" " +serviceTime?.time.orEmpty()
+                    DateUtil.SERVER.simpleDateFormat.format(viewModel.selectedServiceDate) +" " +serviceTime?.time.orEmpty()
                 )
             )
         }

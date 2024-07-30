@@ -31,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ServicePaymentActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_SERVICE_ID = "extra_service_id"
-        fun createIntent(context: Context, serviceId: Int): Intent {
+        fun createIntent(context: Context, serviceId: String): Intent {
             return Intent(context, ServicePaymentActivity::class.java).apply {
                 putExtra(EXTRA_SERVICE_ID, serviceId)
             }
@@ -43,7 +43,7 @@ class ServicePaymentActivity : AppCompatActivity() {
     private val feeDetailAdapter by lazy { FeeDetailAdapter() }
     private val fileUtil by lazy { FileUtil(this) }
 
-    private var serviceId: Int = 0
+    private var serviceId = ""
     private var paymentProofImageUri: Uri? = null
 
     private val imagePickerDialog by lazy {
@@ -93,7 +93,7 @@ class ServicePaymentActivity : AppCompatActivity() {
         binding = ActivityServicePaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        serviceId = intent.getIntExtra(EXTRA_SERVICE_ID, 0)
+        serviceId = intent.getStringExtra(EXTRA_SERVICE_ID).orEmpty()
 
         with(binding) {
             ivBack.setOnClickListener {
