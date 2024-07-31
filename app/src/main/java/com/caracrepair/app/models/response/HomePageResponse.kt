@@ -8,7 +8,7 @@ data class HomePageResponse(
     @SerializedName("last_services")
     val lastServices: List<LastServiceModel>?,
     @SerializedName("carshops")
-    val carShops: List<CarShopModel>?
+    val repairShops: List<CarShopModel>?
 ) {
     data class OnProgressServiceModel(
         @SerializedName("order_id")
@@ -20,20 +20,20 @@ data class HomePageResponse(
     )
 
     data class LastServiceModel(
-        @SerializedName("order_id")
-        val orderId: Int?,
+        @SerializedName("id")
+        val orderId: String?,
         @SerializedName("car_name")
         val carName: String?,
-        @SerializedName("order_time")
+        @SerializedName("createdAt")
         val orderTime: String?,
-        @SerializedName("car_distance")
+        @SerializedName("distance")
         val carDistance: String?
     )
 
     data class CarShopModel(
         @SerializedName("id")
-        val id: Int?,
-        @SerializedName("image_url")
+        val id: String?,
+        @SerializedName("image")
         val imageUrl: String?,
         @SerializedName("description")
         val description: String?

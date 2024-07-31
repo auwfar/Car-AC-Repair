@@ -71,8 +71,8 @@ interface ApiService {
     @POST("api/reset-password")
     suspend fun resetPassword(@Body request: ResetPasswordBody): StatusResponse
 
-    @GET("api/home")
-    suspend fun getHomePage(): DataResponse<HomePageResponse>
+    @GET("api/dashboard?platform=mobile")
+    suspend fun getHomePage(@Query("customer_id") userId: String): DataResponse<HomePageResponse>
 
     @GET("api/carshops")
     suspend fun getRepairShops(): DataResponse<List<RepairShopResponse>>

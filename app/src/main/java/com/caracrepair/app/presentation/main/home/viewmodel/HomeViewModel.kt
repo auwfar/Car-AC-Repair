@@ -37,12 +37,12 @@ class HomeViewModel @Inject constructor(
     fun getHomePage() {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = homeRepository.getHomePage()
+            val response = homeRepository.getHomePage(generalPreference.getUser()?.userId.orEmpty())
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
                     _onProgressServicesResult.postValue(response?.data?.onProgressServices?.map { OnProgressServiceItem(it) }.orEmpty())
                     _lastServicesResult.postValue(response?.data?.lastServices?.map { LastServiceItem(it) }.orEmpty())
-                    _repairShopsResult.postValue(response?.data?.carShops?.map { RepairShopSliderItem(it) }.orEmpty())
+                    _repairShopsResult.postValue(response?.data?.repairShops?.map { RepairShopSliderItem(it) }.orEmpty())
                 }
             })
             _loadingState.postValue(false)

@@ -2,6 +2,7 @@ package com.caracrepair.app.presentation.main.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -41,7 +42,7 @@ class RepairShopSliderAdapter : RecyclerView.Adapter<RepairShopSliderAdapter.Vie
                     .apply(requestOptions)
                     .thumbnail(requestBuilder)
                     .into(ivRepairShop)
-                tvDescription.text = item?.description
+                tvDescription.text = HtmlCompat.fromHtml(item?.description.orEmpty(), HtmlCompat.FROM_HTML_MODE_LEGACY)
             }
         }
     }

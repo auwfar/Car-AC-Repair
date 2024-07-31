@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.caracrepair.app.R
 import com.caracrepair.app.consts.ServiceTypeConst
 import com.caracrepair.app.databinding.ActivityServiceDetailBinding
+import com.caracrepair.app.presentation.main.MainActivity
 import com.caracrepair.app.presentation.rescheduleservice.RescheduleServiceActivity
 import com.caracrepair.app.presentation.servicedetail.adapter.ServiceLogAdapter
 import com.caracrepair.app.presentation.servicedetail.viewmodel.ServiceDetailViewModel
@@ -143,6 +144,14 @@ class ServiceDetailActivity : AppCompatActivity() {
         with(binding.rvStatus) {
             layoutManager = LinearLayoutManager(this@ServiceDetailActivity, LinearLayoutManager.VERTICAL, false)
             adapter = serviceLogAdapter
+        }
+    }
+
+    override fun onBackPressed() {
+        if (isTaskRoot) {
+            startActivity(MainActivity.createIntent(this))
+        } else {
+            super.onBackPressed()
         }
     }
 }

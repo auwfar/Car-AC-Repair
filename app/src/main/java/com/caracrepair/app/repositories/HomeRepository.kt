@@ -18,10 +18,10 @@ class HomeRepository @Inject constructor(
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO
 
-    suspend fun getHomePage(): DataResponse<HomePageResponse>? {
+    suspend fun getHomePage(userId: String): DataResponse<HomePageResponse>? {
         return withContext(coroutineContext) {
             try {
-                apiService.getHomePage()
+                apiService.getHomePage(userId)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

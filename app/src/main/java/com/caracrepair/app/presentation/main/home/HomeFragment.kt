@@ -19,6 +19,7 @@ import com.caracrepair.app.presentation.main.home.adapter.LastServiceAdapter
 import com.caracrepair.app.presentation.main.home.adapter.OnProgressServiceAdapter
 import com.caracrepair.app.presentation.main.home.adapter.RepairShopSliderAdapter
 import com.caracrepair.app.presentation.main.home.viewmodel.HomeViewModel
+import com.caracrepair.app.presentation.servicedetail.ServiceDetailActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,8 +28,20 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by viewModels<HomeViewModel>()
     private val repairShopSliderAdapter by lazy { RepairShopSliderAdapter() }
-    private val onProgressServiceAdapter by lazy { OnProgressServiceAdapter() }
-    private val lastServiceAdapter by lazy { LastServiceAdapter() }
+    private val onProgressServiceAdapter by lazy {
+        OnProgressServiceAdapter().apply {
+            setOnClickItemListener {
+                startActivity(ServiceDetailActivity.createIntent(requireContext(), it?.id.orEmpty()))
+            }
+        }
+    }
+    private val lastServiceAdapter by lazy {
+        LastServiceAdapter().apply {
+            setOnClickItemListener {
+                startActivity(ServiceDetailActivity.createIntent(requireContext(), it?.id.orEmpty()))
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
