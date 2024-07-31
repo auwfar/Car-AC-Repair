@@ -34,7 +34,6 @@ class ChangeProfileViewModel @Inject constructor(
     fun changeProfile(name: String, profileImage: File?) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-
             val currentImageProfile = generalPreference.getUser()?.profileImage.orEmpty()
             val currentPhoneNumber = generalPreference.getUser()?.phoneNumber.orEmpty()
             val profileImageUrl = async {

@@ -158,7 +158,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_last_service" />
+                app:layout_constraintTop_toBottomOf="@id/group_last_service" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_repair_shop_slider"

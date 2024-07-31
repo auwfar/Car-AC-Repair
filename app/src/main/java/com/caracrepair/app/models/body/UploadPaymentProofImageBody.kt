@@ -1,8 +1,8 @@
 package com.caracrepair.app.models.body
 
-import android.net.Uri
+import com.google.gson.annotations.SerializedName
 
 data class UploadPaymentProofImageBody(
-    val serviceId: String,
-    val imageUri: Uri
+    @SerializedName("payment_proof_image")
+    val proofImageUrl: String
 )

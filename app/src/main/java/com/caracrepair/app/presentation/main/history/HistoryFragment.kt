@@ -45,6 +45,7 @@ class HistoryFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.serviceHistoryResult.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
+                binding.btnReload.isVisible = false
                 binding.llErrorView.isVisible = true
                 binding.tvErrorTitle.text = getString(R.string.title_no_booking_yet)
                 binding.tvErrorDescription.text = getString(R.string.desc_no_booking_yet)
@@ -57,6 +58,7 @@ class HistoryFragment : Fragment() {
             binding.flLoading.isVisible = isLoading
         }
         viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
+            binding.btnReload.isVisible = true
             binding.llErrorView.isVisible = true
             binding.tvErrorTitle.text = getString(R.string.title_oops_there_is_problem)
             binding.tvErrorDescription.text = message

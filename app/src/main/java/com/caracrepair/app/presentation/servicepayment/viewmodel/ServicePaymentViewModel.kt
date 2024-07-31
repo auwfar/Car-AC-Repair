@@ -1,24 +1,26 @@
 package com.caracrepair.app.presentation.servicepayment.viewmodel
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caracrepair.app.consts.StringConst
 import com.caracrepair.app.models.body.UploadPaymentProofImageBody
 import com.caracrepair.app.presentation.servicepayment.viewparam.ServicePayment
+import com.caracrepair.app.repositories.GeneralRepository
 import com.caracrepair.app.repositories.ServiceRepository
 import com.caracrepair.app.utils.ApiResponseUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class ServicePaymentViewModel @Inject constructor(
     private val serviceRepository: ServiceRepository,
+    private val generalRepository: GeneralRepository,
     private val apiResponseUtil: ApiResponseUtil,
     private val generalPreference: GeneralPreference
 ) : ViewModel() {
@@ -47,13 +49,11 @@ class ServicePaymentViewModel @Inject constructor(
         }
     }
 
-    fun uploadPaymentProofImage(serviceId: String, imageUri: Uri) {
+    fun uploadPaymentProofImage(serviceId: String, proofImageFile: File) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = serviceRepository.uploadPaymentProofImage(UploadPaymentProofImageBody(
-                serviceId = serviceId,
-                imageUri = imageUri
-            ))
+            val proofImageUrl = async { generalRepository.uploadImage(proofImageFile) }.await()
+            val response = serviceRepository.uploadPaymentProofImage(serviceId, UploadPaymentProofImageBody(proofImageUrl.orEmpty()))
             apiResponseUtil.setResponseListener(response, _errorUploadMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
                     _uploadPaymentProofImageResult.postValue(response?.message.orEmpty())

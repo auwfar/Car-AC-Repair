@@ -136,7 +136,12 @@ class RescheduleServiceActivity : AppCompatActivity() {
 
     private fun showDatePicker() {
         val open = Calendar.getInstance().apply {
-            time = viewModel.selectedServiceDate?.let { Date(it) } ?: Date()
+            val selectedServiceDate = viewModel.selectedServiceDate
+            if (selectedServiceDate != null) {
+                time = Date(selectedServiceDate)
+            } else {
+                add(Calendar.DAY_OF_MONTH, 1)
+            }
         }
         val start = Calendar.getInstance()
         val end = Calendar.getInstance().apply { add(Calendar.MONTH, 1) }

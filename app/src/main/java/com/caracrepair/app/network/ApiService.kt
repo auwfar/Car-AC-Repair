@@ -14,6 +14,7 @@ import com.caracrepair.app.models.body.SignInBody
 import com.caracrepair.app.models.body.SignUpBody
 import com.caracrepair.app.models.body.UpdateAddressBody
 import com.caracrepair.app.models.body.UpdateCarBody
+import com.caracrepair.app.models.body.UploadPaymentProofImageBody
 import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
 import com.caracrepair.app.models.body.VerifyOtpSignUpBody
 import com.caracrepair.app.models.response.AddressResponse
@@ -127,11 +128,8 @@ interface ApiService {
     @DELETE("api/addresses/{address_id}")
     suspend fun removeAddress(@Path("address_id") addressId: String): StatusResponse
 
-    @POST("api/upload-payment-proof-image")
-    suspend fun uploadPaymentProofImage(
-        @PartMap reqBody: MutableMap<String, RequestBody>,
-        @Part file: MultipartBody.Part
-    ): StatusResponse
+    @PUT("api/orders/items/{order_id}")
+    suspend fun uploadPaymentProofImage(@Path("order_id") serviceId: String, @Body request: UploadPaymentProofImageBody): StatusResponse
 
     @PUT("api/users/customer/{user_id}")
     suspend fun changeProfile(@Path("user_id") userId: String, @Body request: ChangeProfileBody): StatusResponse

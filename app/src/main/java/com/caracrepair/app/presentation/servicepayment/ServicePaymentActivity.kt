@@ -109,9 +109,9 @@ class ServicePaymentActivity : AppCompatActivity() {
                 imagePickerDialog.show(supportFragmentManager, null)
             }
             btnUpload.setOnClickListener {
-                val uri = paymentProofImageUri
-                if (uri != null) {
-                    viewModel.uploadPaymentProofImage(serviceId, uri)
+                val proofImageFile = paymentProofImageUri?.let { fileUtil.createImageFile(it) }
+                if (proofImageFile != null) {
+                    viewModel.uploadPaymentProofImage(serviceId, proofImageFile)
                 }
             }
         }

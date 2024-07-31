@@ -91,14 +91,10 @@ class ServiceRepository @Inject constructor(
         }
     }
 
-    suspend fun uploadPaymentProofImage(uploadPaymentProofImageBody: UploadPaymentProofImageBody): StatusResponse? {
+    suspend fun uploadPaymentProofImage(serviceId: String, uploadPaymentProofImageBody: UploadPaymentProofImageBody): StatusResponse? {
         return withContext(coroutineContext) {
             try {
-                val serviceId = uploadPaymentProofImageBody.serviceId.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-                val map = mutableMapOf("order_id" to serviceId)
-                val file = uploadPaymentProofImageBody.imageUri.toFile()
-                val fileUpload = MultipartBody.Part.createFormData("image", file.name,  file.asRequestBody("image/jpeg".toMediaTypeOrNull()))
-                apiService.uploadPaymentProofImage(map, fileUpload)
+                apiService.uploadPaymentProofImage(serviceId, uploadPaymentProofImageBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {
