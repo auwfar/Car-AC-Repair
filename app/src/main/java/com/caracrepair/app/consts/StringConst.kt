@@ -36,7 +36,10 @@ object StringConst {
         const val DESC_IN_PROGRESS = "Mekanik kami sedang melakukan perbaikan sesuai dengan hasil pengecekan dan persetujuan Anda. Kami akan memberikan informasi lebih lanjut setelah perbaikan selesai."
         const val DESC_MECHANIC_DELIVERY = "Mobil Anda sedang diantar ke lokasi yang disepakati. Kami akan menghubungi Anda setelah mobil tiba. Terima kasih atas kesabaran Anda."
         const val DESC_READY_TO_PICKUP = "Perbaikan mobil Anda telah selesai. Silakan datang ke bengkel untuk mengambil kendaraan Anda. Terima kasih telah mempercayakan perbaikan mobil Anda kepada kami."
+        const val DESC_WAITING_PAYMENT = "Silakan lakukan pembayaran untuk melanjutkan proses. Kami akan segera memproses pesanan Anda setelah pembayaran diterima."
         const val DESC_WAITING_PAYMENT_CONFIRMATION = "Kami telah menerima pembayaran Anda dan sedang menunggu konfirmasi dari admin. Anda akan segera mendapatkan pemberitahuan setelah pembayaran dikonfirmasi."
         const val DESC_COMPLETE = "Mobil Anda telah selesai diperbaiki dan sudah diantar atau dijemput sesuai dengan pilihan Anda. Terima kasih atas kepercayaan Anda kepada kami!"
+
+        const val DESC_RESCHEDULE = "Jadwal layanan mobil Anda telah diubah sesuai permintaan atau kebutuhan. Mohon cek detail jadwal baru dan pastikan Anda siap pada waktu yang ditentukan"
     }
 }

@@ -16,8 +16,8 @@ data class HistoryItem(
         response?.orderId.orEmpty(),
         SimpleDateUtil.parseDate(response?.orderTime.orEmpty(), DateUtil.FROM_SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty(),
         response?.carName.orEmpty(),
-        response?.repairShopImage.orEmpty(),
-        SimpleDateUtil.parseDate(response?.serviceTime.orEmpty(), DateUtil.FROM_SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty(),
+        response?.repairShop?.imageUrl.orEmpty(),
+        SimpleDateUtil.parseDate(response?.serviceAt.orEmpty(), DateUtil.FROM_SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty(),
         response?.status.orEmpty()
     )
 }

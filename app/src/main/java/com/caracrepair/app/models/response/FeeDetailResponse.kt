@@ -6,5 +6,5 @@ data class FeeDetailResponse(
     @SerializedName("name")
     val name: String?,
     @SerializedName("price")
-    val total: Long?
+    val total: Int?
 )

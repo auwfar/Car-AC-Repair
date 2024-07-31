@@ -1,7 +1,6 @@
 package com.caracrepair.app.modules
 
 import android.content.Context
-import com.caracrepair.app.network.ApiService
 import com.caracrepair.app.utils.ApiResponseUtil
 import com.caracrepair.app.utils.FirebaseUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
@@ -11,7 +10,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module

@@ -1,8 +1,11 @@
 package com.caracrepair.app.presentation.repairshopdetail.viewparam
 
+import android.os.Parcelable
 import com.caracrepair.app.models.response.RepairShopDetailResponse
 import com.caracrepair.app.models.viewparam.Location
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class RepairShopDetail(
     val id: String,
     val imageUrl: String,
@@ -11,7 +14,7 @@ data class RepairShopDetail(
     val address: String,
     val adminPhoneNumber: String,
     val location: Location
-) {
+) : Parcelable {
     constructor(response: RepairShopDetailResponse?) : this(
         response?.id.orEmpty(),
         response?.imageUrl.orEmpty(),

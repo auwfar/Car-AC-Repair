@@ -34,15 +34,17 @@ class OnboardingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (generalPreference.getUser() != null) {
+            startActivity(MainActivity.createIntent(this))
+            return
+        }
+
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requestNotificationPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
-        }
-        if (generalPreference.getUser() != null) {
-            startActivity(MainActivity.createIntent(this))
-            return
         }
 
         with(binding) {

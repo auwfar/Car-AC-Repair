@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.caracrepair.app.presentation.servicedetail.viewparam.ServiceDetail
 import com.caracrepair.app.repositories.ServiceRepository
 import com.caracrepair.app.utils.ApiResponseUtil
-import com.caracrepair.app.utils.preferences.GeneralPreference
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

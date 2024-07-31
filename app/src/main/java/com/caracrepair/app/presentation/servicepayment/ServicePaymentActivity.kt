@@ -19,8 +19,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityServicePaymentBinding
 import com.caracrepair.app.presentation.servicedetail.adapter.FeeDetailAdapter
+import com.caracrepair.app.presentation.servicedetail.viewparam.ServiceDetail
 import com.caracrepair.app.presentation.servicepayment.viewmodel.ServicePaymentViewModel
-import com.caracrepair.app.presentation.servicepayment.viewparam.ServicePayment
 import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 import com.caracrepair.app.utils.FileUtil
@@ -30,10 +30,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ServicePaymentActivity : AppCompatActivity() {
     companion object {
-        private const val EXTRA_SERVICE_ID = "extra_service_id"
-        fun createIntent(context: Context, serviceId: String): Intent {
+        private const val EXTRA_SERVICE_DETAIL = "extra_service_detail"
+        fun createIntent(context: Context, serviceDetail: ServiceDetail): Intent {
             return Intent(context, ServicePaymentActivity::class.java).apply {
-                putExtra(EXTRA_SERVICE_ID, serviceId)
+                putExtra(EXTRA_SERVICE_DETAIL, serviceDetail)
             }
         }
     }
@@ -93,14 +93,11 @@ class ServicePaymentActivity : AppCompatActivity() {
         binding = ActivityServicePaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        serviceId = intent.getStringExtra(EXTRA_SERVICE_ID).orEmpty()
+        viewModel.serviceDetail = intent.getParcelableExtra(EXTRA_SERVICE_DETAIL)
 
         with(binding) {
             ivBack.setOnClickListener {
                 finish()
-            }
-            btnReload.setOnClickListener {
-                viewModel.getServicePayment(serviceId)
             }
             llActionChangePaymentProofImage.setOnClickListener {
                 imagePickerDialog.show(supportFragmentManager, null)
@@ -118,14 +115,10 @@ class ServicePaymentActivity : AppCompatActivity() {
 
         observeViewModel()
         setupRecyclerView()
-        viewModel.getServicePayment(serviceId)
+        setupViews()
     }
 
     private fun observeViewModel() {
-        viewModel.servicePaymentResult.observe(this) {
-            binding.llErrorView.isVisible = false
-            setupViews(it)
-        }
         viewModel.uploadPaymentProofImageResult.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             startActivity(SuccessResponseActivity.createIntent(this@ServicePaymentActivity, SuccessResponseType.Pay))
@@ -135,35 +128,32 @@ class ServicePaymentActivity : AppCompatActivity() {
             binding.flLoading.isVisible = isLoading
         }
         viewModel.errorMessage.observe(this) { message ->
-            binding.llErrorView.isVisible = true
-            binding.tvErrorDescription.text = message
-        }
-        viewModel.errorUploadMessage.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun setupViews(detail: ServicePayment) {
+    private fun setupViews() {
+        val detail = viewModel.serviceDetail
         with(binding) {
             val requestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(8))
             val requestBuilder = Glide.with(root).load(R.drawable.img_placeholder).apply(requestOptions)
             Glide.with(root)
-                .load(detail.repairShop.imageUrl)
+                .load(detail?.repairShop?.imageUrl)
                 .apply(requestOptions)
                 .thumbnail(requestBuilder)
                 .into(ivRepairShop)
 
-            tvOrderId.text = detail.orderId.toString()
-            tvOrderDate.text = detail.orderTime
-            tvServiceTime.text = detail.serviceTime
-            tvCarName.text = detail.carName
-            tvCarDistance.text = detail.carDistance
-            tvRepairShopName.text = detail.repairShop.name
-            tvRepairShopAddress.text = detail.repairShop.address
-            tvServiceMechanic.text = detail.mechanicName
+            tvOrderId.text = detail?.orderId.toString()
+            tvOrderDate.text = detail?.orderTime
+            tvServiceTime.text = detail?.serviceAt
+            tvCarName.text = detail?.carName
+            tvCarDistance.text = detail?.carDistance
+            tvRepairShopName.text = detail?.repairShop?.name
+            tvRepairShopAddress.text = detail?.repairShop?.address
+            tvServiceMechanic.text = detail?.mechanicName?.ifBlank { "-" }
 
-            tvFeeTotal.text = detail.fee.feeTotal
-            feeDetailAdapter.setItems(detail.fee.fees)
+            tvFeeTotal.text = detail?.fee?.feeTotal
+            feeDetailAdapter.setItems(detail?.fee?.fees.orEmpty())
         }
     }
 

@@ -28,5 +28,5 @@ data class BookingServiceBody(
     @SerializedName("service_type")
     val serviceType: String,
     @SerializedName("service_at")
-    val serviceTime: String
+    val serviceAt: String
 )

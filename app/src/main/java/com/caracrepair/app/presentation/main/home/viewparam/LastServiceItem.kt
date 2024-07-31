@@ -14,6 +14,6 @@ data class LastServiceItem(
         model.orderId.orEmpty(),
         model.carName.orEmpty(),
         SimpleDateUtil.parseDate(model.orderTime.orEmpty(), DateUtil.FROM_SERVER, DateUtil.HOURS_DAY_FULL_MONTH_YEAR).orEmpty(),
-        model.carDistance.orEmpty()
+        model.carDistance.orEmpty() +" km"
     )
 }

@@ -102,7 +102,7 @@ class ServiceDetailActivity : AppCompatActivity() {
 
             tvOrderId.text = detail.orderId
             tvOrderDate.text = detail.orderTime
-            tvServiceTime.text = detail.serviceTime
+            tvServiceTime.text = detail.serviceAt
             tvCarName.text = detail.carName
             tvCarDistance.text = detail.carDistance
             tvRepairShopName.text = detail.repairShop.name
@@ -126,7 +126,7 @@ class ServiceDetailActivity : AppCompatActivity() {
                 llAction.isVisible = true
                 btnPay.isVisible = true
                 btnPay.setOnClickListener {
-                    startActivity(ServicePaymentActivity.createIntent(this@ServiceDetailActivity, serviceId))
+                    startActivity(ServicePaymentActivity.createIntent(this@ServiceDetailActivity, detail))
                 }
             } else if (detail.isAbleToReschedule) {
                 llAction.isVisible = true

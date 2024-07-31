@@ -14,7 +14,7 @@ data class ServiceDetailResponse(
     @SerializedName("distance")
     val carDistance: String?,
     @SerializedName("service_at")
-    val serviceTime: String?,
+    val serviceAt: String?,
     @SerializedName("company_branch")
     val repairShop: RepairShopDetailResponse?,
     @SerializedName("description")
@@ -25,7 +25,7 @@ data class ServiceDetailResponse(
     val pickUpAddress: String?,
     @SerializedName("mechanic_name")
     val mechanicName: String?,
-    @SerializedName("status")
+    @SerializedName("status_label")
     val status: String?,
     @SerializedName("is_able_to_pay")
     val isAbleToPay: Boolean?,
