@@ -6,5 +6,7 @@ data class VerifyOtpBody(
     @SerializedName("otp")
     val otp: String,
     @SerializedName("emailOrPhone")
-    val phoneNumber: String
+    val phoneNumber: String,
+    @SerializedName("type")
+    val type: String? = null
 )

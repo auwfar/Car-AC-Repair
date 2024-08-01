@@ -40,7 +40,11 @@ class OtpVerificationViewModel @Inject constructor(
         }
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = accountRepository.verifyOtp(VerifyOtpBody(otpCode, phoneNumber))
+            val response = accountRepository.verifyOtp(VerifyOtpBody(
+                otpCode,
+                phoneNumber,
+                if (otpType is OTPType.ForgotPassword) "forgot-password" else null
+            ))
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
                     _otpVerificationResult.postValue(otpType)

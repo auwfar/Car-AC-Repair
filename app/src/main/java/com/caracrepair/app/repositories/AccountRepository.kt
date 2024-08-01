@@ -4,7 +4,6 @@ import com.caracrepair.app.models.body.AddAddressBody
 import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.ChangePasswordBody
 import com.caracrepair.app.models.body.ChangeProfileBody
-import com.caracrepair.app.models.body.ForgotPasswordBody
 import com.caracrepair.app.models.body.RequestOtpBody
 import com.caracrepair.app.models.body.ResetPasswordBody
 import com.caracrepair.app.models.body.SignInBody
@@ -15,7 +14,6 @@ import com.caracrepair.app.models.body.VerifyOtpBody
 import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.CarResponse
 import com.caracrepair.app.models.response.DataResponse
-import com.caracrepair.app.models.response.ForgotPasswordResponse
 import com.caracrepair.app.models.response.SignInResponse
 import com.caracrepair.app.models.response.StatusResponse
 import com.caracrepair.app.network.ApiService
@@ -76,18 +74,6 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.verifyOtp(verifyOtpBody)
-            } catch (error: HttpException) {
-                apiResponseUtil.getErrorResponse(error)
-            } catch (error: Exception) {
-                null
-            }
-        }
-    }
-
-    suspend fun forgotPassword(forgotPasswordBody: ForgotPasswordBody): DataResponse<ForgotPasswordResponse>? {
-        return withContext(coroutineContext) {
-            try {
-                apiService.forgotPassword(forgotPasswordBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

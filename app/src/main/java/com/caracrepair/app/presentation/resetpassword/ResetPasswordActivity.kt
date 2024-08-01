@@ -20,10 +20,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ResetPasswordActivity : AppCompatActivity() {
     companion object {
-        private const val EXTRA_USER_ID = "EXTRA_USER_ID"
+        private const val EXTRA_PHONE_NUMBER = "EXTRA_PHONE_NUMBER"
         fun createIntent(context: Context, userId: String): Intent {
             return Intent(context, ResetPasswordActivity::class.java).apply {
-                putExtra(EXTRA_USER_ID, userId)
+                putExtra(EXTRA_PHONE_NUMBER, userId)
             }
         }
     }
@@ -70,11 +70,11 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     private fun resetPassword() {
         hideKeyboard()
-        val userId = intent.getStringExtra(EXTRA_USER_ID).orEmpty()
+        val phoneNumber = intent.getStringExtra(EXTRA_PHONE_NUMBER).orEmpty()
         val newPassword = binding.etNewPassword.text.toString()
         val confirmPassword = binding.etConfirmationNewPassword.text.toString()
         if (isValidResetPasswordForm(newPassword, confirmPassword)) {
-            viewModel.resetPassword(userId, binding.etNewPassword.text.toString())
+            viewModel.resetPassword(phoneNumber, binding.etNewPassword.text.toString())
         }
     }
 }

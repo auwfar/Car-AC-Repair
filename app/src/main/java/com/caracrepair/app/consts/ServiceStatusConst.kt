@@ -3,8 +3,8 @@ package com.caracrepair.app.consts
 object ServiceStatusConst {
     private const val STATUS_PENDING = "pending"
     private const val STATUS_PICKUP = "pickup"
-    private const val STATUS_CHECKING = "cheking"
-    private const val STATUS_CHECKING_CONFIRMATION = "cheking-confirmation"
+    private const val STATUS_CHECKING = "checking"
+    private const val STATUS_CHECKING_CONFIRMATION = "checking-confirmation"
     private const val STATUS_IN_PROGRESS = "inprogress"
     private const val STATUS_WAITING_PAYMENT = "waiting-payment"
     private const val STATUS_WAITING_PAYMENT_CONFIRMATION = "waiting-payment-confirmation"

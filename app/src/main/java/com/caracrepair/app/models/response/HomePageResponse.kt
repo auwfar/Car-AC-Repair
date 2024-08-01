@@ -11,11 +11,11 @@ data class HomePageResponse(
     val repairShops: List<CarShopModel>?
 ) {
     data class OnProgressServiceModel(
-        @SerializedName("order_id")
+        @SerializedName("id")
         val orderId: String?,
         @SerializedName("car_name")
         val carName: String?,
-        @SerializedName("status")
+        @SerializedName("status_label")
         val status: String?
     )
 

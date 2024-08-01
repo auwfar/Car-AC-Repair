@@ -25,10 +25,10 @@ class ResetPasswordViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun resetPassword(userId: String, password: String) {
+    fun resetPassword(phoneNumber: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = accountRepository.resetPassword(ResetPasswordBody(userId, password))
+            val response = accountRepository.resetPassword(ResetPasswordBody(phoneNumber, password))
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
                     _resetPasswordResult.postValue(Unit)

@@ -39,7 +39,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun requestOtp(phoneNumber: String) {
+    private fun requestOtp(phoneNumber: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.requestOtp(RequestOtpBody(phoneNumber))

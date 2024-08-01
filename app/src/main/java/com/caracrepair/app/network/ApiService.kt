@@ -5,7 +5,6 @@ import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.ChangePasswordBody
 import com.caracrepair.app.models.body.ChangeProfileBody
-import com.caracrepair.app.models.body.ForgotPasswordBody
 import com.caracrepair.app.models.body.RequestOtpBody
 import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.models.body.ResetPasswordBody
@@ -19,7 +18,6 @@ import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.CarResponse
 import com.caracrepair.app.models.response.DataResponse
-import com.caracrepair.app.models.response.ForgotPasswordResponse
 import com.caracrepair.app.models.response.HomePageResponse
 import com.caracrepair.app.models.response.RepairShopDetailResponse
 import com.caracrepair.app.models.response.RepairShopResponse
@@ -29,7 +27,6 @@ import com.caracrepair.app.models.response.SignInResponse
 import com.caracrepair.app.models.response.StatusResponse
 import com.caracrepair.app.models.response.UploadImageResponse
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -37,7 +34,6 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
-import retrofit2.http.PartMap
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -54,10 +50,7 @@ interface ApiService {
     @POST("api/auth/verify-otp")
     suspend fun verifyOtp(@Body request: VerifyOtpBody): StatusResponse
 
-    @POST("api/forgot-password")
-    suspend fun forgotPassword(@Body request: ForgotPasswordBody): DataResponse<ForgotPasswordResponse>
-
-    @POST("api/reset-password")
+    @POST("api/auth/reset-password")
     suspend fun resetPassword(@Body request: ResetPasswordBody): StatusResponse
 
     @GET("api/dashboard?platform=mobile")

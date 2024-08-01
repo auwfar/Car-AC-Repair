@@ -52,11 +52,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.forgotPasswordResult.observe(this) { userId ->
+        viewModel.requestOtpResult.observe(this) { phoneNumber ->
             startActivity(
                 OtpVerificationActivity.createIntent(
                     this@ForgotPasswordActivity,
-                    OTPType.ForgotPassword(userId)
+                    OTPType.ForgotPassword(phoneNumber)
                 )
             )
         }
@@ -76,7 +76,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         hideKeyboard()
         val phoneNumber = binding.etPhoneNumber.text.toString()
         if (isValidPhoneNumber(phoneNumber)) {
-            viewModel.forgotPassword(phoneNumber)
+            viewModel.requestOtp(phoneNumber)
         }
     }
 }
