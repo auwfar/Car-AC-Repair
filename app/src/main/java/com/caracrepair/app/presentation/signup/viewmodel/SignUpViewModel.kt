@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.caracrepair.app.models.body.RequestOtpBody
 import com.caracrepair.app.models.body.SignUpBody
 import com.caracrepair.app.repositories.AccountRepository
 import com.caracrepair.app.utils.ApiResponseUtil
@@ -31,7 +32,20 @@ class SignUpViewModel @Inject constructor(
             val response = accountRepository.signUp(SignUpBody(name, phoneNumber, password))
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
-                    _signUpResult.postValue(response?.data?.userId.orEmpty())
+                    requestOtp(phoneNumber)
+                }
+            })
+            _loadingState.postValue(false)
+        }
+    }
+
+    fun requestOtp(phoneNumber: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _loadingState.postValue(true)
+            val response = accountRepository.requestOtp(RequestOtpBody(phoneNumber))
+            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
+                override fun onSuccess() {
+                    _signUpResult.postValue(phoneNumber)
                 }
             })
             _loadingState.postValue(false)

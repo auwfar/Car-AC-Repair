@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
-import com.caracrepair.app.models.body.ResendOtpSignUpBody
-import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
-import com.caracrepair.app.models.body.VerifyOtpSignUpBody
+import com.caracrepair.app.models.body.RequestOtpBody
+import com.caracrepair.app.models.body.VerifyOtpBody
 import com.caracrepair.app.presentation.otpverification.constants.OTPType
 import com.caracrepair.app.repositories.AccountRepository
 import com.caracrepair.app.utils.ApiResponseUtil
@@ -22,10 +20,8 @@ class OtpVerificationViewModel @Inject constructor(
     private val apiResponseUtil: ApiResponseUtil
 ) : ViewModel() {
 
-    private val _otpSignUpVerificationResult = MutableLiveData<Unit>()
-    val otpSignUpVerificationResult: LiveData<Unit> = _otpSignUpVerificationResult
-    private val _otpForgotPasswordVerificationResult = MutableLiveData<String>()
-    val otpForgotPasswordVerificationResult: LiveData<String> = _otpForgotPasswordVerificationResult
+    private val _otpVerificationResult = MutableLiveData<OTPType>()
+    val otpVerificationResult: LiveData<OTPType> = _otpVerificationResult
     private val _resendOtpResult = MutableLiveData<String>()
     val resendOtpResult: LiveData<String> = _resendOtpResult
     private val _loadingState = MutableLiveData<Boolean>()
@@ -33,43 +29,36 @@ class OtpVerificationViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun verifyOtpSignUp(otpCode: String, userId: String) {
+    var otpType: OTPType? = null
+    var phoneNumber: String = ""
+
+    fun verifyOtpSignUp(otpCode: String) {
+        val otpType = otpType ?: return
+        val phoneNumber = when (otpType) {
+            is OTPType.SignUp -> otpType.phoneNumber
+            is OTPType.ForgotPassword -> otpType.phoneNumber
+        }
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = accountRepository.verifyOtpSignUp(VerifyOtpSignUpBody(otpCode, userId))
+            val response = accountRepository.verifyOtp(VerifyOtpBody(otpCode, phoneNumber))
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
-                    _otpSignUpVerificationResult.postValue(Unit)
+                    _otpVerificationResult.postValue(otpType)
                 }
             })
             _loadingState.postValue(false)
         }
     }
 
-    fun verifyOtpForgotPassword(otpCode: String, userId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _loadingState.postValue(true)
-            val response = accountRepository.verifyOtpForgotPassword(VerifyOtpForgotPasswordBody(otpCode, userId))
-            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
-                override fun onSuccess() {
-                    _otpForgotPasswordVerificationResult.postValue(response?.data?.userId.orEmpty())
-                }
-            })
-            _loadingState.postValue(false)
+    fun resendOtp() {
+        val otpType = otpType ?: return
+        val phoneNumber = when (otpType) {
+            is OTPType.SignUp -> otpType.phoneNumber
+            is OTPType.ForgotPassword -> otpType.phoneNumber
         }
-    }
-
-    fun resendOtp(otpType: OTPType) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = when (otpType) {
-                is OTPType.SignUp -> accountRepository.resendOtpSignUp(
-                    ResendOtpSignUpBody(otpType.userId)
-                )
-                is OTPType.ForgotPassword -> accountRepository.resendOtpForgotPassword(
-                    ResendOtpForgotPasswordBody(otpType.userId)
-                )
-            }
+            val response = accountRepository.requestOtp(RequestOtpBody(phoneNumber))
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
                     _resendOtpResult.postValue(response?.message.orEmpty())

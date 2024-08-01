@@ -5,26 +5,21 @@ import com.caracrepair.app.models.body.AddCarBody
 import com.caracrepair.app.models.body.ChangePasswordBody
 import com.caracrepair.app.models.body.ChangeProfileBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
-import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
-import com.caracrepair.app.models.body.ResendOtpSignUpBody
+import com.caracrepair.app.models.body.RequestOtpBody
 import com.caracrepair.app.models.body.ResetPasswordBody
-import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
-import com.caracrepair.app.models.body.VerifyOtpSignUpBody
 import com.caracrepair.app.models.body.SignInBody
 import com.caracrepair.app.models.body.SignUpBody
 import com.caracrepair.app.models.body.UpdateAddressBody
 import com.caracrepair.app.models.body.UpdateCarBody
+import com.caracrepair.app.models.body.VerifyOtpBody
 import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.CarResponse
-import com.caracrepair.app.network.ApiService
 import com.caracrepair.app.models.response.DataResponse
 import com.caracrepair.app.models.response.ForgotPasswordResponse
 import com.caracrepair.app.models.response.SignInResponse
-import com.caracrepair.app.models.response.SignUpResponse
 import com.caracrepair.app.models.response.StatusResponse
-import com.caracrepair.app.models.response.VerifyOtpForgotPasswordResponse
+import com.caracrepair.app.network.ApiService
 import com.caracrepair.app.utils.ApiResponseUtil
-import com.caracrepair.app.utils.GsonUtil
 import com.caracrepair.app.utils.preferences.GeneralPreference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -53,7 +48,7 @@ class AccountRepository @Inject constructor(
         }
     }
 
-    suspend fun signUp(body: SignUpBody): DataResponse<SignUpResponse>? {
+    suspend fun signUp(body: SignUpBody): StatusResponse? {
         return withContext(coroutineContext) {
             try {
                 apiService.signUp(body)
@@ -65,10 +60,22 @@ class AccountRepository @Inject constructor(
         }
     }
 
-    suspend fun verifyOtpSignUp(verifyOtpSignUpBody: VerifyOtpSignUpBody): StatusResponse? {
+    suspend fun requestOtp(requestOtpBody: RequestOtpBody): StatusResponse? {
         return withContext(coroutineContext) {
             try {
-                apiService.verifyOtpSignUp(verifyOtpSignUpBody)
+                apiService.requestOtp(requestOtpBody)
+            } catch (error: HttpException) {
+                apiResponseUtil.getErrorResponse(error)
+            } catch (error: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun verifyOtp(verifyOtpBody: VerifyOtpBody): StatusResponse? {
+        return withContext(coroutineContext) {
+            try {
+                apiService.verifyOtp(verifyOtpBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {
@@ -81,42 +88,6 @@ class AccountRepository @Inject constructor(
         return withContext(coroutineContext) {
             try {
                 apiService.forgotPassword(forgotPasswordBody)
-            } catch (error: HttpException) {
-                apiResponseUtil.getErrorResponse(error)
-            } catch (error: Exception) {
-                null
-            }
-        }
-    }
-
-    suspend fun verifyOtpForgotPassword(verifyOtpForgotPasswordBody: VerifyOtpForgotPasswordBody): DataResponse<VerifyOtpForgotPasswordResponse>? {
-        return withContext(coroutineContext) {
-            try {
-                apiService.verifyOtpForgotPassword(verifyOtpForgotPasswordBody)
-            } catch (error: HttpException) {
-                apiResponseUtil.getErrorResponse(error)
-            } catch (error: Exception) {
-                null
-            }
-        }
-    }
-
-    suspend fun resendOtpSignUp(resendOtpSignUpBody: ResendOtpSignUpBody): StatusResponse? {
-        return withContext(coroutineContext) {
-            try {
-                apiService.resendOtpSignUp(resendOtpSignUpBody)
-            } catch (error: HttpException) {
-                apiResponseUtil.getErrorResponse(error)
-            } catch (error: Exception) {
-                null
-            }
-        }
-    }
-
-    suspend fun resendOtpForgotPassword(resendOtpForgotPasswordBody: ResendOtpForgotPasswordBody): StatusResponse? {
-        return withContext(coroutineContext) {
-            try {
-                apiService.resendOtpForgotPassword(resendOtpForgotPasswordBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

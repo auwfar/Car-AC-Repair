@@ -35,36 +35,33 @@ class OtpVerificationActivity : AppCompatActivity() {
         binding = ActivityOtpVerificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val otpType = intent.getParcelableExtra<OTPType>(EXTRA_OTP_TYPE) ?: return
+        viewModel.otpType = intent.getParcelableExtra(EXTRA_OTP_TYPE)
+        val otpType = viewModel.otpType ?: return
 
         observeViewModel()
         with(binding) {
-            tvOtpVerificationTitle.text = when {
-                (otpType is OTPType.SignUp) -> getString(R.string.otp_verification)
-                (otpType is OTPType.ForgotPassword) -> getString(R.string.reset_password)
-                else -> ""
+            tvOtpVerificationTitle.text = when (otpType) {
+                is OTPType.SignUp -> getString(R.string.otp_verification)
+                is OTPType.ForgotPassword -> getString(R.string.reset_password)
             }
             ivBack.setOnClickListener {
                 finish()
             }
             btnVerify.setOnClickListener {
-                when (otpType) {
-                    is OTPType.SignUp -> viewModel.verifyOtpSignUp(etOtp.getOTP(), otpType.userId)
-                    is OTPType.ForgotPassword -> viewModel.verifyOtpForgotPassword(etOtp.getOTP(), otpType.userId)
-                }
+                viewModel.verifyOtpSignUp(etOtp.getOTP())
             }
             tvResendOtp.setOnClickListener {
-                viewModel.resendOtp(otpType)
+                viewModel.resendOtp()
             }
         }
     }
 
     private fun observeViewModel() {
-        viewModel.otpSignUpVerificationResult.observe(this) {
-            startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.SignUp))
-        }
-        viewModel.otpForgotPasswordVerificationResult.observe(this) { userId ->
-            startActivity(ResetPasswordActivity.createIntent(this, userId))
+        viewModel.otpVerificationResult.observe(this) { otpType ->
+            when (otpType) {
+                is OTPType.SignUp -> startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.SignUp))
+                is OTPType.ForgotPassword -> startActivity(ResetPasswordActivity.createIntent(this, otpType.phoneNumber))
+            }
         }
         viewModel.resendOtpResult.observe(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

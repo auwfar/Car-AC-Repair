@@ -6,17 +6,15 @@ import com.caracrepair.app.models.body.BookingServiceBody
 import com.caracrepair.app.models.body.ChangePasswordBody
 import com.caracrepair.app.models.body.ChangeProfileBody
 import com.caracrepair.app.models.body.ForgotPasswordBody
+import com.caracrepair.app.models.body.RequestOtpBody
 import com.caracrepair.app.models.body.RescheduleServiceBody
-import com.caracrepair.app.models.body.ResendOtpForgotPasswordBody
-import com.caracrepair.app.models.body.ResendOtpSignUpBody
 import com.caracrepair.app.models.body.ResetPasswordBody
 import com.caracrepair.app.models.body.SignInBody
 import com.caracrepair.app.models.body.SignUpBody
 import com.caracrepair.app.models.body.UpdateAddressBody
 import com.caracrepair.app.models.body.UpdateCarBody
 import com.caracrepair.app.models.body.UploadPaymentProofImageBody
-import com.caracrepair.app.models.body.VerifyOtpForgotPasswordBody
-import com.caracrepair.app.models.body.VerifyOtpSignUpBody
+import com.caracrepair.app.models.body.VerifyOtpBody
 import com.caracrepair.app.models.response.AddressResponse
 import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.CarResponse
@@ -28,10 +26,8 @@ import com.caracrepair.app.models.response.RepairShopResponse
 import com.caracrepair.app.models.response.ServiceDetailResponse
 import com.caracrepair.app.models.response.ServiceResponse
 import com.caracrepair.app.models.response.SignInResponse
-import com.caracrepair.app.models.response.SignUpResponse
 import com.caracrepair.app.models.response.StatusResponse
 import com.caracrepair.app.models.response.UploadImageResponse
-import com.caracrepair.app.models.response.VerifyOtpForgotPasswordResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -50,22 +46,16 @@ interface ApiService {
     suspend fun signIn(@Body request: SignInBody): DataResponse<SignInResponse>
 
     @POST("api/auth/register")
-    suspend fun signUp(@Body request: SignUpBody): DataResponse<SignUpResponse>
+    suspend fun signUp(@Body request: SignUpBody): StatusResponse
 
-    @POST("api/verify-otp-register")
-    suspend fun verifyOtpSignUp(@Body request: VerifyOtpSignUpBody): StatusResponse
+    @POST("api/auth/request-otp")
+    suspend fun requestOtp(@Body request: RequestOtpBody): StatusResponse
+
+    @POST("api/auth/verify-otp")
+    suspend fun verifyOtp(@Body request: VerifyOtpBody): StatusResponse
 
     @POST("api/forgot-password")
     suspend fun forgotPassword(@Body request: ForgotPasswordBody): DataResponse<ForgotPasswordResponse>
-
-    @POST("api/verify-otp-forgot-password")
-    suspend fun verifyOtpForgotPassword(@Body request: VerifyOtpForgotPasswordBody): DataResponse<VerifyOtpForgotPasswordResponse>
-
-    @POST("api/resend-otp-register")
-    suspend fun resendOtpSignUp(@Body request: ResendOtpSignUpBody): StatusResponse
-
-    @POST("api/resend-otp-forgot-password")
-    suspend fun resendOtpForgotPassword(@Body request: ResendOtpForgotPasswordBody): StatusResponse
 
     @POST("api/reset-password")
     suspend fun resetPassword(@Body request: ResetPasswordBody): StatusResponse
