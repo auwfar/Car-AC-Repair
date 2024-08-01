@@ -15,11 +15,13 @@ import com.caracrepair.app.R
 import com.caracrepair.app.consts.ServiceTypeConst
 import com.caracrepair.app.databinding.ActivityServiceDetailBinding
 import com.caracrepair.app.presentation.main.MainActivity
+import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivityContract
 import com.caracrepair.app.presentation.rescheduleservice.RescheduleServiceActivity
 import com.caracrepair.app.presentation.servicedetail.adapter.ServiceLogAdapter
 import com.caracrepair.app.presentation.servicedetail.viewmodel.ServiceDetailViewModel
 import com.caracrepair.app.presentation.servicedetail.viewparam.ServiceDetail
 import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity
+import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivityContract
 import com.caracrepair.app.utils.WhatsAppUtil
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,6 +41,9 @@ class ServiceDetailActivity : AppCompatActivity() {
     private val serviceLogAdapter by lazy { ServiceLogAdapter() }
 
     private var serviceId = ""
+    private val servicePaymentLauncher = registerForActivityResult(ServicePaymentActivityContract()) { isUpdated ->
+        if (isUpdated) viewModel.getServiceDetail(serviceId)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,20 +127,14 @@ class ServiceDetailActivity : AppCompatActivity() {
 
             serviceLogAdapter.setItems(detail.serviceLogs)
 
-            if (detail.isAbleToPay) {
-                llAction.isVisible = true
-                btnPay.isVisible = true
-                btnPay.setOnClickListener {
-                    startActivity(ServicePaymentActivity.createIntent(this@ServiceDetailActivity, detail))
-                }
-            } else if (detail.isAbleToReschedule) {
-                llAction.isVisible = true
-                btnReschedule.isVisible = true
-                btnReschedule.setOnClickListener {
-                    startActivity(RescheduleServiceActivity.createIntent(this@ServiceDetailActivity, serviceId))
-                }
-            } else {
-                llAction.isVisible = false
+            llAction.isVisible = (detail.isAbleToPay || detail.isAbleToReschedule)
+            btnPay.isVisible = detail.isAbleToPay
+            btnReschedule.isVisible = detail.isAbleToReschedule
+            btnPay.setOnClickListener {
+                servicePaymentLauncher.launch(detail)
+            }
+            btnReschedule.setOnClickListener {
+                startActivity(RescheduleServiceActivity.createIntent(this@ServiceDetailActivity, serviceId))
             }
         }
     }

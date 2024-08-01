@@ -27,6 +27,8 @@ data class ServiceDetailResponse(
     val mechanicName: String?,
     @SerializedName("status_label")
     val status: String?,
+    @SerializedName("payment_proof_image")
+    val paymentProofImage: String?,
     @SerializedName("is_able_to_pay")
     val isAbleToPay: Boolean?,
     @SerializedName("is_able_to_reschedule")

@@ -21,6 +21,7 @@ class ServiceDetail(
     val pickUpAddress: String,
     val mechanicName: String,
     val status: String,
+    val paymentProofImage: String,
     val isAbleToPay: Boolean,
     val isAbleToReschedule: Boolean,
     val serviceLogs: List<ServiceLogItem>,
@@ -38,6 +39,7 @@ class ServiceDetail(
         pickUpAddress = response?.pickUpAddress.orEmpty(),
         mechanicName = response?.mechanicName.orEmpty(),
         status = response?.status.orEmpty(),
+        paymentProofImage = response?.paymentProofImage.orEmpty(),
         isAbleToPay = response?.isAbleToPay ?: false,
         isAbleToReschedule = response?.isAbleToReschedule ?: false,
         serviceLogs = response?.serviceLogs?.map { log ->

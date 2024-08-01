@@ -121,7 +121,7 @@ interface ApiService {
     @DELETE("api/addresses/{address_id}")
     suspend fun removeAddress(@Path("address_id") addressId: String): StatusResponse
 
-    @PUT("api/orders/items/{order_id}")
+    @PUT("api/orders/{order_id}/customer/choose-payment")
     suspend fun uploadPaymentProofImage(@Path("order_id") serviceId: String, @Body request: UploadPaymentProofImageBody): StatusResponse
 
     @PUT("api/users/customer/{user_id}")

@@ -1,11 +1,13 @@
 package com.caracrepair.app.presentation.servicepayment
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -18,8 +20,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.caracrepair.app.R
 import com.caracrepair.app.databinding.ActivityServicePaymentBinding
+import com.caracrepair.app.presentation.myaddress.viewparam.MyAddressItem
+import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivity
+import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivity.Companion.EXTRA_MY_ADDRESS_ITEM
 import com.caracrepair.app.presentation.servicedetail.adapter.FeeDetailAdapter
 import com.caracrepair.app.presentation.servicedetail.viewparam.ServiceDetail
+import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity.Companion.EXTRA_SERVICE_DETAIL
 import com.caracrepair.app.presentation.servicepayment.viewmodel.ServicePaymentViewModel
 import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
@@ -30,12 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ServicePaymentActivity : AppCompatActivity() {
     companion object {
-        private const val EXTRA_SERVICE_DETAIL = "extra_service_detail"
-        fun createIntent(context: Context, serviceDetail: ServiceDetail): Intent {
-            return Intent(context, ServicePaymentActivity::class.java).apply {
-                putExtra(EXTRA_SERVICE_DETAIL, serviceDetail)
-            }
-        }
+        const val EXTRA_SERVICE_DETAIL = "extra_service_detail"
     }
 
     private lateinit var binding: ActivityServicePaymentBinding
@@ -43,7 +44,6 @@ class ServicePaymentActivity : AppCompatActivity() {
     private val feeDetailAdapter by lazy { FeeDetailAdapter() }
     private val fileUtil by lazy { FileUtil(this) }
 
-    private var serviceId = ""
     private var paymentProofImageUri: Uri? = null
 
     private val imagePickerDialog by lazy {
@@ -82,6 +82,7 @@ class ServicePaymentActivity : AppCompatActivity() {
             }
         }
     private val pickImageFromGallery = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        paymentProofImageUri = uri
         loadProofPaymentImage(uri)
     }
     private val takePicturePreview = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess: Boolean? ->
@@ -108,7 +109,7 @@ class ServicePaymentActivity : AppCompatActivity() {
             btnUpload.setOnClickListener {
                 val proofImageFile = paymentProofImageUri?.let { fileUtil.createImageFile(it) }
                 if (proofImageFile != null) {
-                    viewModel.uploadPaymentProofImage(serviceId, proofImageFile)
+                    viewModel.uploadPaymentProofImage(proofImageFile)
                 }
             }
         }
@@ -116,12 +117,14 @@ class ServicePaymentActivity : AppCompatActivity() {
         observeViewModel()
         setupRecyclerView()
         setupViews()
+
+        loadProofPaymentImage(viewModel.serviceDetail?.paymentProofImage)
     }
 
     private fun observeViewModel() {
         viewModel.uploadPaymentProofImageResult.observe(this) { message ->
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             startActivity(SuccessResponseActivity.createIntent(this@ServicePaymentActivity, SuccessResponseType.Pay))
+            setResult(Activity.RESULT_OK)
             finish()
         }
         viewModel.loadingState.observe(this) { isLoading ->
@@ -171,5 +174,27 @@ class ServicePaymentActivity : AppCompatActivity() {
         Glide.with(this)
             .load(uri)
             .into(binding.ivPaymentProofImage)
+    }
+
+    private fun loadProofPaymentImage(url: String?) {
+        if (url.isNullOrBlank()) return
+        binding.llActionChangePaymentProofImage.isVisible = false
+        binding.cvPaymentProofImage.isVisible = true
+
+        Glide.with(this)
+            .load(url)
+            .into(binding.ivPaymentProofImage)
+    }
+}
+
+class ServicePaymentActivityContract : ActivityResultContract<ServiceDetail?, Boolean>() {
+    override fun createIntent(context: Context, input: ServiceDetail?): Intent {
+        return Intent(context, ServicePaymentActivity::class.java).apply {
+            putExtra(EXTRA_SERVICE_DETAIL, input)
+        }
+    }
+
+    override fun parseResult(resultCode: Int, intent: Intent?): Boolean {
+        return (resultCode == Activity.RESULT_OK)
     }
 }

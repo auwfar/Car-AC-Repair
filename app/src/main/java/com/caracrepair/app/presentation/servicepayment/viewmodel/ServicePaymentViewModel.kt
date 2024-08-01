@@ -32,11 +32,11 @@ class ServicePaymentViewModel @Inject constructor(
 
     var serviceDetail: ServiceDetail? = null
 
-    fun uploadPaymentProofImage(serviceId: String, proofImageFile: File) {
+    fun uploadPaymentProofImage(proofImageFile: File) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val proofImageUrl = async { generalRepository.uploadImage(proofImageFile) }.await()
-            val response = serviceRepository.uploadPaymentProofImage(serviceId, UploadPaymentProofImageBody(proofImageUrl.orEmpty()))
+            val response = serviceRepository.uploadPaymentProofImage(serviceDetail?.orderId.orEmpty(), UploadPaymentProofImageBody(proofImageUrl.orEmpty()))
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
                     _uploadPaymentProofImageResult.postValue(response?.message.orEmpty())
