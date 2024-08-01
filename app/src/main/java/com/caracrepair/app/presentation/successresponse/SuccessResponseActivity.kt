@@ -104,12 +104,10 @@ class SuccessResponseActivity : AppCompatActivity() {
                     tvSuccessDescription.text = getString(R.string.desc_service_successfully_rescheduled)
                     tvAction.text = getString(R.string.title_see_detail)
                     tvAction.setOnClickListener {
-                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getStringExtra(EXTRA_ID).orEmpty()))
-                        finishAffinity()
+                        finish()
                     }
                     ivBack.setOnClickListener {
-                        startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getStringExtra(EXTRA_ID).orEmpty()))
-                        finishAffinity()
+                        finish()
                     }
                 }
             }

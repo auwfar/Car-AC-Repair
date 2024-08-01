@@ -25,7 +25,6 @@ import com.caracrepair.app.models.response.ForgotPasswordResponse
 import com.caracrepair.app.models.response.HomePageResponse
 import com.caracrepair.app.models.response.RepairShopDetailResponse
 import com.caracrepair.app.models.response.RepairShopResponse
-import com.caracrepair.app.models.response.RescheduleServiceResponse
 import com.caracrepair.app.models.response.ServiceDetailResponse
 import com.caracrepair.app.models.response.ServiceResponse
 import com.caracrepair.app.models.response.SignInResponse
@@ -91,8 +90,8 @@ interface ApiService {
         @Path("order_id") serviceId: String
     ): DataResponse<ServiceDetailResponse>
 
-    @POST("api/reschedule-service")
-    suspend fun rescheduleService(@Body request: RescheduleServiceBody): DataResponse<RescheduleServiceResponse>
+    @PUT("api/orders/{order_id}/customer/reschedule")
+    suspend fun rescheduleService(@Path("order_id") serviceId: String, @Body request: RescheduleServiceBody): StatusResponse
 
     @POST("api/change-password")
     suspend fun changePassword(@Body request: ChangePasswordBody): StatusResponse

@@ -17,6 +17,7 @@ import com.caracrepair.app.databinding.ActivityServiceDetailBinding
 import com.caracrepair.app.presentation.main.MainActivity
 import com.caracrepair.app.presentation.myaddressform.MyAddressFormActivityContract
 import com.caracrepair.app.presentation.rescheduleservice.RescheduleServiceActivity
+import com.caracrepair.app.presentation.rescheduleservice.RescheduleServiceActivityContract
 import com.caracrepair.app.presentation.servicedetail.adapter.ServiceLogAdapter
 import com.caracrepair.app.presentation.servicedetail.viewmodel.ServiceDetailViewModel
 import com.caracrepair.app.presentation.servicedetail.viewparam.ServiceDetail
@@ -44,6 +45,9 @@ class ServiceDetailActivity : AppCompatActivity() {
     private val servicePaymentLauncher = registerForActivityResult(ServicePaymentActivityContract()) { isUpdated ->
         if (isUpdated) viewModel.getServiceDetail(serviceId)
     }
+    private val rescheduleServiceLauncher = registerForActivityResult(RescheduleServiceActivityContract()) { isUpdated ->
+        if (isUpdated) viewModel.getServiceDetail(serviceId)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +58,7 @@ class ServiceDetailActivity : AppCompatActivity() {
 
         with(binding) {
             ivBack.setOnClickListener {
-                finish()
+                onBackPressed()
             }
             btnReload.setOnClickListener {
                 viewModel.getServiceDetail(serviceId)
@@ -134,7 +138,7 @@ class ServiceDetailActivity : AppCompatActivity() {
                 servicePaymentLauncher.launch(detail)
             }
             btnReschedule.setOnClickListener {
-                startActivity(RescheduleServiceActivity.createIntent(this@ServiceDetailActivity, serviceId))
+                rescheduleServiceLauncher.launch(detail.orderId)
             }
         }
     }

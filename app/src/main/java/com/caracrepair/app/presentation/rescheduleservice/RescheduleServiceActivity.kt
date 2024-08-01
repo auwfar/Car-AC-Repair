@@ -1,9 +1,11 @@
 package com.caracrepair.app.presentation.rescheduleservice
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -15,7 +17,11 @@ import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.presentation.bookingservice.adapter.ServiceTimeAdapter
 import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
 import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivityContract
+import com.caracrepair.app.presentation.rescheduleservice.RescheduleServiceActivity.Companion.EXTRA_SERVICE_ID
 import com.caracrepair.app.presentation.rescheduleservice.viewmodel.RescheduleServiceViewModel
+import com.caracrepair.app.presentation.servicedetail.viewparam.ServiceDetail
+import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity
+import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity.Companion.EXTRA_SERVICE_DETAIL
 import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 import com.caracrepair.app.utils.DateUtil
@@ -33,12 +39,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RescheduleServiceActivity : AppCompatActivity() {
     companion object {
-        private const val EXTRA_SERVICE_ID = "extra_service_id"
-        fun createIntent(context: Context, serviceId: String): Intent {
-            return Intent(context, RescheduleServiceActivity::class.java).apply {
-                putExtra(EXTRA_SERVICE_ID, serviceId)
-            }
-        }
+        const val EXTRA_SERVICE_ID = "extra_service_id"
     }
 
     private lateinit var binding: ActivityRescheduleServiceBinding
@@ -58,6 +59,8 @@ class RescheduleServiceActivity : AppCompatActivity() {
         binding = ActivityRescheduleServiceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel.serviceId = intent.getStringExtra(EXTRA_SERVICE_ID).orEmpty()
+
         observeViewModel()
         setupRecyclerView()
         setupViews()
@@ -65,7 +68,9 @@ class RescheduleServiceActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.rescheduleServiceResult.observe(this) {
-            startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.RescheduleService, it))
+            startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.RescheduleService))
+            setResult(Activity.RESULT_OK)
+            finish()
         }
         viewModel.loadingState.observe(this) { isLoading ->
             binding.flLoading.isVisible = isLoading
@@ -126,7 +131,6 @@ class RescheduleServiceActivity : AppCompatActivity() {
         if (isValidBookingService(repairShopId, serviceDate, serviceTime?.time.orEmpty())) {
             viewModel.rescheduleService(
                 RescheduleServiceBody(
-                    generalPreference.getUser()?.userId.orEmpty(),
                     viewModel.selectedRepairShopId,
                     DateUtil.DATE_FOR_SERVER.simpleDateFormat.format(viewModel.selectedServiceDate) +" " +serviceTime?.time.orEmpty()
                 )
@@ -163,5 +167,17 @@ class RescheduleServiceActivity : AppCompatActivity() {
                 }
             }
             .show(supportFragmentManager, null)
+    }
+}
+
+class RescheduleServiceActivityContract : ActivityResultContract<String?, Boolean>() {
+    override fun createIntent(context: Context, input: String?): Intent {
+        return Intent(context, RescheduleServiceActivity::class.java).apply {
+            putExtra(EXTRA_SERVICE_ID, input)
+        }
+    }
+
+    override fun parseResult(resultCode: Int, intent: Intent?): Boolean {
+        return (resultCode == Activity.RESULT_OK)
     }
 }

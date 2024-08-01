@@ -18,23 +18,24 @@ class RescheduleServiceViewModel @Inject constructor(
     private val apiResponseUtil: ApiResponseUtil
 ) : ViewModel() {
 
-    private val _rescheduleServiceResult = MutableLiveData<String>()
-    val rescheduleServiceResult: LiveData<String> = _rescheduleServiceResult
+    private val _rescheduleServiceResult = MutableLiveData<Unit>()
+    val rescheduleServiceResult: LiveData<Unit> = _rescheduleServiceResult
     private val _loadingState = MutableLiveData<Boolean>()
     val loadingState: LiveData<Boolean> = _loadingState
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    var serviceId = ""
     var selectedRepairShopId = ""
     var selectedServiceDate: Long? = null
 
     fun rescheduleService(body: RescheduleServiceBody) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = serviceRepository.rescheduleService(body)
+            val response = serviceRepository.rescheduleService(serviceId, body)
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
-                    _rescheduleServiceResult.postValue(response?.data?.orderId.orEmpty())
+                    _rescheduleServiceResult.postValue(Unit)
                 }
             })
             _loadingState.postValue(false)

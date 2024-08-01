@@ -5,7 +5,6 @@ import com.caracrepair.app.models.body.RescheduleServiceBody
 import com.caracrepair.app.models.body.UploadPaymentProofImageBody
 import com.caracrepair.app.models.response.BookingServiceResponse
 import com.caracrepair.app.models.response.DataResponse
-import com.caracrepair.app.models.response.RescheduleServiceResponse
 import com.caracrepair.app.models.response.ServiceDetailResponse
 import com.caracrepair.app.models.response.ServiceResponse
 import com.caracrepair.app.models.response.StatusResponse
@@ -61,10 +60,10 @@ class ServiceRepository @Inject constructor(
         }
     }
 
-    suspend fun rescheduleService(request: RescheduleServiceBody): DataResponse<RescheduleServiceResponse>? {
+    suspend fun rescheduleService(serviceId: String, request: RescheduleServiceBody): StatusResponse? {
         return withContext(coroutineContext) {
             try {
-                apiService.rescheduleService(request)
+                apiService.rescheduleService(serviceId, request)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {
