@@ -16,8 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ChangePasswordViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
-    private val apiResponseUtil: ApiResponseUtil,
-    private val generalPreference: GeneralPreference
+    private val apiResponseUtil: ApiResponseUtil
 ) : ViewModel() {
 
     private val _changePasswordResult = MutableLiveData<Unit>()
@@ -27,13 +26,13 @@ class ChangePasswordViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun changePassword(password: String, newPassword: String) {
+    fun changePassword(password: String, newPassword: String, newPasswordConfirmation: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
             val response = accountRepository.changePassword(ChangePasswordBody(
-                generalPreference.getUser()?.userId.orEmpty(),
                 password,
-                newPassword
+                newPassword,
+                newPasswordConfirmation
             ))
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {

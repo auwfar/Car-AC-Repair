@@ -19,9 +19,6 @@ import com.caracrepair.app.presentation.bookingservice.viewparam.ServiceTimeItem
 import com.caracrepair.app.presentation.chooserepairshop.ChooseRepairShopActivityContract
 import com.caracrepair.app.presentation.rescheduleservice.RescheduleServiceActivity.Companion.EXTRA_SERVICE_ID
 import com.caracrepair.app.presentation.rescheduleservice.viewmodel.RescheduleServiceViewModel
-import com.caracrepair.app.presentation.servicedetail.viewparam.ServiceDetail
-import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity
-import com.caracrepair.app.presentation.servicepayment.ServicePaymentActivity.Companion.EXTRA_SERVICE_DETAIL
 import com.caracrepair.app.presentation.successresponse.SuccessResponseActivity
 import com.caracrepair.app.presentation.successresponse.constants.SuccessResponseType
 import com.caracrepair.app.utils.DateUtil

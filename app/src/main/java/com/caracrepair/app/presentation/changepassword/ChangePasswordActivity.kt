@@ -43,7 +43,8 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.changePasswordResult.observe(this) {
-            startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.ResetPassword))
+            startActivity(SuccessResponseActivity.createIntent(this, SuccessResponseType.ChangePassword))
+            finish()
         }
         viewModel.loadingState.observe(this) {
             binding.flLoading.isVisible = it
@@ -56,7 +57,7 @@ class ChangePasswordActivity : AppCompatActivity() {
     private fun isValidResetPasswordForm(password: String, newPassword: String, confirmationPassword: String): Boolean {
         val isValidPassword = FormUtil.validatePassword(StringConst.FieldName.PASSWORD, binding.tilOldPassword, password)
         val isValidNewPassword = FormUtil.validatePassword(StringConst.FieldName.NEW_PASSWORD, binding.tilNewPassword, newPassword)
-        val isValidConfirmationNewPassword = FormUtil.validateConfirmationPassword(StringConst.FieldName.NEW_PASSWORD_CONFIRMATION, binding.tilConfirmationNewPassword, password, confirmationPassword)
+        val isValidConfirmationNewPassword = FormUtil.validateConfirmationPassword(StringConst.FieldName.NEW_PASSWORD_CONFIRMATION, binding.tilConfirmationNewPassword, newPassword, confirmationPassword)
         return isValidPassword && isValidNewPassword && isValidConfirmationNewPassword
     }
 
@@ -66,7 +67,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         val newPassword = binding.etNewPassword.text.toString()
         val confirmPassword = binding.etConfirmationNewPassword.text.toString()
         if (isValidResetPasswordForm(password, newPassword, confirmPassword)) {
-            viewModel.changePassword(password, newPassword)
+            viewModel.changePassword(password, newPassword, confirmPassword)
         }
     }
 }

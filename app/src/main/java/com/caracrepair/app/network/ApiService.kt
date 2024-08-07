@@ -76,8 +76,8 @@ interface ApiService {
     @PUT("api/orders/{order_id}/customer/reschedule")
     suspend fun rescheduleService(@Path("order_id") serviceId: String, @Body request: RescheduleServiceBody): StatusResponse
 
-    @POST("api/change-password")
-    suspend fun changePassword(@Body request: ChangePasswordBody): StatusResponse
+    @POST("api/auth/change-password/{user_id}")
+    suspend fun changePassword(@Path("user_id") userId: String, @Body request: ChangePasswordBody): StatusResponse
 
     @GET("api/cars")
     suspend fun getCars(@Query("user_id") userId: String): DataResponse<List<CarResponse>>

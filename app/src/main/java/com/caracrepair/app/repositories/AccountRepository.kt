@@ -97,7 +97,7 @@ class AccountRepository @Inject constructor(
     suspend fun changePassword(changePasswordBody: ChangePasswordBody): StatusResponse? {
         return withContext(coroutineContext) {
             try {
-                apiService.changePassword(changePasswordBody)
+                apiService.changePassword(generalPreference.getUser()?.userId.orEmpty(), changePasswordBody)
             } catch (error: HttpException) {
                 apiResponseUtil.getErrorResponse(error)
             } catch (error: Exception) {

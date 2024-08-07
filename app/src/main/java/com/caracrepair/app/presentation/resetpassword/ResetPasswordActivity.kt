@@ -21,9 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class ResetPasswordActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_PHONE_NUMBER = "EXTRA_PHONE_NUMBER"
-        fun createIntent(context: Context, userId: String): Intent {
+        fun createIntent(context: Context, phoneNumber: String): Intent {
             return Intent(context, ResetPasswordActivity::class.java).apply {
-                putExtra(EXTRA_PHONE_NUMBER, userId)
+                putExtra(EXTRA_PHONE_NUMBER, phoneNumber)
             }
         }
     }

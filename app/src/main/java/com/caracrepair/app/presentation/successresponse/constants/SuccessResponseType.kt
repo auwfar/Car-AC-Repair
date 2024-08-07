@@ -11,4 +11,5 @@ sealed class SuccessResponseType : Parcelable {
     data object ChangeProfile : SuccessResponseType()
     data object BookingService : SuccessResponseType()
     data object RescheduleService : SuccessResponseType()
+    data object ChangePassword : SuccessResponseType()
 }

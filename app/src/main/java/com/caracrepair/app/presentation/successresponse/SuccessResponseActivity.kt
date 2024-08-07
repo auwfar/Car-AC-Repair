@@ -58,6 +58,12 @@ class SuccessResponseActivity : AppCompatActivity() {
                     tvSuccessDescription.text = getString(R.string.desc_password_successfully_edited)
                     tvAction.text = getString(R.string.sign_in_here)
                 }
+                SuccessResponseType.ChangePassword -> {
+                    ivSuccess.setImageResource(R.drawable.img_fingerprint)
+                    tvSuccessTitle.text = getString(R.string.title_password_successfully_edited)
+                    tvSuccessDescription.text = getString(R.string.desc_password_successfully_edited)
+                    tvAction.text = getString(R.string.back)
+                }
                 SuccessResponseType.Pay -> {
                     ivSuccess.setImageResource(R.drawable.img_wallet)
                     tvSuccessTitle.text = getString(R.string.title_proof_image_successfully_uploaded)
@@ -95,7 +101,7 @@ class SuccessResponseActivity : AppCompatActivity() {
                 startActivity(ServiceDetailActivity.createIntent(this@SuccessResponseActivity, intent.getStringExtra(EXTRA_ID).orEmpty()))
                 finishAffinity()
             }
-            SuccessResponseType.RescheduleService, SuccessResponseType.Pay -> finish()
+            SuccessResponseType.RescheduleService, SuccessResponseType.Pay, SuccessResponseType.ChangePassword -> finish()
             else -> finish()
         }
     }

@@ -44,7 +44,9 @@ class OTPInputEditText : ConstraintLayout {
             findViewById(R.id.til_input_1),
             findViewById(R.id.til_input_2),
             findViewById(R.id.til_input_3),
-            findViewById(R.id.til_input_4)
+            findViewById(R.id.til_input_4),
+            findViewById(R.id.til_input_5),
+            findViewById(R.id.til_input_6)
         )
     }
 
@@ -53,7 +55,9 @@ class OTPInputEditText : ConstraintLayout {
             findViewById(R.id.et_input_1),
             findViewById(R.id.et_input_2),
             findViewById(R.id.et_input_3),
-            findViewById(R.id.et_input_4)
+            findViewById(R.id.et_input_4),
+            findViewById(R.id.et_input_5),
+            findViewById(R.id.et_input_6)
         )
     }
 

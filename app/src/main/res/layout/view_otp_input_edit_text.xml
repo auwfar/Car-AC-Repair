@@ -6,8 +6,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_input_1"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
         android:layout_marginTop="32dp"
         app:boxStrokeColor="@color/color_stroke_text_input_layout"
         app:boxStrokeWidthFocused="1dp"
@@ -24,14 +24,14 @@
             android:maxLines="1"
             android:padding="0dp"
             android:textColor="@color/mine_shaft"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_input_2"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
         android:layout_marginTop="32dp"
         app:boxStrokeColor="@color/color_stroke_text_input_layout"
         app:boxStrokeWidthFocused="1dp"
@@ -48,14 +48,14 @@
             android:maxLines="1"
             android:padding="0dp"
             android:textColor="@color/mine_shaft"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_input_3"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
         android:layout_marginTop="32dp"
         app:boxStrokeColor="@color/color_stroke_text_input_layout"
         app:boxStrokeWidthFocused="1dp"
@@ -72,14 +72,14 @@
             android:maxLines="1"
             android:padding="0dp"
             android:textColor="@color/mine_shaft"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_input_4"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
         android:layout_marginTop="32dp"
         app:boxStrokeColor="@color/color_stroke_text_input_layout"
         app:boxStrokeWidthFocused="1dp"
@@ -96,14 +96,62 @@
             android:maxLines="1"
             android:padding="0dp"
             android:textColor="@color/mine_shaft"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_input_5"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="32dp"
+        app:boxStrokeColor="@color/color_stroke_text_input_layout"
+        app:boxStrokeWidthFocused="1dp"
+        app:cursorColor="@color/mine_shaft"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_input_5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:padding="0dp"
+            android:textColor="@color/mine_shaft"
+            android:textSize="20sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_input_6"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="32dp"
+        app:boxStrokeColor="@color/color_stroke_text_input_layout"
+        app:boxStrokeWidthFocused="1dp"
+        app:cursorColor="@color/mine_shaft"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_input_6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:padding="0dp"
+            android:textColor="@color/mine_shaft"
+            android:textSize="20sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.helper.widget.Flow
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="til_input_1,til_input_2,til_input_3,til_input_4"
+        app:constraint_referenced_ids="til_input_1,til_input_2,til_input_3,til_input_4,til_input_5,til_input_6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

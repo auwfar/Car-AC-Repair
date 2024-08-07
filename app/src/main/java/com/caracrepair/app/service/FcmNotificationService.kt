@@ -48,7 +48,7 @@ class FcmNotificationService : FirebaseMessagingService() {
         val notificationTitle = data[KEY_NOTIFICATION_TITLE]
         var notificationContent = data[KEY_NOTIFICATION_CONTENT]
         val notificationType = data[KEY_NOTIFICATION_TYPE]
-        if (notificationTitle == null || notificationContent == null || generalPreferences.getUser() == null) return
+        if (notificationTitle == null || generalPreferences.getUser() == null) return
 
         if (notificationType == FcmNotificationType.SERVICE_STATUS_CHANGED) {
             val serviceId = data["order_id"] ?: return
