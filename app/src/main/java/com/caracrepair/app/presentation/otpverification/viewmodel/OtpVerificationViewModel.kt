@@ -62,12 +62,8 @@ class OtpVerificationViewModel @Inject constructor(
         }
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.postValue(true)
-            val response = accountRepository.requestOtp(RequestOtpBody(phoneNumber))
-            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
-                override fun onSuccess() {
-                    _resendOtpResult.postValue(response?.message.orEmpty())
-                }
-            })
+            accountRepository.requestOtp(RequestOtpBody(phoneNumber))
+            _resendOtpResult.postValue("OTP Berhasil Dikirim")
             _loadingState.postValue(false)
         }
     }

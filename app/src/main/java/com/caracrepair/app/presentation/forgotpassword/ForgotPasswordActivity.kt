@@ -53,6 +53,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.requestOtpResult.observe(this) { phoneNumber ->
+            finish()
             startActivity(
                 OtpVerificationActivity.createIntent(
                     this@ForgotPasswordActivity,

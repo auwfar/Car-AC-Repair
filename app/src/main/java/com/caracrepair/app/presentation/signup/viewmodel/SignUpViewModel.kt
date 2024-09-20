@@ -33,6 +33,7 @@ class SignUpViewModel @Inject constructor(
             apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
                 override fun onSuccess() {
                     requestOtp(phoneNumber)
+                    _signUpResult.postValue(phoneNumber)
                 }
             })
             _loadingState.postValue(false)
@@ -41,14 +42,7 @@ class SignUpViewModel @Inject constructor(
 
     private fun requestOtp(phoneNumber: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _loadingState.postValue(true)
-            val response = accountRepository.requestOtp(RequestOtpBody(phoneNumber))
-            apiResponseUtil.setResponseListener(response, _errorMessage, object : ApiResponseUtil.ResponseListener {
-                override fun onSuccess() {
-                    _signUpResult.postValue(phoneNumber)
-                }
-            })
-            _loadingState.postValue(false)
+            accountRepository.requestOtp(RequestOtpBody(phoneNumber))
         }
     }
 }
